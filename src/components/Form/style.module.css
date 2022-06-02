@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container>.form_item {
+    display: flex;
+    flex-direction: column;
+}
+
+.container>.form_item input {
+    margin-top: 1rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 2px solid;
+    border-color: #FC8955;
+    outline: none;
+    width: 100%;
+}
+
+.container>.form_item label {
+    margin-top: 1rem;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.input_wrapper {
+    position: relative;
+}
+
+.eye {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    bottom: 10px;
+    right: 12px;
+    color: black;
+    cursor: pointer;
+}
