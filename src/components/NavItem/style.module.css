@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  padding: 12px 10px;
+  font-size: 1.2em;
+
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+}
+.logo {
+  margin-right: 10px;
+}
