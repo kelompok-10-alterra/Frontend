@@ -22,23 +22,6 @@
     width: 40%;
 }
 
-.form_container>.title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2.5rem;
-}
-
-.form_container>.title>img {
-    width: 5rem;
-    margin-right: 1.5rem;
-}
-
-.form_container>.title>h1 {
-    font-size: 3em;
-    font-weight: 500;
-}
-
 .login_btn {
     width: 100%;
     color: white;
