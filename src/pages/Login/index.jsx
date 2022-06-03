@@ -1,13 +1,11 @@
 import { useState } from "react";
 
-/** Images */
-import logo from "../../assets/svg/logo_white.svg";
-
 /** Styles */
 import styles from "./style.module.css";
 
 /** Components */
 import Form from "../../components/Form";
+import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
 
@@ -38,10 +36,7 @@ const Login = () => {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit} className={styles.form_container}>
-                <div className={styles.title}>
-                    <img src={logo} alt="Logo" />
-                    <h1>Sportly</h1>
-                </div>
+                <TitleLogo />
                 <Form inputs={inputs} setInputs={setInputs} />
                 <button type="submit" className={styles.login_btn}>Login</button>
             </form>
