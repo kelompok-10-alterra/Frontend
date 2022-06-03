@@ -1,0 +1,22 @@
+.container {
+  color: white;
+  background-color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  height: 100vh;
+}
+
+.container > div > h1 {
+  font-size: 120%;
+}
+.container > div > img {
+  width: 3.5em;
+  margin: 20px 10px 10px 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 26%;
+  }
+}
