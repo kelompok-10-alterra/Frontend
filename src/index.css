@@ -8,6 +8,7 @@
 
 html {
   font-family: "Inter", sans-serif;
+  color: var(--dark90);
 }
 
 h1,

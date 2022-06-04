@@ -31,6 +31,7 @@ const Form = ({ inputs, setInputs }) => {
                                 }
                                 name={input.name}
                                 value={input.value}
+                                placeholder={input.placeholder}
                                 onChange={(e) => setInputs([...inputs], inputs[inputIdx].value = e.target.value)}
                                 required />
                             {
