@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    padding: 0.7rem;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.container > li {
+    list-style-type: none;
+    width: 14.2%;
+    margin-right: 15px;
+}
+
+.container > li > a {
+    margin-left: 1rem;
+    color: var(--hover);
+}
+
+.edit_icon {
+    color: var(--hover);
+    font-size: 24px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.delete_icon {
+    color: red;
+    font-size: 24px;
+    cursor: pointer;
+}
