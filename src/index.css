@@ -11,6 +11,10 @@ html {
   color: var(--dark90);
 }
 
+body {
+  background-color: var(--background);
+}
+
 h1,
 h2,
 h3,

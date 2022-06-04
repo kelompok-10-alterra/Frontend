@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
+
 /** Component */
 import Navbar from "../components/Navbar";
 
-export default function PrivateRoutes() {
+const PrivateRoutes = () => {
   return (
     <>
       <Navbar />
       <Outlet />
     </>
   );
-}
+};
+
+export default PrivateRoutes;

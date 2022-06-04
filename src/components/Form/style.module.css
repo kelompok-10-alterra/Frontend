@@ -15,6 +15,7 @@
     border: 1px solid var(--dark80);
     outline: none;
     width: 100%;
+    padding-left: 1.1rem;
 }
 
 .container > .form_item label {
@@ -25,10 +26,12 @@
 
 .input_wrapper {
     position: relative;
+    margin-right: 1rem;
 }
 
 .input_wrapper > input {
     font-family: "Inter", sans-serif;
+    font-size: 14px;
 }
 
 .eye {

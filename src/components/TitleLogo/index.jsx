@@ -1,5 +1,5 @@
 /** Images */
-import logo from "../../assets/svg/logo_white.svg";
+import logo from "../../assets/svg/logo.svg";
 
 /** Styles */
 import styles from "./style.module.css";
