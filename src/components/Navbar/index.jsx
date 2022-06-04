@@ -14,13 +14,13 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <TitleLogo className={styles.logo} />
-      {navItems.map((items) => {
+      {navItems.map((item) => {
         return (
           <NavItem
-            key={items.id}
-            logo={items.logo}
-            name={items.name}
-            link={items.link}
+            key={item.id}
+            logo={item.logo}
+            name={item.name}
+            link={item.link}
           />
         );
       })}
