@@ -35,13 +35,13 @@
     margin-bottom: 0;
 }
 
-.form_container>p {
+.form_container > p {
     text-align: center;
     padding-top: 1rem;
     font-weight: 300;
 }
 
-.form_container>p>span {
+.form_container > p > span {
     font-weight: 600;
     cursor: pointer;
 }

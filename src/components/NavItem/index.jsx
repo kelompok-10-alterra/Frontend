@@ -20,7 +20,7 @@ const NavItems = (props) => {
       }}
     >
       <div className={styles.logo}>{logo}</div>
-      {name}
+      <div className={styles.name}>{name}</div>
     </NavLink>
   );
 };

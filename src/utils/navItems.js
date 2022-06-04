@@ -1,9 +1,9 @@
 /** Icons */
-import { GiAbstract050 } from "react-icons/gi";
 import {
   MdVerifiedUser,
   MdAddToPhotos,
   MdEventAvailable,
+  MdDashboardCustomize
 } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { TiNews } from "react-icons/ti";
@@ -13,7 +13,7 @@ export const navItems = [
   {
     id: 1,
     name: "Dashboard",
-    logo: <GiAbstract050 />,
+    logo: <MdDashboardCustomize />,
     link: "/dashboard",
   },
   {

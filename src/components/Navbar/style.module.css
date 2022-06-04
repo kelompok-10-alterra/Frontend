@@ -4,19 +4,23 @@
   display: flex;
   flex-direction: column;
   width: 18%;
-  height: 100vh;
+  min-height: 100vh;
 }
+
 .container > div > h1 {
   font-size: 34px;
 }
+
 .container > div > img {
   width: 3.8em;
   margin: 20px 10px 10px 0px;
 }
+
 .container > div {
   margin-bottom: 50px;
   margin-top: 22px;
 }
+
 @media screen and (max-width: 768px) {
   .container {
     width: 26%;
