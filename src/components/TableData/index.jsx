@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom";
 
 /** Icons */
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { CgDetailsMore } from "react-icons/cg";
 
 /** Styles */
 import styles from "./style.module.css";
 
-const TableData = ({ datas, handleEdit, handleDelete }) => {
+const TableData = ({ datas, handleDetail, handleDelete }) => {
     return (
         <ul className={styles.container}>
-            <li>1 <Link to="">Detail</Link></li>
+            <li>1</li>
             <li>Genta Fatuh</li>
             <li>0895633098496</li>
             <li>Yes</li>
             <li>1 Month</li>
             <li>Non-Active</li>
-            <FaEdit className={styles.edit_icon} onClick={handleEdit} />
-            <RiDeleteBin5Fill className={styles.delete_icon} onClick={handleDelete} />
+            <CgDetailsMore className={styles.detail_icon} onClick={handleDetail} />
+            <MdDeleteForever className={styles.delete_icon} onClick={handleDelete} />
         </ul>
     );
 };

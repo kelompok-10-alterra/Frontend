@@ -5,21 +5,21 @@
     border-radius: 5px;
 }
 
-.container > li {
+.container>li {
     list-style-type: none;
     width: 14.2%;
     margin-right: 15px;
 }
 
-.container > li > a {
+.container>li>a {
     margin-left: 1rem;
     color: var(--hover);
 }
 
-.edit_icon {
+.detail_icon {
     color: var(--hover);
     font-size: 24px;
-    margin-right: 0.5rem;
+    margin-right: 0.8rem;
     cursor: pointer;
 }
 

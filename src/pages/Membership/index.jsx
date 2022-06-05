@@ -53,10 +53,6 @@ const Membership = () => {
         // Search
     }
 
-    const handleEdit = (id) => {
-        // Edit
-    }
-
     const handleDelete = (id) => {
         // Delete
     }
@@ -99,7 +95,7 @@ const Membership = () => {
                     </section>
                     <section>
                         <TableHeader />
-                        <TableData handleEdit={() => { }} handleDelete={() => { }} handleDetail={() => { }} />
+                        <TableData handleDetail={() => { }} handleDelete={() => { }} />
                     </section>
                 </main>
             </div>
