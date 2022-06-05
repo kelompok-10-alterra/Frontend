@@ -1,12 +1,26 @@
 .container {
   display: flex;
-  padding: 12px 10px;
-  font-size: 1.2em;
-
-  margin-bottom: 10px;
+  align-items: center;
+  color: var(--dark90);
   text-decoration: none;
-  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 1.2em;
+  padding: 10px 30px;
+  margin-bottom: 10px;
 }
+
+.container:hover {
+  color: var(--hover);
+  border-right: 5px solid var(--primary);
+}
+
 .logo {
-  margin-right: 10px;
+  font-size: 24px;
+  padding-right: 12px;
+  margin: auto 0;
+}
+
+.name {
+  padding-top: 5px;
 }

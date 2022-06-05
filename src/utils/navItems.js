@@ -1,13 +1,19 @@
-import { GiAbstract050 } from "react-icons/gi";
-import { MdVerifiedUser, MdAddToPhotos } from "react-icons/md";
+/** Icons */
+import {
+  MdVerifiedUser,
+  MdAddToPhotos,
+  MdEventAvailable,
+  MdDashboardCustomize
+} from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { TiNews } from "react-icons/ti";
 import { FiLogOut } from "react-icons/fi";
+
 export const navItems = [
   {
     id: 1,
     name: "Dashboard",
-    logo: <GiAbstract050 />,
+    logo: <MdDashboardCustomize />,
     link: "/dashboard",
   },
   {
@@ -25,7 +31,7 @@ export const navItems = [
   {
     id: 4,
     name: "Booking",
-    logo: <IoIosPeople />,
+    logo: <MdEventAvailable />,
     link: "/booking",
   },
   {

@@ -14,12 +14,14 @@ const Login = () => {
             label: "Username",
             name: "username",
             type: "text",
+            placeholder: "Type your username...",
             value: "",
         },
         {
             label: "Password",
             name: "password",
             type: "password",
+            placeholder: "Type your password...",
             value: "",
         },
     ]);

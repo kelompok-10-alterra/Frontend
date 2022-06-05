@@ -5,12 +5,12 @@
     margin-bottom: 2.5rem;
 }
 
-.container>img {
+.container > img {
     width: 5rem;
     margin-right: 1.5rem;
 }
 
-.container>h1 {
+.container > h1 {
     font-size: 3em;
     font-weight: 500;
 }

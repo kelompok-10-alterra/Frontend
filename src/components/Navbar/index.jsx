@@ -1,17 +1,31 @@
 import React from "react";
-import style from "./style.module.css";
+
+/** Styles */
+import styles from "./style.module.css";
+
+/** Components */
 import TitleLogo from "../TitleLogo";
 import NavItem from "../NavItem";
+
+/** utils */
 import { navItems } from "../../utils/navItems";
-function Navbar() {
+
+const Navbar = () => {
   return (
-    <div className={style.container}>
-      <TitleLogo className={style.logo} />
-      {navItems.map((i) => {
-        return <NavItem key={i.id} logo={i.logo} name={i.name} link={i.link} />;
+    <div className={styles.container}>
+      <TitleLogo className={styles.logo} />
+      {navItems.map((item) => {
+        return (
+          <NavItem
+            key={item.id}
+            logo={item.logo}
+            name={item.name}
+            link={item.link}
+          />
+        );
       })}
     </div>
   );
-}
+};
 
 export default Navbar;

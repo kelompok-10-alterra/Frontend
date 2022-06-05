@@ -8,7 +8,11 @@
 
 html {
   font-family: "Inter", sans-serif;
-  color: white;
+  color: var(--dark90);
+}
+
+body {
+  background-color: var(--background);
 }
 
 h1,

@@ -19,7 +19,7 @@ const Form = ({ inputs, setInputs }) => {
             {
                 inputs.map((input, inputIdx) => (
                     <div className={styles.form_item} key={inputIdx}>
-                        <label>{input.label}</label>
+                        {input.label !== null ? <label>{input.label}</label> : <></>}
                         <div className={styles.input_wrapper}>
                             <input
                                 type={
@@ -31,6 +31,7 @@ const Form = ({ inputs, setInputs }) => {
                                 }
                                 name={input.name}
                                 value={input.value}
+                                placeholder={input.placeholder}
                                 onChange={(e) => setInputs([...inputs], inputs[inputIdx].value = e.target.value)}
                                 required />
                             {

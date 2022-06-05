@@ -1,23 +1,27 @@
 import React from "react";
-import style from "./style.module.css";
 import { NavLink } from "react-router-dom";
 
-function NavItem(props) {
+/** Styles */
+import styles from "./style.module.css";
+
+const NavItems = (props) => {
   const { logo, name, link } = props;
+
   return (
     <NavLink
       to={`${link}`}
-      className={style.container}
+      className={styles.container}
       style={({ isActive }) => {
         return {
-          backgroundColor: isActive ? "var(--active)" : "",
+          color: isActive ? "var(--primary)" : "",
+          borderRight: isActive ? "5px solid var(--primary)" : "",
         };
       }}
     >
-      <div className={style.logo}>{logo}</div>
-      {name}
+      <div className={styles.logo}>{logo}</div>
+      <div className={styles.name}>{name}</div>
     </NavLink>
   );
-}
+};
 
-export default NavItem;
+export default NavItems;

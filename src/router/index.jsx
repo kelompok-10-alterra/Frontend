@@ -4,12 +4,13 @@ import { Route, Routes } from "react-router-dom";
 
 /** Pages */
 import Login from "../pages/Login";
+import Membership from "../pages/Membership";
 
-function GlobalRoutes() {
+const GlobalRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-
+      <Route path="/membership" element={<Membership />} />
       {/* <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={}/>
           <Route path="/membership" element={}/>
@@ -20,6 +21,6 @@ function GlobalRoutes() {
       </Route> */}
     </Routes>
   );
-}
+};
 
 export default GlobalRoutes;

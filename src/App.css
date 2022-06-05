@@ -1,4 +1,7 @@
 :root {
   --primary: #0583d2;
-  --active: #fc8955;
+  --hover: #0268b1;
+  --background: #E8F4FC;
+  --dark90: #505152;
+  --dark80: #666869;
 }
