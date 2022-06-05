@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./utils/reportWebVitals";
 
+/** Bootstrap */
+import "bootstrap/dist/css/bootstrap.css";
+
 /** Styles */
 import "./index.css";
 

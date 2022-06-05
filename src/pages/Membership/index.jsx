@@ -1,16 +1,23 @@
 import { useState } from "react";
 import Select from "react-select";
 
+
+/** Icon */
+import { MdDashboardCustomize } from "react-icons/md";
+
 /** Styles */
 import styles from "./style.module.css";
 
 /** Components */
 import Navbar from "../../components/Navbar";
+import Header from "../../components/Header";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
 import TableHeader from "../../components/TableHeader";
 import TableData from "../../components/TableData";
 
+/** Images */
+import picture from "../../assets/img/profile_picture.png";
 
 const Membership = () => {
 
@@ -62,7 +69,7 @@ const Membership = () => {
         <div className={styles.container}>
             <Navbar />
             <div className={styles.content_wrapper}>
-                {/* <header>Membership</header> */}
+                <Header icon={<MdDashboardCustomize />} title="Membership" name="Kevin C" role="Super Admin" picture={picture} />
                 <main>
                     <section>
                         <form onSubmit={handleSearch} className={styles.form_container}>
