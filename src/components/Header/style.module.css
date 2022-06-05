@@ -1,0 +1,47 @@
+.container_header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: absolute;
+  width: 1157px;
+  height: 124px;
+  background-color: #ffffff;
+}
+
+.header_right {
+  display: flex;
+  flex-wrap: nowrap;
+  font-weight: 500px;
+  margin: 26px 48px 26px 0px;
+  align-items: center;
+  /* padding: 28px; */
+}
+
+.header_left {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 24px;
+  font-weight: 500px;
+  color: #7a7c7c;
+  margin: 28px 711px 28px 42px;
+  align-items: center;
+  /* padding: 28px; */
+}
+
+.name {
+  font-size: 18px;
+  color: #000000;
+}
+
+.role {
+  font-size: 16px;
+  color: #7a7c7c;
+}
+
+.user_info {
+  margin-right: 18px;
+}
+
+.icon {
+  margin-right: 18px;
+}

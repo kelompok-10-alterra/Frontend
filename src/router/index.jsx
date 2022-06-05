@@ -9,6 +9,7 @@ function GlobalRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+
       {/* <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={}/>
           <Route path="/membership" element={}/>
