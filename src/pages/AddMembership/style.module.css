@@ -1,12 +1,6 @@
-.content_wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.select_input {
-  font-family: "Inter", sans-serif !important;
-  color: var(--dark90);
+.button {
+  float: right !important;
+  margin-top: 16px;
 }
 
 .select_input>div {
@@ -24,9 +18,4 @@
 
 .select_input svg {
   color: black;
-}
-
-.button {
-  float: right;
-  margin-top: 20px;
 }

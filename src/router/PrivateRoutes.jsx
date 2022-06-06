@@ -5,10 +5,12 @@ import Navbar from "../components/Navbar";
 
 const PrivateRoutes = () => {
   return (
-    <>
+    <div className="private-routes-container">
       <Navbar />
-      <Outlet />
-    </>
+      <div className="private-routes-wrapper">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
