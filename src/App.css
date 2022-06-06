@@ -5,22 +5,27 @@
   --dark90: #505152;
   --dark80: #666869;
 }
+
 .no-pl {
   padding-left: 0;
 }
+
 .label {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 600;
 }
+
 .content_wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .private-routes-container {
   display: flex;
   flex-direction: row;
 }
+
 .private-routes-wrapper {
   display: flex;
   flex-direction: column;

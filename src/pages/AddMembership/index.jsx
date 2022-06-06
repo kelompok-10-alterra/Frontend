@@ -47,28 +47,28 @@ const AddMembership = () => {
       label: "Name",
       name: "name",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your name...",
       value: "",
     },
     {
       label: "Username",
       name: "username",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your username...",
       value: "",
     },
     {
       label: "Email",
       name: "email",
       type: "email",
-      placeholder: "",
+      placeholder: "Type your email...",
       value: "",
     },
     {
       label: "Password",
       name: "password",
       type: "password",
-      placeholder: "",
+      placeholder: "Type your password...",
       value: "",
     },
   ]);
@@ -77,14 +77,14 @@ const AddMembership = () => {
       label: "Contact",
       name: "contact",
       type: "number",
-      placeholder: "",
+      placeholder: "Type your phone number...",
       value: "",
     },
     {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your address...",
       value: "",
     },
   ]);
@@ -149,10 +149,9 @@ const AddMembership = () => {
               </div>
               <div className="col">
                 <Form inputs={secondInputs} setInputs={setSecondInputs} />
-                <label className="label mt-3"> Membership</label>
-
+                <label className="label mt-4">Membership</label>
                 <Select
-                  className={` mt-3 ${styles.select_input}`}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}

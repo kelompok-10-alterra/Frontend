@@ -21,8 +21,8 @@ section {
   color: var(--dark90);
 }
 
-.select_input > div {
-  padding: 0 0.5rem;
+.select_input>div {
+  padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;
   margin: 1rem 0;

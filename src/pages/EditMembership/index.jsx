@@ -50,8 +50,8 @@ const EditMembership = () => {
     {
       label: "Contact",
       name: "contact",
-      type: "number",
-      placeholder: "Type your phone number ...",
+      type: "text",
+      placeholder: "Type your phone number...",
       value: props.contact,
     },
   ]);
@@ -61,7 +61,7 @@ const EditMembership = () => {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "Type your address here ...",
+      placeholder: "Type your address...",
       value: props.address,
     },
   ]);
@@ -85,7 +85,7 @@ const EditMembership = () => {
 
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(
     options[0][
-      options[0].findIndex((option) => option.value === props.membership)
+    options[0].findIndex((option) => option.value === props.membership)
     ]
   );
 
@@ -162,10 +162,10 @@ const EditMembership = () => {
                   options={options[1]}
                   placeholder="Status"
                 />
-                <label className="label mt-3"> Membership</label>
 
+                <label className="label mt-3"> Membership</label>
                 <Select
-                  className={` mt-3 ${styles.select_input}`}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}
