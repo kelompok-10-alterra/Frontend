@@ -48,3 +48,13 @@
 .profile_picture {
   width: 60px;
 }
+.back {
+  font-size: 32px;
+  color: var(--primary);
+  margin-right: 10px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.back:hover {
+  color: var(--hover);
+}
