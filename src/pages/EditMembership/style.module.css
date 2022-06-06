@@ -1,12 +1,7 @@
-.container {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 30px;
-}
 .content_wrapper {
   display: flex;
   flex-direction: column;
-  width: 82%;
+  width: 100%;
 }
 
 .select_input {

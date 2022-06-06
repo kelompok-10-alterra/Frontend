@@ -9,7 +9,6 @@ import { MdVerifiedUser } from "react-icons/md";
 import styles from "./style.module.css";
 
 /** Components */
-import Navbar from "../../components/Navbar";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
@@ -65,58 +64,57 @@ const Membership = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Navbar />
-      <div className={styles.content_wrapper}>
-        <Header
-          icon={<MdVerifiedUser />}
-          title="Membership"
-          name="Kevin C"
-          role="Super Admin"
-          picture={picture}
-        />
-        <main>
-          <section>
-            <form onSubmit={handleSearch} className={styles.form_container}>
-              <Form inputs={inputs} setInputs={setInputs} />
-              <Button text="Search" type="submit" onClick={() => {}} />
-            </form>
-            <div className={styles.filter_wrapper}>
-              <Select
-                className={styles.select_input}
-                defaultValue={membershipSelectedOption}
-                onChange={setMembershipSelectedOption}
-                options={options[0]}
-                placeholder="Membership"
-              />
-              <Select
-                className={styles.select_input}
-                defaultValue={statusSelectedOption}
-                onChange={setStatusSelectedOption}
-                options={options[1]}
-                placeholder="Status"
-              />
-            </div>
-            <div className={styles.btn_bottom}>
-              <Button text="Filter" type="button" onClick={() => {}} />
-              <Button
-                text="+ Add New Member"
-                type="button"
-                onClick={() => {}}
-              />
-            </div>
-          </section>
-          <section>
-            <TableHeader />
-            <TableData
-              handleDetail={() => {
-                handleDetail();
-              }}
-              handleDelete={() => {}}
+    <div className={styles.content_wrapper}>
+      <Header
+        icon={<MdVerifiedUser />}
+        title="Membership"
+        name="Kevin C"
+        role="Super Admin"
+        picture={picture}
+      />
+      <main>
+        <section>
+          <form onSubmit={handleSearch} className={styles.form_container}>
+            <Form inputs={inputs} setInputs={setInputs} />
+            <Button text="Search" type="submit" onClick={() => {}} />
+          </form>
+          <div className={styles.filter_wrapper}>
+            <Select
+              className={styles.select_input}
+              defaultValue={membershipSelectedOption}
+              onChange={setMembershipSelectedOption}
+              options={options[0]}
+              placeholder="Membership"
             />
-          </section>
-        </main>
-      </div>
+            <Select
+              className={styles.select_input}
+              defaultValue={statusSelectedOption}
+              onChange={setStatusSelectedOption}
+              options={options[1]}
+              placeholder="Status"
+            />
+          </div>
+          <div className={styles.btn_bottom}>
+            <Button text="Filter" type="button" onClick={() => {}} />
+            <Button
+              text="+ Add New Member"
+              type="button"
+              onClick={() => {
+                navigate("/add-membership");
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <TableHeader />
+          <TableData
+            handleDetail={() => {
+              handleDetail();
+            }}
+            handleDelete={() => {}}
+          />
+        </section>
+      </main>
     </div>
   );
 };
