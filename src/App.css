@@ -1,7 +1,14 @@
 :root {
   --primary: #0583d2;
   --hover: #0268b1;
-  --background: #E8F4FC;
+  --background: #e8f4fc;
   --dark90: #505152;
   --dark80: #666869;
+}
+.no-pl {
+  padding-left: 0;
+}
+.label {
+  font-size: 1.2em;
+  font-weight: 600;
 }

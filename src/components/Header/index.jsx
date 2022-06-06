@@ -1,15 +1,25 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 /** Styles */
 import styles from "./style.module.css";
 
-const Header = ({ icon, title, name, role, picture }) => {
+/** Icons */
+import { IoChevronBackCircleSharp } from "react-icons/io5";
+
+const Header = ({ icon, title, name, role, picture, url }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container_header}>
       <div className={styles.header_left}>
-        <div className={styles.icon}>
-          {icon}
-        </div>
+        {url !== "" && url !== undefined && (
+          <IoChevronBackCircleSharp
+            onClick={() => navigate(url)}
+            className={styles.back}
+          />
+        )}
+        <div className={styles.icon}>{icon}</div>
         <p>{title}</p>
       </div>
       <div className={styles.header_right}>

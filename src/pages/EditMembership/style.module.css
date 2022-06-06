@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+.content_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 82%;
+}
+
+.select_input {
+  width: 98%;
+  font-family: "Inter", sans-serif !important;
+  color: var(--dark90);
+}
+.button {
+  float: right;
+  margin-top: 20px;
+}
