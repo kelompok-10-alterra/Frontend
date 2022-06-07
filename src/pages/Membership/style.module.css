@@ -6,17 +6,25 @@
 
 section {
   background-color: white;
-  margin: 25px;
+  margin: 30px;
   padding: 15px 30px;
   border-radius: 12px;
 }
 
+.top_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .filter_wrapper {
   display: flex;
+  align-items: center;
+  width: 60%;
 }
 
 .select_input {
-  width: 20%;
+  width: 100%;
   font-family: "Inter", sans-serif !important;
   color: var(--dark90);
 }

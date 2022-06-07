@@ -7,12 +7,16 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
 import Header from "../../components/Header";
+import PageTitle from "../../components/PageTitle";
 
 /** Styles */
 import styles from "./style.module.css";
 
 /** Constant */
 import { navItems } from "../../utils/navItems";
+
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
@@ -38,9 +42,7 @@ const AddMembership = () => {
   ];
 
   const [userOption, setUserOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -103,6 +105,7 @@ const AddMembership = () => {
         picture={picture}
         url="/membership"
       />
+      <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
           <form onSubmit={handleSave}>
@@ -114,7 +117,7 @@ const AddMembership = () => {
                   defaultValue={userOption}
                   onChange={setUserOption}
                   options={options[2]}
-                  placeholder="Select User"
+                  placeholder="User"
                 />
               </div>
               <div className="col">
