@@ -7,9 +7,16 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
 import Header from "../../components/Header";
+import PageTitle from "../../components/PageTitle";
 
 /** Styles */
 import styles from "./style.module.css";
+
+/** Constant */
+import { navItems } from "../../utils/navItems";
+
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
@@ -35,36 +42,36 @@ const AddMembership = () => {
   ];
 
   const [userOption, setUserOption] = useState(null);
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
+
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [inputs, setInputs] = useState([
     {
       label: "Name",
       name: "name",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your name...",
       value: "",
     },
     {
       label: "Username",
       name: "username",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your username...",
       value: "",
     },
     {
       label: "Email",
       name: "email",
       type: "email",
-      placeholder: "",
+      placeholder: "Type your email...",
       value: "",
     },
     {
       label: "Password",
       name: "password",
       type: "password",
-      placeholder: "",
+      placeholder: "Type your password...",
       value: "",
     },
   ]);
@@ -73,14 +80,14 @@ const AddMembership = () => {
       label: "Contact",
       name: "contact",
       type: "number",
-      placeholder: "",
+      placeholder: "Type your phone number...",
       value: "",
     },
     {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "",
+      placeholder: "Type your address...",
       value: "",
     },
   ]);
@@ -97,6 +104,7 @@ const AddMembership = () => {
         role="Super Admin"
         picture={picture}
       />
+      <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
           <form onSubmit={handleSave}>
@@ -108,7 +116,7 @@ const AddMembership = () => {
                   defaultValue={userOption}
                   onChange={setUserOption}
                   options={options[2]}
-                  placeholder="Select User"
+                  placeholder="User"
                 />
               </div>
               <div className="col">
@@ -143,10 +151,9 @@ const AddMembership = () => {
               </div>
               <div className="col">
                 <Form inputs={secondInputs} setInputs={setSecondInputs} />
-                <label className="label mt-3"> Membership</label>
-
+                <label className="label mt-4">Membership</label>
                 <Select
-                  className={` mt-3 ${styles.select_input}`}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}

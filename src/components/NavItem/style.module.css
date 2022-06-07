@@ -9,8 +9,9 @@
   padding: 10px 30px;
   margin-bottom: 10px;
 }
+
 .container {
-  color: var(--dark90);
+  color: var(--dark60);
 }
 
 .container:hover {
@@ -27,6 +28,7 @@
 .name {
   padding-top: 5px;
 }
+
 .active {
   color: var(--primary);
   border-right: 5px solid var(--primary);

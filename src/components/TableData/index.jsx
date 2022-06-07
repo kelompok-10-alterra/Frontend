@@ -15,10 +15,15 @@ const TableData = ({ datas, handleDetail, handleDelete }) => {
             <li>0895633098496</li>
             <li>Yes</li>
             <li>1 Month</li>
-            <li>Non-Active</li>
+            {
+                true ?
+                    <li style={{ color: "#189F00", fontWeight: "bold" }}>Active</li>
+                    :
+                    <li style={{ color: "red", fontWeight: "bold" }}>Non-Active</li>
+            }
             <CgDetailsMore className={styles.detail_icon} onClick={handleDetail} />
             <MdDeleteForever className={styles.delete_icon} onClick={handleDelete} />
-        </ul>
+        </ul >
     );
 };
 

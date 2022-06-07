@@ -8,9 +8,13 @@ import styles from "./style.module.css";
 /** Components */
 import Container from "../../components/Layouts/Container";
 import Header from "../../components/Header";
+import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
+
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
@@ -47,8 +51,8 @@ const DetailsMembership = () => {
     {
       label: "Contact",
       name: "contact",
-      type: "number",
-      placeholder: "Type your phone number ...",
+      type: "text",
+      placeholder: "Type your phone number...",
       value: props.contact,
     },
   ]);
@@ -58,7 +62,7 @@ const DetailsMembership = () => {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "Type your address here ...",
+      placeholder: "Type your address...",
       value: props.address,
     },
   ]);
@@ -81,9 +85,7 @@ const DetailsMembership = () => {
   );
 
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(
-    options[0][
-      options[0].findIndex((option) => option.value === props.membership)
-    ]
+    options[0][options[0].findIndex((option) => option.value === props.membership)]
   );
 
   const handleSave = () => {
@@ -99,6 +101,7 @@ const DetailsMembership = () => {
         role="Super Admin"
         picture={picture}
       />
+      <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Details Membership"}>
         <div className="container no-pl mt-2">
           <div className="row">
@@ -157,10 +160,10 @@ const DetailsMembership = () => {
                   options={options[1]}
                   placeholder="Status"
                 />
-                <label className="label mt-3"> Membership</label>
 
+                <label className="label mt-3"> Membership</label>
                 <Select
-                  className={` mt-3 ${styles.select_input}`}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}

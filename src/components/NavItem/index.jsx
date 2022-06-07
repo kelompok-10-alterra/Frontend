@@ -14,8 +14,7 @@ const NavItems = ({ logo, name, link, active }) => {
           color: isActive ? "var(--primary)" : "",
           borderRight: isActive ? "5px solid var(--primary)" : "",
         };
-      }}
-    >
+      }} >
       <div className={styles.logo}>{logo}</div>
       <div className={styles.name}>{name}</div>
     </NavLink>
