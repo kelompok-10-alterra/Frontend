@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Membership from "../pages/Membership";
 import DetailsMembership from "../pages/DetailsMembership";
 import AddMembership from "../pages/AddMembership";
+import NotFound from "../pages/NotFound";
 
 const GlobalRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const GlobalRoutes = () => {
           <Route path="/newsletter" element={}/>
           <Route path="/content" element={}/> */}
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

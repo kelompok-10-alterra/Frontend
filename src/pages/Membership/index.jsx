@@ -47,7 +47,7 @@ const Membership = () => {
     const handleDetail = (id) => {
         // Detail
 
-        navigate("/edit-membership");
+        navigate("/details-membership");
     };
 
     return (
@@ -95,7 +95,7 @@ const Membership = () => {
                 <section>
                     <TableHeader />
                     <TableData
-                        handleDetail={() => handleDetail}
+                        handleDetail={() => handleDetail()}
                         handleDelete={() => { }}
                     />
                 </section>
