@@ -5,7 +5,7 @@ import PrivateRoutes from "./PrivateRoutes";
 /** Pages */
 import Login from "../pages/Login";
 import Membership from "../pages/Membership";
-import EditMembership from "../pages/EditMembership";
+import DetailsMembership from "../pages/DetailsMembership";
 import AddMembership from "../pages/AddMembership";
 
 const GlobalRoutes = () => {
@@ -16,7 +16,7 @@ const GlobalRoutes = () => {
       <Route element={<PrivateRoutes />}>
         {/* <Route path="/dashboard" element={}/> */}
         <Route path="/membership" element={<Membership />} />
-        <Route path="/edit-membership" element={<EditMembership />} />
+        <Route path="/details-membership" element={<DetailsMembership />} />
         <Route path="/add-membership" element={<AddMembership />} />
 
         {/* <Route path="/class" element={}/> */}

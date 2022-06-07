@@ -1,26 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 /** Styles */
 import styles from "./style.module.css";
 
-/** Icons */
-import { IoChevronBackCircleSharp } from "react-icons/io5";
+/** Components */
+import BreadCrumb from "../BreadCrumb";
 
-const Header = ({ icon, title, name, role, picture, url }) => {
-  const navigate = useNavigate();
-
+const Header = ({ name, role, picture }) => {
   return (
     <div className={styles.container_header}>
       <div className={styles.header_left}>
-        {url !== "" && url !== undefined && (
-          <IoChevronBackCircleSharp
-            onClick={() => navigate(url)}
-            className={styles.back}
-          />
-        )}
-        <div className={styles.icon}>{icon}</div>
-        <p>{title}</p>
+        <BreadCrumb location={window.location.pathname} />
       </div>
       <div className={styles.header_right}>
         <div className={styles.user_info}>

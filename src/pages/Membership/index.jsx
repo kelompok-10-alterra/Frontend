@@ -2,9 +2,6 @@ import { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
-/** Icon */
-import { MdVerifiedUser } from "react-icons/md";
-
 /** Styles */
 import styles from "./style.module.css";
 
@@ -60,13 +57,12 @@ const Membership = () => {
   const handleDetail = (id) => {
     // Detail
 
-    navigate("/edit-membership");
+    navigate("/details-membership");
   };
 
   return (
     <div className={styles.content_wrapper}>
       <Header
-        icon={<MdVerifiedUser />}
         title="Membership"
         name="Kevin C"
         role="Super Admin"
