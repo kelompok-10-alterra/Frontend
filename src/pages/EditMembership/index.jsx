@@ -8,12 +8,16 @@ import styles from "./style.module.css";
 /** Components */
 import Container from "../../components/Layouts/Container";
 import Header from "../../components/Header";
+import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
 
 /** Constant */
 import { navItems } from "../../utils/navItems";
+
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
@@ -84,9 +88,7 @@ const EditMembership = () => {
   );
 
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(
-    options[0][
-    options[0].findIndex((option) => option.value === props.membership)
-    ]
+    options[0][options[0].findIndex((option) => option.value === props.membership)]
   );
 
   const handleSave = () => {
@@ -104,6 +106,7 @@ const EditMembership = () => {
         picture={picture}
         url="/membership"
       />
+      <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Details Membership"}>
         <div className="container no-pl mt-2">
           <div className="row">
