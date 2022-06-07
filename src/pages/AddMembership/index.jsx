@@ -11,9 +11,6 @@ import Header from "../../components/Header";
 /** Styles */
 import styles from "./style.module.css";
 
-/** Constant */
-import { navItems } from "../../utils/navItems";
-
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
 
@@ -38,7 +35,6 @@ const AddMembership = () => {
   ];
 
   const [userOption, setUserOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const [membershipSelectedOption, setMembershipSelectedOption] =
     useState(null);
 
@@ -96,12 +92,10 @@ const AddMembership = () => {
   return (
     <div className="content_wrapper">
       <Header
-        icon={navItems[1].logo}
         title="Membership"
         name="Kevin C"
         role="Super Admin"
         picture={picture}
-        url="/membership"
       />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
