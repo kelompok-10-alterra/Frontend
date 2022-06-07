@@ -1,13 +1,17 @@
-.container {
+.container,
+.active {
   display: flex;
   align-items: center;
-  color: var(--dark90);
   text-decoration: none;
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 1.2em;
   padding: 10px 30px;
   margin-bottom: 10px;
+}
+
+.container {
+  color: var(--dark60);
 }
 
 .container:hover {
@@ -23,4 +27,9 @@
 
 .name {
   padding-top: 5px;
+}
+
+.active {
+  color: var(--primary);
+  border-right: 5px solid var(--primary);
 }

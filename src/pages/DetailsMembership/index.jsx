@@ -13,16 +13,13 @@ import Details from "../../components/Details";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
 
-/** Constant */
-import { navItems } from "../../utils/navItems";
-
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
 
-const EditMembership = () => {
+const DetailsMembership = () => {
   const navigate = useNavigate();
   const props = {
     id: 1,
@@ -99,12 +96,10 @@ const EditMembership = () => {
   return (
     <div className={styles.content_wrapper}>
       <Header
-        icon={navItems[1].logo}
         title="Membership"
         name="Kevin C"
         role="Super Admin"
         picture={picture}
-        url="/membership"
       />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Details Membership"}>
@@ -192,4 +187,4 @@ const EditMembership = () => {
   );
 };
 
-export default EditMembership;
+export default DetailsMembership;

@@ -2,16 +2,15 @@ import { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
-/** Icon */
-import { MdVerifiedUser } from "react-icons/md";
-
 /** Styles */
 import styles from "./style.module.css";
+
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
 
 /** Components */
 import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
-import Form from "../../components/Form";
 import Button from "../../components/Button";
 import TableHeader from "../../components/TableHeader";
 import TableData from "../../components/TableData";

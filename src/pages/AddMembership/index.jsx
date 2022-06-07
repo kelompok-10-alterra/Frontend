@@ -42,6 +42,7 @@ const AddMembership = () => {
   ];
 
   const [userOption, setUserOption] = useState(null);
+
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [inputs, setInputs] = useState([
@@ -98,12 +99,10 @@ const AddMembership = () => {
   return (
     <div className="content_wrapper">
       <Header
-        icon={navItems[1].logo}
         title="Membership"
         name="Kevin C"
         role="Super Admin"
         picture={picture}
-        url="/membership"
       />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
