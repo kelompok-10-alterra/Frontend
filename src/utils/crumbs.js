@@ -45,9 +45,25 @@ export const CRUMBS_DATA = {
     CLASS,
     {
       id: 7,
-      name: "Detail Class",
+      name: "Details Class",
       link: "/details-class",
     },
   ],
   booking: BOOKING,
+  "add-booking": [
+    BOOKING,
+    {
+      id: 8,
+      name: "Add Booking",
+      link: "/add-booking",
+    },
+  ],
+  "details-booking": [
+    BOOKING,
+    {
+      id: 9,
+      name: "Details Booking",
+      link: "/details-class",
+    },
+  ],
 };

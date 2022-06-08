@@ -30,6 +30,7 @@ const Form = ({ inputs, setInputs }) => {
               name={input.name}
               value={input.value}
               placeholder={input.placeholder}
+              min={input.min}
               onChange={(e) =>
                 setInputs(
                   [...inputs],

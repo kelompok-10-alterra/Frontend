@@ -9,19 +9,20 @@ import Button from "../../components/Button";
 import Form from "../../components/Form";
 
 /** Icons */
-import { IoIosPeople } from "react-icons/io";
+import { MdEventAvailable } from "react-icons/md";
 
 /** Style */
 import styles from "./style.module.css";
-const AddClass = () => {
+
+const AddBooking = () => {
   const options = [
-    [], //room
+    [], //user
     [
       { value: 1, label: "Laverna" }, // instructure
       { value: 2, label: "Brynn" },
       { value: 3, label: "Doralynn" },
     ],
-    [], //type
+    [], //Class
     [
       { value: 1, label: "Online" }, //category
       { value: 0, label: "Offline" },
@@ -32,27 +33,36 @@ const AddClass = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
-  const [roomSelectedOption, setRoomSelectedOption] = useState(null);
+  const tomorrow = new Date(new Date());
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
+
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
-  const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const [capacityInput, setCapacityInput] = useState([
     {
-      label: "Capacity",
-      name: "capacity",
-      type: "number",
-      placeholder: "Type room capacity ... ",
+      label: "Schedule",
+      name: "schedule",
+      type: "date",
+      placeholder: "DD/MM/YY",
       value: "",
+      min: temp,
     },
   ]);
-
   const handleSave = () => {};
   return (
     <>
       <Header name="Kevin C" role="Super Admin" />
-      <PageTitle icon={<IoIosPeople />} title="Class" />
-      <Container title="Add New Class">
+      <PageTitle icon={<MdEventAvailable />} title="Booking" />
+      <Container title="Add New Booking">
         <div className="container no-pl mt-4">
           <form onSubmit={handleSave}>
             <div className="row">
@@ -60,8 +70,8 @@ const AddClass = () => {
                 <label className="label">Room</label>
                 <Select
                   className={styles.select_input}
-                  defaultValue={roomSelectedOption}
-                  onChange={setRoomSelectedOption}
+                  defaultValue={userSelectedOption}
+                  onChange={setUserSelectedOption}
                   options={options[0]}
                   placeholder="Class room"
                 />
@@ -75,13 +85,13 @@ const AddClass = () => {
                   placeholder="Class instructure"
                 />
 
-                <label className="label">Type</label>
+                <label className="label">Class</label>
                 <Select
                   className={styles.select_input}
-                  defaultValue={typeSelectedOption}
-                  onChange={setTypeSelectedOption}
+                  defaultValue={classSelectedOption}
+                  onChange={setClassSelectedOption}
                   options={options[2]}
-                  placeholder="Class type"
+                  placeholder="Select class"
                 />
               </div>
               <div className="col">
@@ -124,4 +134,4 @@ const AddClass = () => {
   );
 };
 
-export default AddClass;
+export default AddBooking;
