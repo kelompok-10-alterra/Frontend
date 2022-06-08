@@ -10,6 +10,7 @@ import AddMembership from "../pages/AddMembership";
 import NotFound from "../pages/NotFound";
 import Class from "../pages/Class";
 import AddClass from "../pages/AddClass";
+import DetailsClass from "../pages/DetailsClass";
 import Booking from "../pages/Booking";
 import AddBooking from "../pages/AddBooking";
 
@@ -25,11 +26,12 @@ const GlobalRoutes = () => {
         <Route path="/add-membership" element={<AddMembership />} />
         <Route path="/class" element={<Class />} />
         <Route path="/add-class" element={<AddClass />} />
+        <Route path="/details-class" element={<DetailsClass />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/add-booking" element={<AddBooking />} />
         {/* 
           <Route path="/newsletter" element={}/>
-        <Route path="/class" element={<Class />}/>
+        
         
         {/* <Route path="/newsletter" element={}/>
           <Route path="/content" element={}/> */}
