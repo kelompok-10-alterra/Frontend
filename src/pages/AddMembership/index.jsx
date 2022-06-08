@@ -37,7 +37,8 @@ const AddMembership = () => {
 
   const [userOption, setUserOption] = useState(null);
 
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] =
+    useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -92,10 +93,7 @@ const AddMembership = () => {
   };
   return (
     <div className="content_wrapper">
-      <Header
-        name="Kevin C"
-        role="Super Admin"
-      />
+      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
@@ -107,7 +105,7 @@ const AddMembership = () => {
                   className={styles.select_input}
                   defaultValue={userOption}
                   onChange={setUserOption}
-                  options={options[2]}
+                  options={options[1]}
                   placeholder="User"
                 />
               </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 /** Styles */
@@ -8,9 +8,6 @@ import styles from "./style.module.css";
 import { CRUMBS_DATA } from "../../utils/crumbs";
 
 const BreadCrumb = ({ location }) => {
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
   const key = location.substring(1);
   const crumbs = CRUMBS_DATA[key];
   const isLast = (index) => {
