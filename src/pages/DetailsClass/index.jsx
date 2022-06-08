@@ -65,7 +65,7 @@ const DetailsClass = () => {
   );
   const [instructureOption, setInstructureSelectedOption] = useState(
     options[1][
-      options[1].findIndex((option) => option.label === props.instructure)
+    options[1].findIndex((option) => option.label === props.instructure)
     ]
   );
   const [typeSelectedOption, setTypeSelectedOption] = useState(
@@ -73,7 +73,7 @@ const DetailsClass = () => {
   );
   const [categorySelectedOption, setCategorySelectedOption] = useState(
     options[3][
-      options[3].findIndex((option) => option.value === props.category)
+    options[3].findIndex((option) => option.value === props.category)
     ]
   );
   const [statusSelectedOption, setStatusSelectedOption] = useState(
@@ -107,7 +107,7 @@ const DetailsClass = () => {
       <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<IoIosPeople />} title="Class" />
 
-      <Container title={"Details Membership"}>
+      <Container title={"Details Class"}>
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
@@ -143,7 +143,7 @@ const DetailsClass = () => {
           </div>
         </div>
       </Container>
-      <Container title={"Edit Membership"}>
+      <Container title={"Edit Class"}>
         <div className="container no-pl mt-4">
           <form onSubmit={handleSave}>
             <div className="row">

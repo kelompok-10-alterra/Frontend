@@ -3,7 +3,7 @@
   margin-top: 16px;
 }
 
-.select_input > div {
+.select_input>div {
   padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;
@@ -20,16 +20,20 @@
   color: black;
 }
 
-.input > div > div > label {
+.input>div>div>label {
   margin-top: 0 !important;
 }
+
 .doughnut {
+  margin-top: 0;
   width: 50% !important;
 }
-.doughnut > h5 {
+
+.doughnut>h5 {
   margin-top: 20px;
   margin-bottom: 50px;
 }
+
 .wrapper {
   margin-top: 0px;
   display: flex;
