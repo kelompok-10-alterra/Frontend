@@ -13,6 +13,7 @@ import AddClass from "../pages/AddClass";
 import DetailsClass from "../pages/DetailsClass";
 import Booking from "../pages/Booking";
 import AddBooking from "../pages/AddBooking";
+import DetailsBooking from "../pages/DetailsBooking";
 
 const GlobalRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const GlobalRoutes = () => {
         <Route path="/details-class" element={<DetailsClass />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/add-booking" element={<AddBooking />} />
+        <Route path="/details-booking" element={<DetailsBooking />} />
         {/* 
           <Route path="/newsletter" element={}/>
         
