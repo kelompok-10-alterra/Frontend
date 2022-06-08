@@ -13,21 +13,40 @@ section {
 
 .top_section {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.filter_wrapper {
+.filter_wrapper_top {
   display: flex;
   align-items: center;
-  width: 75%;
+  width: 100%;
+}
+
+.filter_wrapper_top .select_input {
+  width: 220px;
 }
 
 .select_input {
-  width: 220px;
   font-family: "Inter", sans-serif !important;
   color: var(--dark90);
 }
+
+.filter_wrapper_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter_wrapper_bottom > div {
+  display: flex;
+  flex-grow: 2;
+}
+
+.filter_wrapper_bottom .select_input {
+  width: 220px;
+}
+
 
 .select_input>div {
   padding: 0.15rem 0.5rem;

@@ -6,12 +6,12 @@ const MEMBERSHIP = {
 const CLASS = {
   id: 4,
   name: "Class",
-  link: "/Class",
+  link: "/class",
 };
 const BOOKING = {
   id: 5,
   name: "Booking",
-  link: "/Booking",
+  link: "/booking",
 };
 
 export const CRUMBS_DATA = {
@@ -32,4 +32,5 @@ export const CRUMBS_DATA = {
       link: "/add-membership",
     },
   ],
+  class: CLASS,
 };
