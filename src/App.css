@@ -5,6 +5,11 @@
   --dark90: #505152;
   --dark80: #666869;
   --dark60: #a0a1a1;
+  --sucess-default: #189f00;
+  --error-default: #d32f2f;
+}
+* {
+  font-family: "Inter", sans-serif;
 }
 
 .no-pl {
