@@ -33,7 +33,7 @@ const DetailsClass = () => {
     status: "Active",
     category: 1,
     members: 10,
-    capacity: 20,
+    capacity: 30,
   };
   const options = [
     [
@@ -93,15 +93,18 @@ const DetailsClass = () => {
     navigate("/class");
   };
 
+  const percentage = Math.round((props.members / props.capacity) * 100);
+  const rest = props.capacity - props.members;
   const [data, setData] = useState({
     datasets: [
       {
-        data: [props.members, props.capacity],
+        data: [props.members, rest],
         backgroundColor: ["#0583d2", "#E8F4FC"],
       },
     ],
     labels: ["Members", "Available"],
   });
+
   return (
     <div className={styles.content_wrapper}>
       <Header name="Kevin C" role="Super Admin" />
@@ -218,6 +221,13 @@ const DetailsClass = () => {
         <section className={styles.doughnut}>
           <h5>Current Students</h5>
           <Doughnut data={data} />
+          <div className={styles.donut_inner}>
+            <h3>{percentage} %</h3>
+            <h5>Available</h5>
+          </div>
+          <div className={styles.info}>
+            <b>Capactiy : </b> {props.capacity} people
+          </div>
         </section>
       </div>
     </div>

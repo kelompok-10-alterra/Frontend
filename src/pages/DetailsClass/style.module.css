@@ -4,10 +4,9 @@
 }
 
 .select_input > div {
-  padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;
-  margin: 1rem 0;
+
   margin-right: 1rem;
   font-size: 14px;
 }
@@ -34,4 +33,20 @@
   margin-top: 0px;
   display: flex;
   flex-direction: row;
+}
+
+.donut_inner {
+  margin-top: -52%;
+  margin-left: 42%;
+}
+.donut_inner h3 {
+  margin-left: 3%;
+  font-weight: bold;
+}
+.donut_inner span {
+  font-size: 12px;
+}
+.info {
+  float: right;
+  margin-top: 48%;
 }
