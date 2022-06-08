@@ -11,6 +11,7 @@ import NotFound from "../pages/NotFound";
 import Class from "../pages/Class";
 import AddClass from "../pages/AddClass";
 import Booking from "../pages/Booking";
+import AddBooking from "../pages/AddBooking";
 
 const GlobalRoutes = () => {
   return (
@@ -24,11 +25,12 @@ const GlobalRoutes = () => {
         <Route path="/add-membership" element={<AddMembership />} />
         <Route path="/class" element={<Class />} />
         <Route path="/add-class" element={<AddClass />} />
-        <Route path="/booking" element={}/>
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/add-booking" element={<AddBooking />} />
         {/* 
           <Route path="/newsletter" element={}/>
         <Route path="/class" element={<Class />}/>
-        <Route path="/booking" element={<Booking />}/>
+        
         {/* <Route path="/newsletter" element={}/>
           <Route path="/content" element={}/> */}
       </Route>
