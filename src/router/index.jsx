@@ -8,6 +8,7 @@ import Membership from "../pages/Membership";
 import DetailsMembership from "../pages/DetailsMembership";
 import AddMembership from "../pages/AddMembership";
 import NotFound from "../pages/NotFound";
+import Class from "../pages/Class";
 
 const GlobalRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const GlobalRoutes = () => {
         <Route path="/membership" element={<Membership />} />
         <Route path="/details-membership" element={<DetailsMembership />} />
         <Route path="/add-membership" element={<AddMembership />} />
+        <Route path="/class" element={<Class />}/>
 
         {/* <Route path="/class" element={}/> */}
         {/* <Route path="/booking" element={}/>

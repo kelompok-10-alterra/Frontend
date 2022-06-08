@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 /** Icons */
 import { MdDeleteForever } from "react-icons/md";
 import { CgDetailsMore } from "react-icons/cg";

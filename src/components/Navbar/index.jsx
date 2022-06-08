@@ -29,27 +29,15 @@ const Navbar = () => {
       <TitleLogo className={styles.logo} />
       {navItems.map((item) => {
         const temp = checkPath(location) === item.name;
-        if (temp) {
-          return (
-            <NavItem
-              key={item.id}
-              logo={item.logo}
-              name={item.name}
-              link={item.link}
-              active="active"
-            />
-          );
-        } else {
-          return (
-            <NavItem
-              key={item.id}
-              logo={item.logo}
-              name={item.name}
-              link={item.link}
-              active=""
-            />
-          );
-        }
+        return (
+          <NavItem
+            key={item.id}
+            logo={item.logo}
+            name={item.name}
+            link={item.link}
+            active={temp ? "active" : ""}
+          />
+        );
       })}
     </div>
   );

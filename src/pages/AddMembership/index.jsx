@@ -12,14 +12,8 @@ import PageTitle from "../../components/PageTitle";
 /** Styles */
 import styles from "./style.module.css";
 
-/** Constant */
-import { navItems } from "../../utils/navItems";
-
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
-
-/** Images */
-import picture from "../../assets/img/profile_picture.png";
 
 const AddMembership = () => {
   const navigate = useNavigate();
@@ -99,10 +93,8 @@ const AddMembership = () => {
   return (
     <div className="content_wrapper">
       <Header
-        title="Membership"
         name="Kevin C"
         role="Super Admin"
-        picture={picture}
       />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>

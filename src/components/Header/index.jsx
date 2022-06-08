@@ -6,7 +6,10 @@ import styles from "./style.module.css";
 /** Components */
 import BreadCrumb from "../BreadCrumb";
 
-const Header = ({ name, role, picture }) => {
+/** Images */
+import picture from "../../assets/img/profile_picture.png";
+
+const Header = ({ name, role }) => {
   return (
     <div className={styles.container_header}>
       <div className={styles.header_left}>

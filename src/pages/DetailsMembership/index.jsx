@@ -16,9 +16,6 @@ import Button from "../../components/Button";
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
 
-/** Images */
-import picture from "../../assets/img/profile_picture.png";
-
 const DetailsMembership = () => {
   const navigate = useNavigate();
   const props = {
@@ -96,10 +93,8 @@ const DetailsMembership = () => {
   return (
     <div className={styles.content_wrapper}>
       <Header
-        title="Membership"
         name="Kevin C"
         role="Super Admin"
-        picture={picture}
       />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Details Membership"}>

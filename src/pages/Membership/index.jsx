@@ -15,9 +15,6 @@ import Button from "../../components/Button";
 import TableHeader from "../../components/TableHeader";
 import TableData from "../../components/TableData";
 
-/** Images */
-import picture from "../../assets/img/profile_picture.png";
-
 const Membership = () => {
     const navigate = useNavigate();
     const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
@@ -53,11 +50,8 @@ const Membership = () => {
     return (
         <div className={styles.content_wrapper}>
             <Header
-                icon={<MdVerifiedUser />}
-                title="Membership"
                 name="Kevin C"
                 role="Super Admin"
-                picture={picture}
             />
             <main>
                 <PageTitle icon={<MdVerifiedUser />} title="Membership" />
@@ -93,7 +87,7 @@ const Membership = () => {
                     />
                 </section>
                 <section>
-                    <TableHeader />
+                    <TableHeader columns={["ID", "Name", "Contact", "Membership", "Expired", "Status"]} />
                     <TableData
                         handleDetail={() => handleDetail()}
                         handleDelete={() => { }}
