@@ -33,4 +33,5 @@ export const CRUMBS_DATA = {
     },
   ],
   class: CLASS,
+  booking: BOOKING,
 };
