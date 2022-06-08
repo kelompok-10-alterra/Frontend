@@ -49,4 +49,5 @@ export const CRUMBS_DATA = {
       link: "/details-class",
     },
   ],
+  booking: BOOKING,
 };
