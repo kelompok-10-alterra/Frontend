@@ -149,7 +149,7 @@ const DetailsMembership = () => {
                 <Form inputs={addressInp} setInputs={setAddressInp} />
                 <label className="label mt-3">Status</label>
                 <Select
-                  className={` mt-3 ${styles.select_input}`}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
                   options={options[1]}

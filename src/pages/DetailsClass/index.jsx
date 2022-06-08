@@ -33,7 +33,7 @@ const DetailsClass = () => {
     status: "Active",
     category: 1,
     members: 10,
-    capacity: 20,
+    capacity: 30,
   };
   const options = [
     [
@@ -93,15 +93,18 @@ const DetailsClass = () => {
     navigate("/class");
   };
 
+  const percentage = Math.round((props.members / props.capacity) * 100);
+  const rest = props.capacity - props.members;
   const [data, setData] = useState({
     datasets: [
       {
-        data: [props.members, props.capacity],
+        data: [props.members, rest],
         backgroundColor: ["#0583d2", "#E8F4FC"],
       },
     ],
     labels: ["Members", "Available"],
   });
+
   return (
     <div className={styles.content_wrapper}>
       <Header name="Kevin C" role="Super Admin" />
@@ -148,27 +151,27 @@ const DetailsClass = () => {
           <form onSubmit={handleSave}>
             <div className="row">
               <div className="col">
-                <label className="label">Room</label>
+                <label className="label mt-3">Room</label>
                 <Select
-                  className={styles.select_input}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={roomSelectedOption}
                   onChange={setRoomSelectedOption}
                   options={options[0]}
                   placeholder={props.room}
                 />
 
-                <label className="label">Instructure</label>
+                <label className="label mt-3">Instructure</label>
                 <Select
-                  className={styles.select_input}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={instructureOption}
                   onChange={setInstructureSelectedOption}
                   options={options[1]}
                   placeholder={props.instructure}
                 />
 
-                <label className="label">Type</label>
+                <label className="label mt-3">Type</label>
                 <Select
-                  className={styles.select_input}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={typeSelectedOption}
                   onChange={setTypeSelectedOption}
                   options={options[2]}
@@ -176,18 +179,18 @@ const DetailsClass = () => {
                 />
               </div>
               <div className="col">
-                <label className="label">Category</label>
+                <label className="label mt-3">Category</label>
                 <Select
-                  className={styles.select_input}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
                   options={options[3]}
                   placeholder={props.category}
                 />
 
-                <label className="label">Status</label>
+                <label className="label mt-3">Status</label>
                 <Select
-                  className={styles.select_input}
+                  className={`mt-3 ${styles.select_input}`}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
                   options={options[4]}
@@ -218,6 +221,13 @@ const DetailsClass = () => {
         <section className={styles.doughnut}>
           <h5>Current Students</h5>
           <Doughnut data={data} />
+          <div className={styles.donut_inner}>
+            <h3>{percentage} %</h3>
+            <h5>Available</h5>
+          </div>
+          <div className={styles.info}>
+            <b>Capactiy : </b> {props.capacity} people
+          </div>
         </section>
       </div>
     </div>

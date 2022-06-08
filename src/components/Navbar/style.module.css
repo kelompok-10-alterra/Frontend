@@ -2,6 +2,7 @@
   color: var(--dark60);
   background-color: white;
   display: flex;
+  position: fixed;
   flex-direction: column;
   width: 18%;
   min-height: 100vh;
