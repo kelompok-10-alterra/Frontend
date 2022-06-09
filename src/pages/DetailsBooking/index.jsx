@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Button from "../../components/Button";
+import Form from "../../components/Form";
 
 /** Icon */
 import { MdEventAvailable } from "react-icons/md";
@@ -27,32 +27,41 @@ const DetailsBooking = () => {
     instructure: "Ahmad Fauze",
     address: "Jakarta",
     status: "Active",
-    schedule: "22 june 2022",
+    schedule: "2022-06-22",
     price: 100000,
   };
   let priceIDR = Intl.NumberFormat("en-ID");
   const options = [
     [
-      { value: 1, label: "Online" }, //category
-      { value: 0, label: "Offline" },
-    ],
-    [
       { value: 1, label: "A" },
       { value: 2, label: "B" },
     ], //class
-    [
-      { value: 1, label: "Laverna" }, // instructure
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-      { value: 4, label: "Ahmad Fauze" },
-    ],
-
     [
       { value: "all", label: "All" }, //status
       { value: 1, label: "Active" },
       { value: 0, label: "Non-Active" },
     ],
   ];
+
+  const tomorrow = new Date(new Date());
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
+
+  const [scheduleInput, setScheduleInput] = useState([
+    {
+      label: "Schedule",
+      name: "schedule",
+      type: "date",
+      placeholder: props.schedule,
+      value: props.schedule,
+      min: temp,
+    },
+  ]);
 
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
@@ -63,7 +72,6 @@ const DetailsBooking = () => {
   };
   return (
     <>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
       <Container title={"Details Booking"}>
         <div className="container no-pl mt-2">
@@ -99,39 +107,25 @@ const DetailsBooking = () => {
         <form onSubmit={handleSave}>
           <div className="row">
             <div className="col">
-              <label className="label mt-3">Category</label>
-              <Select
-                className={`mt-3 ${styles.select_input}`}
-                defaultValue={categorySelectedOption}
-                onChange={setCategorySelectedOption}
-                options={options[0]}
-                placeholder={props.category}
-              />
-
               <label className="label mt-3">Class</label>
               <Select
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={classSelectedOption}
                 onChange={setClassSelectedOption}
-                options={options[1]}
+                options={options[0]}
                 placeholder={props.instructure}
               />
+              <span className={styles.input}>
+                <Form inputs={scheduleInput} setInputs={setScheduleInput} />
+              </span>
             </div>
             <div className="col">
-              <label className="label mt-3">Instructure</label>
-              <Select
-                className={`mt-3 ${styles.select_input}`}
-                defaultValue={instructureOption}
-                onChange={setInstructureSelectedOption}
-                options={options[2]}
-                placeholder={props.instructure}
-              />
               <label className="label mt-3">Status</label>
               <Select
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={statusSelectedOption}
                 onChange={setStatusSelectedOption}
-                options={options[3]}
+                options={options[1]}
                 placeholder={props.status}
               />
             </div>

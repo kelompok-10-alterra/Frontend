@@ -14,6 +14,7 @@ import DetailsClass from "../pages/DetailsClass";
 import Booking from "../pages/Booking";
 import AddBooking from "../pages/AddBooking";
 import DetailsBooking from "../pages/DetailsBooking";
+import MainLayout from "../components/Layouts/MainLayout";
 
 const GlobalRoutes = () => {
   return (
@@ -22,21 +23,24 @@ const GlobalRoutes = () => {
 
       <Route element={<PrivateRoutes />}>
         {/* <Route path="/dashboard" element={}/> */}
-        <Route path="/membership" element={<Membership />} />
-        <Route path="/details-membership" element={<DetailsMembership />} />
-        <Route path="/add-membership" element={<AddMembership />} />
-        <Route path="/class" element={<Class />} />
-        <Route path="/add-class" element={<AddClass />} />
-        <Route path="/details-class" element={<DetailsClass />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/add-booking" element={<AddBooking />} />
-        <Route path="/details-booking" element={<DetailsBooking />} />
-        {/* 
-          <Route path="/newsletter" element={}/>
-        
-        
-        {/* <Route path="/newsletter" element={}/>
-          <Route path="/content" element={}/> */}
+        <Route path="membership" element={<MainLayout />}>
+          <Route index element={<Membership />} />
+          <Route path="details-membership" element={<DetailsMembership />} />
+          <Route path="add-membership" element={<AddMembership />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="class" element={<MainLayout />}>
+          <Route index element={<Class />} />
+          <Route path="add-class" element={<AddClass />} />
+          <Route path="details-class" element={<DetailsClass />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="booking" element={<MainLayout />}>
+          <Route index element={<Booking />} />
+          <Route path="add-booking" element={<AddBooking />} />
+          <Route path="details-booking" element={<DetailsBooking />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

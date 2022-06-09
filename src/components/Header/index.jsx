@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -8,12 +8,14 @@ import BreadCrumb from "../BreadCrumb";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
+import { useLocation } from "react-router-dom";
 
 const Header = ({ name, role }) => {
+  const location = useLocation();
   return (
     <div className={styles.container_header}>
       <div className={styles.header_left}>
-        <BreadCrumb location={window.location.pathname} />
+        <BreadCrumb location={location.pathname} />
       </div>
       <div className={styles.header_right}>
         <div className={styles.user_info}>

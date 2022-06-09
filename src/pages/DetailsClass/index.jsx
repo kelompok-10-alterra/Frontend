@@ -7,7 +7,6 @@ import styles from "./style.module.css";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
@@ -93,7 +92,6 @@ const DetailsClass = () => {
 
   return (
     <div className={styles.content_wrapper}>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<IoIosPeople />} title="Class" />
 
       <Container title={"Details Class"}>
