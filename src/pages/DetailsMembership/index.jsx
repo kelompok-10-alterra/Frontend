@@ -34,32 +34,9 @@ const DetailsMembership = () => {
       label: "Name",
       name: "name",
       type: "text",
-      placeholder: "Type your username...",
+      placeholder: "",
       value: props.nama,
-    },
-    {
-      label: "Email",
-      name: "email",
-      type: "email",
-      placeholder: "Type your email...",
-      value: props.email,
-    },
-    {
-      label: "Contact",
-      name: "contact",
-      type: "text",
-      placeholder: "Type your phone number...",
-      value: props.contact,
-    },
-  ]);
-
-  const [addressInp, setAddressInp] = useState([
-    {
-      label: "Address",
-      name: "address",
-      type: "text",
-      placeholder: "Type your address...",
-      value: props.address,
+      disable: true,
     },
   ]);
 
@@ -76,15 +53,7 @@ const DetailsMembership = () => {
     ],
   ];
 
-  const [statusSelectedOption, setStatusSelectedOption] = useState(
-    options[1][options[1].findIndex((option) => option.label === props.status)]
-  );
-
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(
-    options[0][
-      options[0].findIndex((option) => option.value === props.membership)
-    ]
-  );
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const handleSave = () => {
     //save to database
@@ -143,23 +112,13 @@ const DetailsMembership = () => {
                 <Form inputs={inputs} setInputs={setInputs} />
               </div>
               <div className="col">
-                <Form inputs={addressInp} setInputs={setAddressInp} />
-                <label className="label mt-3">Status</label>
-                <Select
-                  className={`mt-3 ${styles.select_input}`}
-                  defaultValue={statusSelectedOption}
-                  onChange={setStatusSelectedOption}
-                  options={options[1]}
-                  placeholder="Status"
-                />
-
-                <label className="label mt-3"> Membership</label>
+                <label className="label mt-4"> Membership</label>
                 <Select
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}
-                  placeholder="Membership"
+                  placeholder={`${props.membership} Months`}
                 />
               </div>
             </div>

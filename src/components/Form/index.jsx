@@ -37,6 +37,8 @@ const Form = ({ inputs, setInputs }) => {
                   (inputs[inputIdx].value = e.target.value)
                 )
               }
+              className={input.disable ? styles.disable : ""}
+              disabled={input.disable}
               required
             />
             {input.type === "password" ? (

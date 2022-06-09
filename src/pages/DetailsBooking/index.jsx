@@ -43,12 +43,6 @@ const DetailsBooking = () => {
     ],
   ];
 
-  const [classSelectedOption, setClassSelectedOption] = useState(
-    options[0][options[0].findIndex((option) => option.label === props.class)]
-  );
-  const [statusSelectedOption, setStatusSelectedOption] = useState(
-    options[1][options[1].findIndex((option) => option.label === props.status)]
-  );
   const tomorrow = new Date(new Date());
   tomorrow.setDate(tomorrow.getDate() + 1);
   const temp =
@@ -69,6 +63,10 @@ const DetailsBooking = () => {
     },
   ]);
 
+  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const handleSave = () => {
     navigate("/booking");
   };

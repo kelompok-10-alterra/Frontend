@@ -48,7 +48,7 @@ const AddBooking = () => {
       label: "Schedule",
       name: "schedule",
       type: "date",
-      placeholder: "DD/MM/YY",
+      placeholder: "mm/dd/yyyy",
       value: "",
       min: temp,
     },
@@ -68,7 +68,7 @@ const AddBooking = () => {
                   defaultValue={classSelectedOption}
                   onChange={setClassSelectedOption}
                   options={options[2]}
-                  placeholder="Select class"
+                  placeholder="Class"
                 />
                 <span className={styles.input}>
                   <Form inputs={scheduleInput} setInputs={setScheduleInput} />

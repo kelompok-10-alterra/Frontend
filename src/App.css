@@ -38,3 +38,8 @@
   width: 82%;
   margin-left: 18%;
 }
+
+::placeholder,  div.css-14el2xx-placeholder {
+  color: var(--dark60);
+}
+

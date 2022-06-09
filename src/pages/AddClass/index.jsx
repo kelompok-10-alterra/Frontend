@@ -41,7 +41,7 @@ const AddClass = () => {
       label: "Capacity",
       name: "capacity",
       type: "number",
-      placeholder: "Type room capacity ... ",
+      placeholder: "Type room capacity... ",
       value: "",
     },
   ]);
@@ -61,7 +61,7 @@ const AddClass = () => {
                   defaultValue={roomSelectedOption}
                   onChange={setRoomSelectedOption}
                   options={options[0]}
-                  placeholder="Class room"
+                  placeholder="Room"
                 />
 
                 <label className="label">Instructure</label>
@@ -70,7 +70,7 @@ const AddClass = () => {
                   defaultValue={instructureOption}
                   onChange={setInstructureSelectedOption}
                   options={options[1]}
-                  placeholder="Class instructure"
+                  placeholder="Instructure"
                 />
 
                 <label className="label">Type</label>
@@ -79,7 +79,7 @@ const AddClass = () => {
                   defaultValue={typeSelectedOption}
                   onChange={setTypeSelectedOption}
                   options={options[2]}
-                  placeholder="Class type"
+                  placeholder="Type"
                 />
               </div>
               <div className="col">
@@ -89,7 +89,7 @@ const AddClass = () => {
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
                   options={options[3]}
-                  placeholder="Class category"
+                  placeholder="Category"
                 />
 
                 <label className="label">Status</label>

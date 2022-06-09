@@ -43,3 +43,9 @@
     color: var(--dark80);
     cursor: pointer;
 }
+
+.disable {
+    color: var(--dark80);
+    background: rgb(223, 222, 222);
+    
+}
