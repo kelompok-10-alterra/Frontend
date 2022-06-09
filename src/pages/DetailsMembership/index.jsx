@@ -7,7 +7,6 @@ import styles from "./style.module.css";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
@@ -82,7 +81,9 @@ const DetailsMembership = () => {
   );
 
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(
-    options[0][options[0].findIndex((option) => option.value === props.membership)]
+    options[0][
+      options[0].findIndex((option) => option.value === props.membership)
+    ]
   );
 
   const handleSave = () => {
@@ -92,10 +93,6 @@ const DetailsMembership = () => {
 
   return (
     <div className={styles.content_wrapper}>
-      <Header
-        name="Kevin C"
-        role="Super Admin"
-      />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Details Membership"}>
         <div className="container no-pl mt-2">

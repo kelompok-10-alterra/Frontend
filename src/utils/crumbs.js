@@ -16,7 +16,7 @@ const BOOKING = {
 
 export const CRUMBS_DATA = {
   membership: MEMBERSHIP,
-  "details-membership": [
+  "membership/details-membership": [
     MEMBERSHIP,
     {
       id: 2,
@@ -24,7 +24,7 @@ export const CRUMBS_DATA = {
       link: "/details-membership",
     },
   ],
-  "add-membership": [
+  "membership/add-membership": [
     MEMBERSHIP,
     {
       id: 3,
@@ -33,7 +33,7 @@ export const CRUMBS_DATA = {
     },
   ],
   class: CLASS,
-  "add-class": [
+  "class/add-class": [
     CLASS,
     {
       id: 6,
@@ -41,7 +41,7 @@ export const CRUMBS_DATA = {
       link: "/add-class",
     },
   ],
-  "details-class": [
+  "class/details-class": [
     CLASS,
     {
       id: 7,
@@ -50,7 +50,7 @@ export const CRUMBS_DATA = {
     },
   ],
   booking: BOOKING,
-  "add-booking": [
+  "booking/add-booking": [
     BOOKING,
     {
       id: 8,
@@ -58,7 +58,7 @@ export const CRUMBS_DATA = {
       link: "/add-booking",
     },
   ],
-  "details-booking": [
+  "booking/details-booking": [
     BOOKING,
     {
       id: 9,

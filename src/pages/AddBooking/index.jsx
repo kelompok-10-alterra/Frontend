@@ -3,10 +3,10 @@ import Select from "react-select";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
+import MainLayout from "../../components/Layouts/MainLayout";
 
 /** Icons */
 import { MdEventAvailable } from "react-icons/md";
@@ -60,7 +60,6 @@ const AddBooking = () => {
   const handleSave = () => {};
   return (
     <>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
       <Container title="Add New Booking">
         <div className="container no-pl mt-4">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /** Styles */
@@ -13,7 +13,6 @@ const BreadCrumb = ({ location }) => {
   const isLast = (index) => {
     return index === crumbs.length - 1;
   };
-
   return (
     <nav>
       <ul className={styles.breadcrumb}>

@@ -3,7 +3,6 @@ import Select from "react-select";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
@@ -50,7 +49,6 @@ const AddClass = () => {
   const handleSave = () => {};
   return (
     <>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<IoIosPeople />} title="Class" />
       <Container title="Add New Class">
         <div className="container no-pl mt-4">

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Button from "../../components/Button";
@@ -75,7 +74,6 @@ const DetailsBooking = () => {
   };
   return (
     <>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
       <Container title={"Details Booking"}>
         <div className="container no-pl mt-2">

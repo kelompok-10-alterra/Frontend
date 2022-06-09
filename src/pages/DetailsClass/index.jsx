@@ -7,7 +7,6 @@ import styles from "./style.module.css";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
@@ -65,7 +64,7 @@ const DetailsClass = () => {
   );
   const [instructureOption, setInstructureSelectedOption] = useState(
     options[1][
-    options[1].findIndex((option) => option.label === props.instructure)
+      options[1].findIndex((option) => option.label === props.instructure)
     ]
   );
   const [typeSelectedOption, setTypeSelectedOption] = useState(
@@ -73,7 +72,7 @@ const DetailsClass = () => {
   );
   const [categorySelectedOption, setCategorySelectedOption] = useState(
     options[3][
-    options[3].findIndex((option) => option.value === props.category)
+      options[3].findIndex((option) => option.value === props.category)
     ]
   );
   const [statusSelectedOption, setStatusSelectedOption] = useState(
@@ -107,7 +106,6 @@ const DetailsClass = () => {
 
   return (
     <div className={styles.content_wrapper}>
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<IoIosPeople />} title="Class" />
 
       <Container title={"Details Class"}>

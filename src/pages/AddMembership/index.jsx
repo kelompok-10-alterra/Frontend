@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
-import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 
 /** Styles */
@@ -93,7 +92,6 @@ const AddMembership = () => {
   };
   return (
     <div className="content_wrapper">
-      <Header name="Kevin C" role="Super Admin" />
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
