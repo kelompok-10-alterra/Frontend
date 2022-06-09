@@ -54,22 +54,10 @@ const DetailsBooking = () => {
     ],
   ];
 
-  const [categorySelectedOption, setCategorySelectedOption] = useState(
-    options[0][
-      options[0].findIndex((option) => option.value === props.category)
-    ]
-  );
-  const [classSelectedOption, setClassSelectedOption] = useState(
-    options[1][options[1].findIndex((option) => option.label === props.class)]
-  );
-  const [instructureOption, setInstructureSelectedOption] = useState(
-    options[2][
-      options[2].findIndex((option) => option.label === props.instructure)
-    ]
-  );
-  const [statusSelectedOption, setStatusSelectedOption] = useState(
-    options[3][options[3].findIndex((option) => option.label === props.status)]
-  );
+  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const handleSave = () => {
     navigate("/booking");
   };

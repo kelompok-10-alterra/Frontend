@@ -60,32 +60,18 @@ const DetailsClass = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
-  const [roomSelectedOption, setRoomSelectedOption] = useState(
-    options[0][options[0].findIndex((option) => option.label === props.room)]
-  );
-  const [instructureOption, setInstructureSelectedOption] = useState(
-    options[1][
-    options[1].findIndex((option) => option.label === props.instructure)
-    ]
-  );
-  const [typeSelectedOption, setTypeSelectedOption] = useState(
-    options[2][options[2].findIndex((option) => option.label === props.type)]
-  );
-  const [categorySelectedOption, setCategorySelectedOption] = useState(
-    options[3][
-    options[3].findIndex((option) => option.value === props.category)
-    ]
-  );
-  const [statusSelectedOption, setStatusSelectedOption] = useState(
-    options[4][options[4].findIndex((option) => option.label === props.status)]
-  );
+  const [roomSelectedOption, setRoomSelectedOption] = useState(null);
+  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const [capacityInput, setCapacityInput] = useState([
     {
       label: "Capacity",
       name: "capacity",
       type: "number",
       placeholder: props.capacity,
-      value: props.capacity,
+      value: "",
     },
   ]);
   const handleSave = () => {

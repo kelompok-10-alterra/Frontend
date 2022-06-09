@@ -47,12 +47,12 @@ const AddBooking = () => {
   const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-  const [capacityInput, setCapacityInput] = useState([
+  const [scheduleInput, setScheduleInput] = useState([
     {
       label: "Schedule",
       name: "schedule",
       type: "date",
-      placeholder: "DD/MM/YY",
+      placeholder: "mm/dd/yyyy",
       value: "",
       min: temp,
     },
@@ -73,7 +73,7 @@ const AddBooking = () => {
                   defaultValue={userSelectedOption}
                   onChange={setUserSelectedOption}
                   options={options[0]}
-                  placeholder="Class room"
+                  placeholder="Room"
                 />
 
                 <label className="label">Instructure</label>
@@ -82,7 +82,7 @@ const AddBooking = () => {
                   defaultValue={instructureOption}
                   onChange={setInstructureSelectedOption}
                   options={options[1]}
-                  placeholder="Class instructure"
+                  placeholder="Instructure"
                 />
 
                 <label className="label">Class</label>
@@ -91,7 +91,7 @@ const AddBooking = () => {
                   defaultValue={classSelectedOption}
                   onChange={setClassSelectedOption}
                   options={options[2]}
-                  placeholder="Select class"
+                  placeholder="Class"
                 />
               </div>
               <div className="col">
@@ -101,7 +101,7 @@ const AddBooking = () => {
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
                   options={options[3]}
-                  placeholder="Class category"
+                  placeholder="Category"
                 />
 
                 <label className="label">Status</label>
@@ -113,7 +113,7 @@ const AddBooking = () => {
                   placeholder="Status"
                 />
                 <span className={styles.input}>
-                  <Form inputs={capacityInput} setInputs={setCapacityInput} />
+                  <Form inputs={scheduleInput} setInputs={setScheduleInput} />
                 </span>
               </div>
             </div>
