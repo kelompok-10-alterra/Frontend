@@ -6,7 +6,6 @@ import Container from "../../components/Layouts/Container";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
-import MainLayout from "../../components/Layouts/MainLayout";
 
 /** Icons */
 import { MdEventAvailable } from "react-icons/md";
@@ -42,12 +41,9 @@ const AddBooking = () => {
     "-" +
     String(tomorrow.getDate()).padStart(2, "0");
 
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-  const [capacityInput, setCapacityInput] = useState([
+  const [scheduleInput, setScheduleInput] = useState([
     {
       label: "Schedule",
       name: "schedule",
@@ -66,24 +62,6 @@ const AddBooking = () => {
           <form onSubmit={handleSave}>
             <div className="row">
               <div className="col">
-                <label className="label">Room</label>
-                <Select
-                  className={styles.select_input}
-                  defaultValue={userSelectedOption}
-                  onChange={setUserSelectedOption}
-                  options={options[0]}
-                  placeholder="Class room"
-                />
-
-                <label className="label">Instructure</label>
-                <Select
-                  className={styles.select_input}
-                  defaultValue={instructureOption}
-                  onChange={setInstructureSelectedOption}
-                  options={options[1]}
-                  placeholder="Class instructure"
-                />
-
                 <label className="label">Class</label>
                 <Select
                   className={styles.select_input}
@@ -92,17 +70,11 @@ const AddBooking = () => {
                   options={options[2]}
                   placeholder="Select class"
                 />
+                <span className={styles.input}>
+                  <Form inputs={scheduleInput} setInputs={setScheduleInput} />
+                </span>
               </div>
               <div className="col">
-                <label className="label">Category</label>
-                <Select
-                  className={styles.select_input}
-                  defaultValue={categorySelectedOption}
-                  onChange={setCategorySelectedOption}
-                  options={options[3]}
-                  placeholder="Class category"
-                />
-
                 <label className="label">Status</label>
                 <Select
                   className={styles.select_input}
@@ -111,9 +83,6 @@ const AddBooking = () => {
                   options={options[4]}
                   placeholder="Status"
                 />
-                <span className={styles.input}>
-                  <Form inputs={capacityInput} setInputs={setCapacityInput} />
-                </span>
               </div>
             </div>
 
