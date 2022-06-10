@@ -19,28 +19,36 @@ const Form = ({ inputs, setInputs }) => {
         <div className={styles.form_item} key={inputIdx}>
           {input.label !== null ? <label>{input.label}</label> : <></>}
           <div className={styles.input_wrapper}>
-            <input
-              type={
-                input.type === "password"
-                  ? showPassword
-                    ? "text"
-                    : "password"
-                  : input.type
-              }
-              name={input.name}
-              value={input.value}
-              placeholder={input.placeholder}
-              min={input.min}
-              onChange={(e) =>
-                setInputs(
-                  [...inputs],
-                  (inputs[inputIdx].value = e.target.value)
-                )
-              }
-              className={input.disable ? styles.disable : ""}
-              disabled={input.disable}
-              required
-            />
+            {input.type === "textarea" ? (
+              <textarea
+                value={input.value}
+                name={input.name}
+                placeholder={input.placeholder}
+                rows="8"
+                className={styles.textarea}
+              ></textarea>
+            ) : (
+              <input
+                type={
+                  input.type === "password"
+                    ? showPassword
+                      ? "text"
+                      : "password"
+                    : input.type
+                }
+                name={input.name}
+                value={input.value}
+                placeholder={input.placeholder}
+                min={input.min}
+                onChange={(e) =>
+                  setInputs(
+                    [...inputs],
+                    (inputs[inputIdx].value = e.target.value)
+                  )
+                }
+                required
+              />
+            )}
             {input.type === "password" ? (
               showPassword ? (
                 <AiOutlineEye

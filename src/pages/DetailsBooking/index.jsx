@@ -32,17 +32,17 @@ const DetailsBooking = () => {
   };
   let priceIDR = Intl.NumberFormat("en-ID");
   const options = [
+    [], //class
     [
-      { value: 1, label: "A" },
-      { value: 2, label: "B" },
-    ], //class
-    [
-      { value: "all", label: "All" }, //status
+      { value: "all", label: "All" },
       { value: 1, label: "Active" },
       { value: 0, label: "Non-Active" },
     ],
+    [
+      //user
+    ],
   ];
-
+  
   const tomorrow = new Date(new Date());
   tomorrow.setDate(tomorrow.getDate() + 1);
   const temp =
@@ -52,17 +52,7 @@ const DetailsBooking = () => {
     "-" +
     String(tomorrow.getDate()).padStart(2, "0");
 
-  const [scheduleInput, setScheduleInput] = useState([
-    {
-      label: "Schedule",
-      name: "schedule",
-      type: "date",
-      placeholder: props.schedule,
-      value: props.schedule,
-      min: temp,
-    },
-  ]);
-
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
@@ -113,20 +103,25 @@ const DetailsBooking = () => {
                 defaultValue={classSelectedOption}
                 onChange={setClassSelectedOption}
                 options={options[0]}
-                placeholder={props.instructure}
+                placeholder={""}
               />
-              <span className={styles.input}>
-                <Form inputs={scheduleInput} setInputs={setScheduleInput} />
-              </span>
-            </div>
-            <div className="col">
               <label className="label mt-3">Status</label>
               <Select
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={statusSelectedOption}
                 onChange={setStatusSelectedOption}
                 options={options[1]}
-                placeholder={props.status}
+                placeholder={""}
+              />
+            </div>
+            <div className="col">
+              <label className="label mt-3">User</label>
+              <Select
+                className={`mt-3 ${styles.select_input}`}
+                defaultValue={userSelectedOption}
+                onChange={setUserSelectedOption}
+                options={options[1]}
+                placeholder={""}
               />
             </div>
           </div>

@@ -1,51 +1,52 @@
 .container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.container>.form_item {
-    display: flex;
-    flex-direction: column;
+.container > .form_item {
+  display: flex;
+  flex-direction: column;
 }
 
-.container>.form_item input {
-    margin-top: 1rem;
-    padding: 0.6rem;
-    border-radius: 12px;
-    border: 1px solid var(--dark80);
-    outline: none;
-    width: 100%;
-    padding-left: 1.1rem;
+.container > .form_item input,
+.container > .form_item textarea {
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid var(--dark80);
+  outline: none;
+  width: 100%;
+  padding-left: 1.1rem;
 }
 
-.container>.form_item label {
-    margin-top: 1.48rem;
-    font-size: 1em;
-    font-weight: 600;
+.container > .form_item label {
+  margin-top: 1.48rem;
+  font-size: 1em;
+  font-weight: 600;
 }
 
 .input_wrapper {
-    position: relative;
-    margin-right: 1rem;
+  position: relative;
+  margin-right: 1rem;
 }
 
-.input_wrapper>input {
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
+.input_wrapper > input {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
 }
 
 .eye {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    bottom: 12px;
-    right: 12px;
-    color: var(--dark80);
-    cursor: pointer;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  bottom: 12px;
+  right: 12px;
+  color: var(--dark80);
+  cursor: pointer;
 }
-
-.disable {
-    color: var(--dark80);
-    background: rgb(223, 222, 222);
-    
+.textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 12px;
 }
