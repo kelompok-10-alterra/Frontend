@@ -3,11 +3,13 @@ const MEMBERSHIP = {
   name: "Membership",
   link: "/membership",
 };
+
 const CLASS = {
   id: 4,
   name: "Class",
   link: "/class",
 };
+
 const BOOKING = {
   id: 5,
   name: "Booking",

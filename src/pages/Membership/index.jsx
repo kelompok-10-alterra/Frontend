@@ -16,8 +16,8 @@ import TableData from "../../components/TableData";
 
 const Membership = () => {
   const navigate = useNavigate();
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
+
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
@@ -92,8 +92,9 @@ const Membership = () => {
             ]}
           />
           <TableData
+            data={[]}
             handleDetail={() => handleDetail()}
-            handleDelete={() => {}}
+            handleDelete={() => { }}
           />
         </section>
       </main>

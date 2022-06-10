@@ -16,6 +16,7 @@ import TableData from "../../components/TableData";
 
 const Class = () => {
   const navigate = useNavigate();
+
   const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -112,8 +113,9 @@ const Class = () => {
             ]}
           />
           <TableData
+            data={[]}
             handleDetail={() => handleDetail()}
-            handleDelete={() => {}}
+            handleDelete={() => { }}
           />
         </section>
       </main>

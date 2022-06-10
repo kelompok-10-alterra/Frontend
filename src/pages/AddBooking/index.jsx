@@ -5,7 +5,6 @@ import Select from "react-select";
 import Container from "../../components/Layouts/Container";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import Form from "../../components/Form";
 
 /** Icons */
 import { MdEventAvailable } from "react-icons/md";
@@ -14,6 +13,11 @@ import { MdEventAvailable } from "react-icons/md";
 import styles from "./style.module.css";
 
 const AddBooking = () => {
+
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+
   const options = [
     [], //Class
     [
@@ -26,19 +30,10 @@ const AddBooking = () => {
     ],
   ];
   const tomorrow = new Date(new Date());
+
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const temp =
-    tomorrow.getFullYear() +
-    "-" +
-    String(tomorrow.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(tomorrow.getDate()).padStart(2, "0");
 
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-
-  const handleSave = () => {};
+  const handleSave = () => { };
   return (
     <>
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
@@ -52,7 +47,7 @@ const AddBooking = () => {
                   className={styles.select_input}
                   defaultValue={classSelectedOption}
                   onChange={setClassSelectedOption}
-                  options={options[2]}
+                  options={options[0]}
                   placeholder="Class"
                 />
                 <label className="label">Status</label>

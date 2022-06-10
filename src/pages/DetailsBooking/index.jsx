@@ -7,7 +7,6 @@ import Container from "../../components/Layouts/Container";
 import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Button from "../../components/Button";
-import Form from "../../components/Form";
 
 /** Icon */
 import { MdEventAvailable } from "react-icons/md";
@@ -16,7 +15,12 @@ import { MdEventAvailable } from "react-icons/md";
 import styles from "./style.module.css";
 
 const DetailsBooking = () => {
+
   const navigate = useNavigate();
+
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const props = {
     id: 1123,
@@ -30,7 +34,9 @@ const DetailsBooking = () => {
     schedule: "2022-06-22",
     price: 100000,
   };
+
   let priceIDR = Intl.NumberFormat("en-ID");
+
   const options = [
     [], //class
     [
@@ -42,24 +48,14 @@ const DetailsBooking = () => {
       //user
     ],
   ];
-  
+
   const tomorrow = new Date(new Date());
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const temp =
-    tomorrow.getFullYear() +
-    "-" +
-    String(tomorrow.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(tomorrow.getDate()).padStart(2, "0");
 
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const handleSave = () => {
     navigate("/booking");
   };
+
   return (
     <>
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
@@ -120,7 +116,7 @@ const DetailsBooking = () => {
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={userSelectedOption}
                 onChange={setUserSelectedOption}
-                options={options[1]}
+                options={options[2]}
                 placeholder={""}
               />
             </div>

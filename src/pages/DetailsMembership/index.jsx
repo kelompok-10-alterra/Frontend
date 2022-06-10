@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,9 @@ import Button from "../../components/Button";
 import { MdVerifiedUser } from "react-icons/md";
 
 const DetailsMembership = () => {
+
   const navigate = useNavigate();
+
   const props = {
     id: 1,
     nama: "Genta Fatuh",
@@ -28,6 +30,8 @@ const DetailsMembership = () => {
     membership: 3,
     expired: 1,
   };
+
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -52,8 +56,6 @@ const DetailsMembership = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
-
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const handleSave = () => {
     //save to database

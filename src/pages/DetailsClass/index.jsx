@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,9 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const DetailsClass = () => {
+
   const navigate = useNavigate();
+
   const props = {
     id: 1123,
     type: "Yoga",
@@ -38,6 +40,68 @@ const DetailsClass = () => {
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga fugiat odio, nobis impedit maiores nemo consequuntur rerum cupiditate porro suscipit quos accusamus? Omnis velit, tempora ea magni blanditiis perferendis consectetur.",
   };
+
+  const percentage = Math.round((props.members / props.capacity) * 100);
+
+  const rest = props.capacity - props.members;
+
+  const [roomSelectedOption, setRoomSelectedOption] = useState(null);
+  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+
+  const [capacityInput, setCapacityInput] = useState([
+    {
+      label: "Capacity",
+      name: "capacity",
+      type: "number",
+      placeholder: props.capacity,
+      value: "",
+    },
+  ]);
+
+  const [descriptionInput, setDescriptionInput] = useState([
+    {
+      label: "Description",
+      name: "description",
+      type: "textarea",
+      placeholder: props.description,
+      value: props.description,
+    },
+  ]);
+
+  const [scheduleInput, setScheduleInput] = useState([
+    {
+      label: "Schedule",
+      name: "schedule",
+      type: "date",
+      placeholder: props.schedule,
+      value: props.schedule,
+    },
+  ]);
+
+  const [priceInput, setPriceInput] = useState([
+    {
+      label: "Price",
+      name: "price",
+      type: "number",
+      placeholder: props.price,
+      value: props.price,
+    },
+  ]);
+
+  const [data, setData] = useState({
+    datasets: [
+      {
+        data: [props.members, rest],
+        backgroundColor: ["#0583d2", "#E8F4FC"],
+      },
+    ],
+    labels: ["Members", "Available"],
+  });
+
+
   let priceIDR = Intl.NumberFormat("en-ID");
 
   const options = [
@@ -65,68 +129,15 @@ const DetailsClass = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
-  const [roomSelectedOption, setRoomSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
-  const [typeSelectedOption, setTypeSelectedOption] = useState(null);
-  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-  const [capacityInput, setCapacityInput] = useState([
-    {
-      label: "Capacity",
-      name: "capacity",
-      type: "number",
-      placeholder: props.capacity,
-      value: "",
-    },
-  ]);
-  const [descriptionInput, setDescriptionInput] = useState([
-    {
-      label: "Description",
-      name: "description",
-      type: "textarea",
-      placeholder: props.description,
-      value: props.description,
-    },
-  ]);
-  const [scheduleInput, setScheduleInput] = useState([
-    {
-      label: "Schedule",
-      name: "schedule",
-      type: "date",
-      placeholder: props.schedule,
-      value: props.schedule,
-    },
-  ]);
-  const [priceInput, setPriceInput] = useState([
-    {
-      label: "Price",
-      name: "price",
-      type: "number",
-      placeholder: props.price,
-      value: props.price,
-    },
-  ]);
+
   const handleSave = () => {
     //save to database
     navigate("/class");
   };
 
-  const percentage = Math.round((props.members / props.capacity) * 100);
-  const rest = props.capacity - props.members;
-  const [data, setData] = useState({
-    datasets: [
-      {
-        data: [props.members, rest],
-        backgroundColor: ["#0583d2", "#E8F4FC"],
-      },
-    ],
-    labels: ["Members", "Available"],
-  });
-
   return (
     <div className={styles.content_wrapper}>
       <PageTitle icon={<IoIosPeople />} title="Class" />
-
       <Container title={"Details Class"}>
         <div className="container no-pl mt-2">
           <div className="row">

@@ -15,7 +15,9 @@ import TableHeader from "../../components/TableHeader";
 import TableData from "../../components/TableData";
 
 const Booking = () => {
+
   const navigate = useNavigate();
+
   const [userSelectedOption, setUserSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
@@ -112,8 +114,9 @@ const Booking = () => {
             ]}
           />
           <TableData
+            data={[]}
             handleDetail={() => handleDetail()}
-            handleDelete={() => {}}
+            handleDelete={() => { }}
           />
         </section>
       </main>

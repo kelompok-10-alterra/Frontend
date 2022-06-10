@@ -5,8 +5,8 @@ const TableHeader = ({ columns }) => {
     return (
         <ul className={styles.container}>
             {
-                columns.map((column) => (
-                    <li>{column}</li>
+                columns.map((column, columnIdx) => (
+                    <li key={columnIdx}>{column}</li>
                 ))
             }
         </ul>

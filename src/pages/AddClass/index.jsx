@@ -12,36 +12,32 @@ import { IoIosPeople } from "react-icons/io";
 
 /** Style */
 import styles from "./style.module.css";
+
 const AddClass = () => {
-  const options = [
-    [], //room
-    [
-      { value: 1, label: "Laverna" }, // instructure
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-    ],
-    [], //type
-    [
-      { value: 1, label: "Online" }, //category
-      { value: 0, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" }, //status
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
+
+  const tomorrow = new Date(new Date());
+
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
+
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+
   const [capacityInput, setCapacityInput] = useState([
     {
       label: "Capacity",
       name: "capacity",
       type: "number",
-      placeholder: "Type class capacity... ",
+      placeholder: "Type class capacity...",
       value: "",
     },
   ]);
@@ -51,18 +47,10 @@ const AddClass = () => {
       label: "Description",
       name: "description",
       type: "textarea",
-      placeholder: "Type class details... ",
+      placeholder: "Type class details...",
       value: "",
     },
   ]);
-  const tomorrow = new Date(new Date());
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const temp =
-    tomorrow.getFullYear() +
-    "-" +
-    String(tomorrow.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(tomorrow.getDate()).padStart(2, "0");
 
   const [scheduleInput, setScheduleInput] = useState([
     {
@@ -83,7 +71,28 @@ const AddClass = () => {
       value: "",
     },
   ]);
-  const handleSave = () => {};
+
+  const options = [
+    [], //room
+    [
+      { value: 1, label: "Laverna" }, // instructure
+      { value: 2, label: "Brynn" },
+      { value: 3, label: "Doralynn" },
+    ],
+    [], //type
+    [
+      { value: 1, label: "Online" }, //category
+      { value: 0, label: "Offline" },
+    ],
+    [
+      { value: "all", label: "All" }, //status
+      { value: 1, label: "Active" },
+      { value: 0, label: "Non-Active" },
+    ],
+  ];
+
+  const handleSave = () => { };
+
   return (
     <>
       <PageTitle icon={<IoIosPeople />} title="Class" />

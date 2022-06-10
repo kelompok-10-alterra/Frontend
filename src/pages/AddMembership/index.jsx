@@ -15,29 +15,16 @@ import styles from "./style.module.css";
 import { MdVerifiedUser } from "react-icons/md";
 
 const AddMembership = () => {
+
   const navigate = useNavigate();
   /**
    * user select options came from api
    * fetch from api then put it in user state
    */
 
-  const options = [
-    [
-      { value: 1, label: "1 Month" },
-      { value: 3, label: "3 Months" },
-      { value: 6, label: "6 Months" },
-    ],
-    [
-      { value: 1, label: "Laverna" },
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-    ],
-  ];
-
   const [userOption, setUserOption] = useState(null);
 
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -69,6 +56,7 @@ const AddMembership = () => {
       value: "",
     },
   ]);
+
   const [secondInputs, setSecondInputs] = useState([
     {
       label: "Contact",
@@ -86,10 +74,24 @@ const AddMembership = () => {
     },
   ]);
 
+  const options = [
+    [
+      { value: 1, label: "1 Month" },
+      { value: 3, label: "3 Months" },
+      { value: 6, label: "6 Months" },
+    ],
+    [
+      { value: 1, label: "Laverna" },
+      { value: 2, label: "Brynn" },
+      { value: 3, label: "Doralynn" },
+    ],
+  ];
+
   const handleSave = (e) => {
     e.preventDefault();
     navigate("/membership");
   };
+
   return (
     <div className="content_wrapper">
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
@@ -111,8 +113,8 @@ const AddMembership = () => {
                 <label className="label">Membership</label>
                 <Select
                   className={styles.select_input}
-                  defaultValue={userOption}
-                  onChange={setUserOption}
+                  defaultValue={membershipSelectedOption}
+                  onChange={setMembershipSelectedOption}
                   options={options[0]}
                   placeholder="Membership"
                 />
