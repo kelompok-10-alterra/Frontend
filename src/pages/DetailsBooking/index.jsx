@@ -32,43 +32,25 @@ const DetailsBooking = () => {
   };
   let priceIDR = Intl.NumberFormat("en-ID");
   const options = [
+    [], //class
     [
-      { value: 1, label: "A" },
-      { value: 2, label: "B" },
-    ], //class
-    [
-      { value: "all", label: "All" }, //status
+      { value: "all", label: "All" },
       { value: 1, label: "Active" },
       { value: 0, label: "Non-Active" },
+    ],
+    [
+      //user
     ],
   ];
 
   const [classSelectedOption, setClassSelectedOption] = useState(
-    options[0][options[0].findIndex((option) => option.label === props.class)]
+    // options[0][options[0].findIndex((option) => option.label === props.class)]
+    null
   );
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(
     options[1][options[1].findIndex((option) => option.label === props.status)]
   );
-  const tomorrow = new Date(new Date());
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const temp =
-    tomorrow.getFullYear() +
-    "-" +
-    String(tomorrow.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(tomorrow.getDate()).padStart(2, "0");
-
-  const [scheduleInput, setScheduleInput] = useState([
-    {
-      label: "Schedule",
-      name: "schedule",
-      type: "date",
-      placeholder: props.schedule,
-      value: props.schedule,
-      min: temp,
-    },
-  ]);
-
   const handleSave = () => {
     navigate("/booking");
   };
@@ -115,20 +97,25 @@ const DetailsBooking = () => {
                 defaultValue={classSelectedOption}
                 onChange={setClassSelectedOption}
                 options={options[0]}
-                placeholder={props.instructure}
+                placeholder={""}
               />
-              <span className={styles.input}>
-                <Form inputs={scheduleInput} setInputs={setScheduleInput} />
-              </span>
-            </div>
-            <div className="col">
               <label className="label mt-3">Status</label>
               <Select
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={statusSelectedOption}
                 onChange={setStatusSelectedOption}
                 options={options[1]}
-                placeholder={props.status}
+                placeholder={""}
+              />
+            </div>
+            <div className="col">
+              <label className="label mt-3">User</label>
+              <Select
+                className={`mt-3 ${styles.select_input}`}
+                defaultValue={userSelectedOption}
+                onChange={setUserSelectedOption}
+                options={options[1]}
+                placeholder={""}
               />
             </div>
           </div>

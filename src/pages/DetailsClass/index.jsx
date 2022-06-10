@@ -33,7 +33,13 @@ const DetailsClass = () => {
     category: 1,
     members: 10,
     capacity: 30,
+    schedule: "2022-06-22",
+    price: 100000,
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga fugiat odio, nobis impedit maiores nemo consequuntur rerum cupiditate porro suscipit quos accusamus? Omnis velit, tempora ea magni blanditiis perferendis consectetur.",
   };
+  let priceIDR = Intl.NumberFormat("en-ID");
+
   const options = [
     [
       { value: 1, label: "A" },
@@ -87,6 +93,33 @@ const DetailsClass = () => {
       value: props.capacity,
     },
   ]);
+  const [descriptionInput, setDescriptionInput] = useState([
+    {
+      label: "Description",
+      name: "description",
+      type: "textarea",
+      placeholder: props.description,
+      value: props.description,
+    },
+  ]);
+  const [scheduleInput, setScheduleInput] = useState([
+    {
+      label: "Schedule",
+      name: "schedule",
+      type: "date",
+      placeholder: props.schedule,
+      value: props.schedule,
+    },
+  ]);
+  const [priceInput, setPriceInput] = useState([
+    {
+      label: "Price",
+      name: "price",
+      type: "number",
+      placeholder: props.price,
+      value: props.price,
+    },
+  ]);
   const handleSave = () => {
     //save to database
     navigate("/class");
@@ -115,20 +148,19 @@ const DetailsClass = () => {
               <Details title={"ID Class"} text={props.id} />
               <Details title={"Type"} text={props.type} />
               <Details title={"Room"} text={props.room} />
-            </div>
-            <div className="col">
               <Details title={"Instructure"} text={props.instructure} />
-              <Details title={"Contact Instructure"} text={props.contact} />
-              <Details title={"Address"} text={props.address} />
             </div>
             <div className="col">
-              <Details title={"Status"} text={props.status} />
+              <Details title={"Contact Instructure"} text={props.contact} />
 
+              <Details title={"Status"} text={props.status} />
               {props.category === 1 ? (
                 <Details title={"Category"} text={"Online"} />
               ) : (
                 <Details title={"Category"} text={"Offline"} />
               )}
+            </div>
+            <div className="col">
               {props.members > 1 ? (
                 <Details
                   title={"Total Members"}
@@ -140,6 +172,11 @@ const DetailsClass = () => {
                   text={`${props.members} person`}
                 />
               )}
+              <Details
+                title={"Price"}
+                text={`Rp. ${priceIDR.format(props.price)}`}
+              />
+              <Details title={"Held On"} text={props.schedule} />
             </div>
           </div>
         </div>
@@ -175,6 +212,12 @@ const DetailsClass = () => {
                   options={options[2]}
                   placeholder={props.type}
                 />
+                <span className={styles.input}>
+                  <Form
+                    inputs={descriptionInput}
+                    setInputs={setDescriptionInput}
+                  />
+                </span>
               </div>
               <div className="col">
                 <label className="label mt-3">Category</label>
@@ -197,6 +240,8 @@ const DetailsClass = () => {
                 <span className={styles.input}>
                   <Form inputs={capacityInput} setInputs={setCapacityInput} />
                 </span>
+                <Form inputs={scheduleInput} setInputs={setScheduleInput} />
+                <Form inputs={priceInput} setInputs={setPriceInput} />
               </div>
             </div>
 
