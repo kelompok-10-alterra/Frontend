@@ -42,15 +42,21 @@ const DetailsBooking = () => {
       //user
     ],
   ];
+  
+  const tomorrow = new Date(new Date());
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
 
-  const [classSelectedOption, setClassSelectedOption] = useState(
-    // options[0][options[0].findIndex((option) => option.label === props.class)]
-    null
-  );
   const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(
-    options[1][options[1].findIndex((option) => option.label === props.status)]
-  );
+  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
   const handleSave = () => {
     navigate("/booking");
   };

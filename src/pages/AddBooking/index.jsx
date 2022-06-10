@@ -52,8 +52,8 @@ const AddBooking = () => {
                   className={styles.select_input}
                   defaultValue={classSelectedOption}
                   onChange={setClassSelectedOption}
-                  options={options[0]}
-                  placeholder="Select class"
+                  options={options[2]}
+                  placeholder="Class"
                 />
                 <label className="label">Status</label>
                 <Select
@@ -61,7 +61,7 @@ const AddBooking = () => {
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
                   options={options[1]}
-                  placeholder="Select Status"
+                  placeholder="Status"
                 />
               </div>
               <div className="col">
@@ -71,7 +71,7 @@ const AddBooking = () => {
                   defaultValue={userSelectedOption}
                   onChange={setUserSelectedOption}
                   options={options[2]}
-                  placeholder="Select User"
+                  placeholder="User"
                 />
               </div>
             </div>
