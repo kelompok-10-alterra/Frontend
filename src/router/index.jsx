@@ -15,6 +15,7 @@ import Booking from "../pages/Booking";
 import AddBooking from "../pages/AddBooking";
 import DetailsBooking from "../pages/DetailsBooking";
 import MainLayout from "../components/Layouts/MainLayout";
+import User from "../pages/User";
 
 const GlobalRoutes = () => {
   return (
@@ -23,6 +24,9 @@ const GlobalRoutes = () => {
 
       <Route element={<PrivateRoutes />}>
         {/* <Route path="/dashboard" element={}/> */}
+        <Route path="user" element={<MainLayout />}>
+          <Route index element={<User />} />
+        </Route>
         <Route path="membership" element={<MainLayout />}>
           <Route index element={<Membership />} />
           <Route path="details-membership" element={<DetailsMembership />} />
