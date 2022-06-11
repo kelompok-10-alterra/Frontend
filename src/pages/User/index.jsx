@@ -61,7 +61,7 @@ const User = () => {
   const handleDetail = (id) => {
     // Detail
 
-    navigate("details-class");
+    navigate(`details-user/${id}`);
   };
   return (
     <div className={styles.content_wrapper}>
@@ -101,7 +101,7 @@ const User = () => {
               return (
                 <TableData
                   data={temp}
-                  handleDetail={() => handleDetail()}
+                  handleDetail={() => handleDetail(data.id)}
                   handleDelete={() => {}}
                 />
               );
@@ -115,7 +115,7 @@ const User = () => {
                 email: show?.email,
                 address: show?.address,
               }}
-              handleDetail={() => handleDetail()}
+              handleDetail={() => handleDetail(show?.id)}
               handleDelete={() => {}}
             />
           )}

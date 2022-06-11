@@ -82,7 +82,7 @@ export const CRUMBS_DATA = {
       link: "/add-user",
     },
   ],
-  "user/details--user": [
+  "user/details-user": [
     USER,
     {
       id: 12,
