@@ -16,6 +16,11 @@ const BOOKING = {
   link: "/booking",
 };
 
+const USER = {
+  id: 10,
+  name: "User",
+  link: "/user",
+};
 export const CRUMBS_DATA = {
   membership: MEMBERSHIP,
   "membership/details-membership": [
@@ -66,6 +71,23 @@ export const CRUMBS_DATA = {
       id: 9,
       name: "Details Booking",
       link: "/details-class",
+    },
+  ],
+  user: USER,
+  "user/add-user": [
+    USER,
+    {
+      id: 11,
+      name: "Add User",
+      link: "/add-user",
+    },
+  ],
+  "user/details-user": [
+    USER,
+    {
+      id: 12,
+      name: "Details User",
+      link: "/details-user",
     },
   ],
 };

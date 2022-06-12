@@ -15,6 +15,9 @@ import Booking from "../pages/Booking";
 import AddBooking from "../pages/AddBooking";
 import DetailsBooking from "../pages/DetailsBooking";
 import MainLayout from "../components/Layouts/MainLayout";
+import User from "../pages/User";
+import DetailsUser from "../pages/DetailsUser";
+import AddUser from "../pages/AddUser";
 
 const GlobalRoutes = () => {
   return (
@@ -23,22 +26,31 @@ const GlobalRoutes = () => {
 
       <Route element={<PrivateRoutes />}>
         {/* <Route path="/dashboard" element={}/> */}
+        <Route path="user" element={<MainLayout />}>
+          <Route index element={<User />} />
+          <Route path="details-user/:uid" element={<DetailsUser />} />
+
+          <Route path="add-user" element={<AddUser />} />
+        </Route>
         <Route path="membership" element={<MainLayout />}>
           <Route index element={<Membership />} />
-          <Route path="details-membership" element={<DetailsMembership />} />
+          <Route
+            path="details-membership/:uid"
+            element={<DetailsMembership />}
+          />
           <Route path="add-membership" element={<AddMembership />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="class" element={<MainLayout />}>
           <Route index element={<Class />} />
           <Route path="add-class" element={<AddClass />} />
-          <Route path="details-class" element={<DetailsClass />} />
+          <Route path="details-class/:uid" element={<DetailsClass />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="booking" element={<MainLayout />}>
           <Route index element={<Booking />} />
           <Route path="add-booking" element={<AddBooking />} />
-          <Route path="details-booking" element={<DetailsBooking />} />
+          <Route path="details-booking/:uid" element={<DetailsBooking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>
