@@ -59,7 +59,6 @@ const User = () => {
     }
   }, [userSelectedOption]);
 
-
   const handleDelete = (id) => {
     // Delete
   };
@@ -93,36 +92,23 @@ const User = () => {
           </div>
         </section>
         <section>
-          {
-            show ?
-              <Table
-                name="user"
-                headers={[
-                  "ID",
-                  "Name",
-                  "Contact",
-                  "Email",
-                  "Address",
-                ]}
-                datas={show}
-                handleDetail={() => handleDetail()}
-                handleDelete={() => { }}
-              />
-              :
-              <Table
-                name="user"
-                headers={[
-                  "ID",
-                  "Name",
-                  "Contact",
-                  "Email",
-                  "Address",
-                ]}
-                datas={datas}
-                handleDetail={() => handleDetail()}
-                handleDelete={() => { }}
-              />
-          }
+          {show ? (
+            <Table
+              name="user"
+              headers={["ID", "Name", "Contact", "Email", "Address"]}
+              datas={show}
+              handleDetail={handleDetail}
+              handleDelete={() => {}}
+            />
+          ) : (
+            <Table
+              name="user"
+              headers={["ID", "Name", "Contact", "Email", "Address"]}
+              datas={datas}
+              handleDetail={handleDetail}
+              handleDelete={() => {}}
+            />
+          )}
         </section>
       </main>
     </div>

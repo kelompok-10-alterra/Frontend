@@ -21,7 +21,6 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const DetailsClass = () => {
-
   const navigate = useNavigate();
 
   const props = {
@@ -57,7 +56,7 @@ const DetailsClass = () => {
       name: "capacity",
       type: "number",
       placeholder: props.capacity,
-      value: "",
+      value: props.capacity,
     },
   ]);
 
@@ -100,7 +99,6 @@ const DetailsClass = () => {
     ],
     labels: ["Members", "Available"],
   });
-
 
   let priceIDR = Intl.NumberFormat("en-ID");
 
