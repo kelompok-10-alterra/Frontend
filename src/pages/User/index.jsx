@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,35 +13,39 @@ import { FaUserCircle } from "react-icons/fa";
 /** Components */
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import TableHeader from "../../components/TableHeader";
-import TableData from "../../components/TableData";
-import { useEffect } from "react";
+import Table from "../../components/Table";
 
 const User = () => {
   const navigate = useNavigate();
+
   const [userSelectedOption, setUserSelectedOption] = useState([]);
   const [userOption, setUserOption] = useState([{ value: 0, label: "All" }]);
-  const [datas, setDatas] = useState();
-  const [show, setShow] = useState();
+  const [datas, setDatas] = useState([]);
+  const [show, setShow] = useState(null);
+
   useEffect(() => {
     axios
       .get("https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user")
-      .then(function (response) {
+      .then((response) => {
         setDatas(response.data);
         setShow(response.data);
       });
   }, []);
+
   useEffect(() => {
+    setUserOption([]);
+
     datas?.map((user) => {
-      let temp = { value: user.id, label: user.name };
+      let temp = { value: user.id, label: `${user.id} - ${user.name}` };
       return setUserOption((oldData) => [...oldData, temp]);
     });
   }, [datas]);
+
   useEffect(() => {
     if (userSelectedOption.value === 0) {
       axios
         .get("https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user")
-        .then(function (response) {
+        .then((response) => {
           setShow(response.data);
         });
     } else {
@@ -48,11 +53,12 @@ const User = () => {
         .get(
           `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${userSelectedOption.value}`
         )
-        .then(function (response) {
-          setShow(response.data);
+        .then((response) => {
+          setShow([response.data]);
         });
     }
   }, [userSelectedOption]);
+
 
   const handleDelete = (id) => {
     // Delete
@@ -63,6 +69,7 @@ const User = () => {
 
     navigate(`details-user/${id}`);
   };
+
   return (
     <div className={styles.content_wrapper}>
       <main>
@@ -86,39 +93,36 @@ const User = () => {
           </div>
         </section>
         <section>
-          <TableHeader
-            columns={["ID", "Name", "Contact", "Email", "Address"]}
-          />
-          {show?.length !== undefined ? (
-            show?.map((data) => {
-              let temp = {
-                id: data.id,
-                name: data.name,
-                contact: data.phone,
-                email: data.email,
-                address: data.address,
-              };
-              return (
-                <TableData
-                  data={temp}
-                  handleDetail={() => handleDetail(data.id)}
-                  handleDelete={() => {}}
-                />
-              );
-            })
-          ) : (
-            <TableData
-              data={{
-                id: show?.id,
-                name: show?.name,
-                contact: show?.phone,
-                email: show?.email,
-                address: show?.address,
-              }}
-              handleDetail={() => handleDetail(show?.id)}
-              handleDelete={() => {}}
-            />
-          )}
+          {
+            show ?
+              <Table
+                name="user"
+                headers={[
+                  "ID",
+                  "Name",
+                  "Contact",
+                  "Email",
+                  "Address",
+                ]}
+                datas={show}
+                handleDetail={() => handleDetail()}
+                handleDelete={() => { }}
+              />
+              :
+              <Table
+                name="user"
+                headers={[
+                  "ID",
+                  "Name",
+                  "Contact",
+                  "Email",
+                  "Address",
+                ]}
+                datas={datas}
+                handleDetail={() => handleDetail()}
+                handleDelete={() => { }}
+              />
+          }
         </section>
       </main>
     </div>

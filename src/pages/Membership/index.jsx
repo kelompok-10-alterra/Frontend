@@ -11,8 +11,7 @@ import { MdVerifiedUser } from "react-icons/md";
 /** Components */
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import TableHeader from "../../components/TableHeader";
-import TableData from "../../components/TableData";
+import Table from "../../components/Table";
 
 const Membership = () => {
   const navigate = useNavigate();
@@ -81,8 +80,8 @@ const Membership = () => {
           />
         </section>
         <section>
-          <TableHeader
-            columns={[
+          <Table
+            headers={[
               "ID",
               "Name",
               "Contact",
@@ -90,9 +89,7 @@ const Membership = () => {
               "Expired",
               "Status",
             ]}
-          />
-          <TableData
-            data={[]}
+            datas={[]}
             handleDetail={() => handleDetail()}
             handleDelete={() => { }}
           />

@@ -11,8 +11,7 @@ import { IoIosPeople } from "react-icons/io";
 /** Components */
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import TableHeader from "../../components/TableHeader";
-import TableData from "../../components/TableData";
+import Table from "../../components/Table";
 
 const Class = () => {
   const navigate = useNavigate();
@@ -102,8 +101,8 @@ const Class = () => {
           </div>
         </section>
         <section>
-          <TableHeader
-            columns={[
+          <Table
+            headers={[
               "ID Class",
               "Room",
               "Instructure",
@@ -111,9 +110,7 @@ const Class = () => {
               "Category",
               "Status",
             ]}
-          />
-          <TableData
-            data={[]}
+            datas={[]}
             handleDetail={() => handleDetail()}
             handleDelete={() => { }}
           />

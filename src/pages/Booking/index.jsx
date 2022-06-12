@@ -11,8 +11,7 @@ import { MdEventAvailable } from "react-icons/md";
 /** Components */
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import TableHeader from "../../components/TableHeader";
-import TableData from "../../components/TableData";
+import Table from "../../components/Table";
 
 const Booking = () => {
 
@@ -103,8 +102,8 @@ const Booking = () => {
           </div>
         </section>
         <section>
-          <TableHeader
-            columns={[
+          <Table
+            headers={[
               "ID Booking",
               "User",
               "Instructure",
@@ -112,9 +111,7 @@ const Booking = () => {
               "Category",
               "Status",
             ]}
-          />
-          <TableData
-            data={[]}
+            datas={[]}
             handleDetail={() => handleDetail()}
             handleDelete={() => { }}
           />
