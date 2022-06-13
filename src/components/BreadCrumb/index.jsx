@@ -17,10 +17,12 @@ const BreadCrumb = ({ location }) => {
     location === "/class" ||
     location === "/dashboard" ||
     location === "/user" ||
+    location === "/admin" ||
     location === "/membership/add-membership" ||
     location === "/booking/add-booking" ||
     location === "/class/add-class" ||
-    location === "/user/add-user"
+    location === "/user/add-user" ||
+    location === "/admin/add-admin"
   ) {
     key = location.substring(1);
   } else {

@@ -3,7 +3,8 @@ import {
   MdVerifiedUser,
   MdAddToPhotos,
   MdEventAvailable,
-  MdDashboardCustomize
+  MdDashboardCustomize,
+  MdVpnKey
 } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { TiNews } from "react-icons/ti";
@@ -55,8 +56,14 @@ export const navItems = [
   },
   {
     id: 8,
+    name: "Manage Admin",
+    logo: <MdVpnKey />,
+    link: "/admin",
+  },
+  {
+    id: 9,
     name: "Logout",
     logo: <FiLogOut />,
-    link: "/",
+    link: "/login",
   },
 ];

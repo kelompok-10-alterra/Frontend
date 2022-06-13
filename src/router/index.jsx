@@ -18,6 +18,9 @@ import MainLayout from "../components/Layouts/MainLayout";
 import User from "../pages/User";
 import DetailsUser from "../pages/DetailsUser";
 import AddUser from "../pages/AddUser";
+import Admin from "../pages/Admin";
+import AddAdmin from "../pages/AddAdmin";
+import DetailsAdmin from "../pages/DetailsAdmin";
 
 const GlobalRoutes = () => {
   return (
@@ -51,6 +54,12 @@ const GlobalRoutes = () => {
           <Route index element={<Booking />} />
           <Route path="add-booking" element={<AddBooking />} />
           <Route path="details-booking/:uid" element={<DetailsBooking />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="admin" element={<MainLayout />}>
+          <Route index element={<Admin />} />
+          <Route path="add-admin" element={<AddAdmin />} />
+          <Route path="details-admin/:uid" element={<DetailsAdmin />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>

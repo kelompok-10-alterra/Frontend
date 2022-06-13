@@ -21,6 +21,13 @@ const USER = {
   name: "User",
   link: "/user",
 };
+
+const ADMIN = {
+  id: 15,
+  name: "Manage Admin",
+  link: "/admin",
+};
+
 export const CRUMBS_DATA = {
   membership: MEMBERSHIP,
   "membership/details-membership": [
@@ -70,7 +77,7 @@ export const CRUMBS_DATA = {
     {
       id: 9,
       name: "Details Booking",
-      link: "/details-class",
+      link: "/details-booking",
     },
   ],
   user: USER,
@@ -88,6 +95,23 @@ export const CRUMBS_DATA = {
       id: 12,
       name: "Details User",
       link: "/details-user",
+    },
+  ],
+  admin: ADMIN,
+  "admin/add-admin": [
+    ADMIN,
+    {
+      id: 13,
+      name: "Add Admin",
+      link: "/add-admin",
+    },
+  ],
+  "admin/details-admin": [
+    ADMIN,
+    {
+      id: 14,
+      name: "Details Admin",
+      link: "/details-admin",
     },
   ],
 };

@@ -7,8 +7,6 @@ import styles from "./style.module.css";
 import { useState } from "react";
 
 const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
-  let dataList = {};
-
   return (
     <table>
       <tr>
@@ -17,7 +15,8 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         ))}
       </tr>
       {datas.map((data) => {
-        if (name === "user") {
+        let dataList = {};
+        if (name === "user" || name === "admin") {
           dataList = {
             id: data.id,
             name: data.name,
@@ -49,7 +48,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             <td>
               <CgDetailsMore
                 className={styles.detail_icon}
-                onClick={() => handleDetail(dataList.id)}
+                onClick={() => handleDetail(data.id)}
               />
               <MdDeleteForever
                 className={styles.delete_icon}

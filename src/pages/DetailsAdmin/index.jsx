@@ -6,7 +6,7 @@ import axios from "axios";
 import styles from "./style.module.css";
 
 /** Icon */
-import { FaUserCircle } from "react-icons/fa";
+import { MdVpnKey } from "react-icons/md";
 
 /** Components */
 import PageTitle from "../../components/PageTitle";
@@ -15,7 +15,7 @@ import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
 
-const DetailsAdmin = () => {
+const DetailsUser = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState();
@@ -99,12 +99,12 @@ const DetailsAdmin = () => {
 
   return (
     <>
-      <PageTitle icon={<FaUserCircle />} title="User" />
+      <PageTitle icon={<MdVpnKey />} title="Manage Admin" />
       <Container title="Details Admin">
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title="ID User" text={data?.id} />
+              <Details title="ID Admin" text={data?.id} />
               <Details title="Name" text={data?.name} />
             </div>
             <div className="col">
@@ -144,4 +144,4 @@ const DetailsAdmin = () => {
   );
 };
 
-export default DetailsAdmin;
+export default DetailsUser;

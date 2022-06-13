@@ -7,18 +7,18 @@ import axios from "axios";
 import styles from "./style.module.css";
 
 /** Icon */
-import { FaUserCircle } from "react-icons/fa";
+import { MdVpnKey } from "react-icons/md";
 
 /** Components */
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
 
-const User = () => {
+const Admin = () => {
   const navigate = useNavigate();
 
-  const [userSelectedOption, setUserSelectedOption] = useState([]);
-  const [userOption, setUserOption] = useState([{ value: 0, label: "All" }]);
+  const [adminSelectedOption, setAdminSelectedOption] = useState([]);
+  const [adminOption, setAdminOption] = useState([{ value: 0, label: "All" }]);
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState(null);
 
@@ -32,16 +32,16 @@ const User = () => {
   }, []);
 
   useEffect(() => {
-    setUserOption([]);
+    setAdminOption([]);
 
-    datas?.map((user) => {
-      let temp = { value: user.id, label: `${user.id} - ${user.name}` };
-      return setUserOption((oldData) => [...oldData, temp]);
+    datas?.map((admin) => {
+      let temp = { value: admin.id, label: `${admin.id} - ${admin.name}` };
+      return setAdminOption((oldData) => [...oldData, temp]);
     });
   }, [datas]);
 
   useEffect(() => {
-    if (userSelectedOption.value === 0) {
+    if (adminSelectedOption.value === 0) {
       axios
         .get("https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user")
         .then((response) => {
@@ -50,48 +50,48 @@ const User = () => {
     } else {
       axios
         .get(
-          `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${userSelectedOption.value}`
+          `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${adminSelectedOption.value}`
         )
         .then((response) => {
           setShow([response.data]);
         });
     }
-  }, [userSelectedOption]);
+  }, [adminSelectedOption]);
 
   const handleDelete = (id) => {
     // Delete
   };
 
   const handleDetail = (id) => {
-    navigate(`details-user/${id}`);
+    navigate(`details-admin/${id}`);
   };
 
   return (
     <div className={styles.content_wrapper}>
       <main>
-        <PageTitle icon={<FaUserCircle />} title="User" />
+        <PageTitle icon={<MdVpnKey />} title="Manage Admin" />
         <section className={styles.top_section}>
           <div className={styles.filter_wrapper_top}>
             <Select
               className={styles.select_input}
-              defaultValue={userSelectedOption}
-              onChange={setUserSelectedOption}
-              options={userOption}
-              placeholder="User"
+              defaultValue={adminSelectedOption}
+              onChange={setAdminSelectedOption}
+              options={adminOption}
+              placeholder="Admin"
             />
 
             <Button
               className={styles.btn_add}
-              text="+ Add New User"
+              text="+ Add New Admin"
               type="button"
-              onClick={() => navigate("add-user")}
+              onClick={() => navigate("add-admin")}
             />
           </div>
         </section>
         <section>
           {show ? (
             <Table
-              name="user"
+              name="admin"
               headers={["ID", "Name", "Contact", "Email", "Address"]}
               datas={show}
               handleDetail={handleDetail}
@@ -99,7 +99,7 @@ const User = () => {
             />
           ) : (
             <Table
-              name="user"
+              name="admin"
               headers={["ID", "Name", "Contact", "Email", "Address"]}
               datas={datas}
               handleDetail={handleDetail}
@@ -112,4 +112,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Admin;

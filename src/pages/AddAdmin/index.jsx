@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./style.module.css";
 
 /** Icon */
-import { FaUserCircle } from "react-icons/fa";
+import { MdVpnKey } from "react-icons/md";
 
 /** Components */
 import PageTitle from "../../components/PageTitle";
@@ -14,11 +14,11 @@ import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
 
-const AddUser = () => {
+const AddAdmin = () => {
   const navigate = useNavigate();
-  
+
   const handleSave = () => {
-    navigate("/user");
+    navigate("/admin");
   };
 
   const [firstInput, setFirstInput] = useState([
@@ -26,53 +26,52 @@ const AddUser = () => {
       label: "Name",
       name: "name",
       type: "text",
-      placeholder: "Type user name...",
+      placeholder: "Type admin name...",
       value: "",
     },
     {
       label: "Username",
       name: "username",
       type: "text",
-      placeholder: "Type user username...",
+      placeholder: "Type admin username...",
       value: "",
     },
     {
       label: "Email",
       name: "email",
       type: "email",
-      placeholder: "Type user email...",
+      placeholder: "Type admin email...",
       value: "",
     },
   ]);
-
   const [secondInput, setSecondInput] = useState([
     {
       label: "Contact",
       name: "contact",
       type: "text",
-      placeholder: "Type user contact...",
+      placeholder: "Type admin contact...",
       value: "",
     },
     {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "Type user address...",
+      placeholder: "Type admin address...",
       value: "",
     },
     {
       label: "Password",
       name: "password",
       type: "password",
-      placeholder: "Type user password...",
+      placeholder: "Type admin password...",
       value: "",
     },
   ]);
 
   return (
     <>
-      <PageTitle icon={<FaUserCircle />} title="User" />
-      <Container title="Add New Account">
+      <PageTitle icon={<MdVpnKey />} title="Manage Admin" />
+      <Container title="Add New Admin">
         <form onSubmit={handleSave}>
           <div className="row">
             <div className="col">
@@ -97,4 +96,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddAdmin;
