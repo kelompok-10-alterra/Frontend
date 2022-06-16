@@ -14,7 +14,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
           <th key={headerIdx}>{header}</th>
         ))}
       </tr>
-      {datas.map((data) => {
+      {datas.map((data, dataIdx) => {
         let dataList = {};
         if (name === "user" || name === "admin") {
           dataList = {
@@ -50,7 +50,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         return (
           <>
             {name === "class" || name === "trainer" || name === "member" ? (
-              <tr>
+              <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (
                     dataList[key] ? (
@@ -96,7 +96,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
                     <td key={keyIdx}>{dataList[key]}</td>
                   );
                 })}
-                <td>
+                <td key={dataIdx}>
                   <CgDetailsMore
                     className={styles.detail_icon}
                     onClick={() => handleDetail(data.id)}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
 
 /** Pages */
@@ -27,7 +27,7 @@ const GlobalRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-
+      <Route path="/" element={<Navigate to="/dashboard" />} />
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<MainLayout />}>
           <Route index element={<Dashboard />} />

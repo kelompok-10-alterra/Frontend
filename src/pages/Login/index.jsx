@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -28,9 +29,16 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Panggil API untuk check username & password
-        // Jika valid maka masukkan token ke localStorage
-        // Jika tidak valid maka muncul alert error
+
+        axios.post("/auth/login", {
+            username: inputs[0].value,
+            password: inputs[1].value
+        }).then(result => {
+            console.log(result.data);
+            // localStorage.setItem("token", result.data.token);
+        }).catch(error => {
+            console.log(error);
+        })
 
         setInputs([...inputs], inputs[0].value = "", inputs[1].value = "");
     }

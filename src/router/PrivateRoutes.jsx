@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 /** Component */
 import Navbar from "../components/Navbar";
 
-const PrivateRoutes = () => {
+const PrivateRoutes = ({ user }) => {
+
   return (
     <div className="private-routes-container">
       <Navbar />

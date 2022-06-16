@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./utils/reportWebVitals";
+import axios from "axios";
 
 /** Bootstrap */
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,6 +12,10 @@ import "./index.css";
 
 /** Components */
 import App from "./App";
+
+axios.defaults.baseURL = "http://www.api.rafdev.my.id";
+axios.defaults.headers.common['Authorization'] = localStorage.getItem("token");
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
