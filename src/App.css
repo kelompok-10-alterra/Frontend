@@ -5,6 +5,7 @@
   --dark90: #505152;
   --dark80: #666869;
   --dark60: #a0a1a1;
+  --neutrals: #7b827e;
   --sucess-default: #189f00;
   --error-default: #d32f2f;
 }
@@ -39,7 +40,7 @@
   margin-left: 18%;
 }
 
-::placeholder,  div.css-14el2xx-placeholder {
+::placeholder,
+div.css-14el2xx-placeholder {
   color: var(--dark60);
 }
-

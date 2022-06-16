@@ -25,37 +25,90 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             address: data.address,
           };
         }
+        if (name === "class") {
+          dataList = {
+            id: data.id,
+            name: data.name,
+            status: data.status,
+            joinedAt: data.created_at,
+          };
+        }
+        if (name === "trainer") {
+          dataList = {
+            id: data.id,
+            name: data.name,
+            contact: data.phone,
+            address: data.address,
+          };
+        }
+        if (name === "member") {
+          dataList = {
+            class: `${data.class} - ${data.type}`,
+            member: data.member,
+          };
+        }
         return (
-          <tr>
-            {Object.keys(dataList).map((key, keyIdx) => {
-              return key === "status" ? (
-                dataList[key] ? (
-                  <td
-                    style={{ color: "#189F00", fontWeight: "bold" }}
-                    key={keyIdx}
-                  >
-                    {dataList[key]}
-                  </td>
-                ) : (
-                  <td style={{ color: "red", fontWeight: "bold" }} key={keyIdx}>
-                    {dataList[key]}
-                  </td>
-                )
-              ) : (
-                <td key={keyIdx}>{dataList[key]}</td>
-              );
-            })}
-            <td>
-              <CgDetailsMore
-                className={styles.detail_icon}
-                onClick={() => handleDetail(data.id)}
-              />
-              <MdDeleteForever
-                className={styles.delete_icon}
-                onClick={handleDelete}
-              />
-            </td>
-          </tr>
+          <>
+            {name === "class" || name === "trainer" || name === "member" ? (
+              <tr>
+                {Object.keys(dataList).map((key, keyIdx) => {
+                  return key === "status" ? (
+                    dataList[key] ? (
+                      <td
+                        style={{ color: "#189F00", fontWeight: "bold" }}
+                        key={keyIdx}
+                      >
+                        Active
+                      </td>
+                    ) : (
+                      <td
+                        style={{ color: "red", fontWeight: "bold" }}
+                        key={keyIdx}
+                      >
+                        Not-Active
+                      </td>
+                    )
+                  ) : (
+                    <td key={keyIdx}>{dataList[key]}</td>
+                  );
+                })}
+              </tr>
+            ) : (
+              <tr>
+                {Object.keys(dataList).map((key, keyIdx) => {
+                  return key === "status" ? (
+                    dataList[key] ? (
+                      <td
+                        style={{ color: "#189F00", fontWeight: "bold" }}
+                        key={keyIdx}
+                      >
+                        Active
+                      </td>
+                    ) : (
+                      <td
+                        style={{ color: "red", fontWeight: "bold" }}
+                        key={keyIdx}
+                      >
+                        Not-Active
+                      </td>
+                    )
+                  ) : (
+                    <td key={keyIdx}>{dataList[key]}</td>
+                  );
+                })}
+                <td>
+                  <CgDetailsMore
+                    className={styles.detail_icon}
+                    onClick={() => handleDetail(data.id)}
+                  />
+                  <MdDeleteForever
+                    className={styles.delete_icon}
+                    onClick={handleDelete}
+                  />
+                </td>
+              </tr>
+            )}
+          </>
         );
       })}
     </table>

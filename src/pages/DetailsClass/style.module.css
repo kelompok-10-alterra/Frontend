@@ -3,7 +3,7 @@
   margin-top: 16px;
 }
 
-.select_input>div {
+.select_input > div {
   padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;
@@ -19,7 +19,7 @@
   color: black;
 }
 
-.input>div>div>label {
+.input > div > div > label {
   margin-top: 1rem !important;
 }
 
@@ -28,7 +28,7 @@
   width: 50% !important;
 }
 
-.doughnut>h5 {
+.doughnut > h5 {
   margin-top: 20px;
   margin-bottom: 50px;
 }
@@ -37,6 +37,8 @@
   margin-top: 0px;
   display: flex;
   flex-direction: row;
+  margin-left: 10px;
+  justify-content: space-between;
 }
 
 .donut_inner {
@@ -56,4 +58,7 @@
 .info {
   float: right;
   margin-top: 48%;
+}
+.left {
+  display: flex;
 }
