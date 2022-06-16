@@ -27,6 +27,11 @@ const ADMIN = {
   name: "Manage Admin",
   link: "/admin",
 };
+const DASHBOARD = {
+  id: 18,
+  name: "Dashboard",
+  link: "/dashboard",
+};
 
 export const CRUMBS_DATA = {
   membership: MEMBERSHIP,
@@ -114,4 +119,5 @@ export const CRUMBS_DATA = {
       link: "/details-admin",
     },
   ],
+  dashboard: DASHBOARD,
 };

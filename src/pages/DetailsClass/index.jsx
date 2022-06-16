@@ -11,7 +11,7 @@ import PageTitle from "../../components/PageTitle";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
-import TableMembers from "../../components/TableMembers";
+import Table from "../../components/Table";
 
 /** Icon */
 import { IoIosPeople } from "react-icons/io";
@@ -127,7 +127,68 @@ const DetailsClass = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
-
+  const lists = [
+    {
+      id: 1,
+      name: "Duff",
+      status: false,
+      created_at: "05/08/2022",
+    },
+    {
+      id: 2,
+      name: "Hailee",
+      status: true,
+      created_at: "04/30/2022",
+    },
+    {
+      id: 3,
+      name: "Angele",
+      status: true,
+      created_at: "08/11/2021",
+    },
+    {
+      id: 4,
+      name: "Philippe",
+      status: true,
+      created_at: "10/11/2021",
+    },
+    {
+      id: 5,
+      name: "Tymon",
+      status: false,
+      created_at: "11/07/2021",
+    },
+    {
+      id: 6,
+      name: "Verile",
+      status: true,
+      created_at: "08/27/2021",
+    },
+    {
+      id: 7,
+      name: "Eudora",
+      status: true,
+      created_at: "01/16/2022",
+    },
+    {
+      id: 8,
+      name: "Harland",
+      status: true,
+      created_at: "11/22/2021",
+    },
+    {
+      id: 9,
+      name: "Evyn",
+      status: false,
+      created_at: "10/09/2021",
+    },
+    {
+      id: 10,
+      name: "Darwin",
+      status: true,
+      created_at: "12/05/2021",
+    },
+  ];
   const handleSave = () => {
     //save to database
     navigate("/class");
@@ -255,7 +316,16 @@ const DetailsClass = () => {
 
       <PageTitle icon={<IoIosPeople />} title="Class Members" />
       <div className={styles.wrapper}>
-        <TableMembers />
+        <span className={styles.left}>
+          <Container>
+            <Table
+              headers={["ID", "Name", "Status", "Joined At"]}
+              datas={lists}
+              name="class"
+            />
+          </Container>
+        </span>
+
         <section className={styles.doughnut}>
           <h5>Current Students</h5>
           <Doughnut data={data} />

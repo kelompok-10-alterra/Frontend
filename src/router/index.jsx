@@ -21,6 +21,7 @@ import AddUser from "../pages/AddUser";
 import Admin from "../pages/Admin";
 import AddAdmin from "../pages/AddAdmin";
 import DetailsAdmin from "../pages/DetailsAdmin";
+import Dashboard from "../pages/Dashboard";
 
 const GlobalRoutes = () => {
   return (
@@ -28,7 +29,9 @@ const GlobalRoutes = () => {
       <Route path="/login" element={<Login />} />
 
       <Route element={<PrivateRoutes />}>
-        {/* <Route path="/dashboard" element={}/> */}
+        <Route path="/dashboard" element={<MainLayout />}>
+          <Route index element={<Dashboard />} />
+        </Route>
         <Route path="user" element={<MainLayout />}>
           <Route index element={<User />} />
           <Route path="details-user/:uid" element={<DetailsUser />} />
