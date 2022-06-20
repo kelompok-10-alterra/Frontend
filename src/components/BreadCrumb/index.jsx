@@ -17,6 +17,8 @@ const BreadCrumb = ({ location }) => {
     location === "/class" ||
     location === "/dashboard" ||
     location === "/user" ||
+    location === "/newsletter" ||
+    location === "/content" ||
     location === "/admin" ||
     location === "/membership/add-membership" ||
     location === "/booking/add-booking" ||

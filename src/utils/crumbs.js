@@ -32,6 +32,16 @@ const DASHBOARD = {
   name: "Dashboard",
   link: "/dashboard",
 };
+const NEWSLETTER = {
+  id: 19,
+  name: "Newsletter",
+  link: "/newsletter",
+};
+const CONTENT = {
+  id: 20,
+  name: "Content",
+  link: "/content",
+};
 
 export const CRUMBS_DATA = {
   membership: MEMBERSHIP,
@@ -120,4 +130,6 @@ export const CRUMBS_DATA = {
     },
   ],
   dashboard: DASHBOARD,
+  newsletter: NEWSLETTER,
+  content: CONTENT,
 };

@@ -22,6 +22,7 @@ import Admin from "../pages/Admin";
 import AddAdmin from "../pages/AddAdmin";
 import DetailsAdmin from "../pages/DetailsAdmin";
 import Dashboard from "../pages/Dashboard";
+import NewsLetter from "../pages/NewsLetter";
 
 const GlobalRoutes = () => {
   return (
@@ -59,6 +60,10 @@ const GlobalRoutes = () => {
           <Route path="details-booking/:uid" element={<DetailsBooking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="newsletter" element={<MainLayout />}>
+          <Route index element={<NewsLetter />} />
+        </Route>
+        <Route path="content" element={<MainLayout />}></Route>
         <Route path="admin" element={<MainLayout />}>
           <Route index element={<Admin />} />
           <Route path="add-admin" element={<AddAdmin />} />
