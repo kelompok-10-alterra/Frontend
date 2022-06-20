@@ -6,7 +6,7 @@ import styles from "./style.module.css";
 const NewsLetterCard = ({ lists }) => {
   return (
     <div className={styles.container}>
-      <h5>List of Articles</h5>
+      <h5>List of Newsletter</h5>
       {lists?.length > 0 ? (
         <>
           {lists?.map((list) => {
