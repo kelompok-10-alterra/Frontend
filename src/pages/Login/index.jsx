@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 /** Styles */
@@ -9,6 +10,9 @@ import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const [inputs, setInputs] = useState([
     {
       label: "Username",
@@ -44,6 +48,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.data);
         // localStorage.setItem("token", result.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error);
