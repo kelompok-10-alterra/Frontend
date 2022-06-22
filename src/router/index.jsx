@@ -22,7 +22,7 @@ import Admin from "../pages/Admin";
 import AddAdmin from "../pages/AddAdmin";
 import DetailsAdmin from "../pages/DetailsAdmin";
 import Dashboard from "../pages/Dashboard";
-import Newsletter from "../pages/Newsletter";
+import Newsletter from "../pages/NewsLetter";
 
 const GlobalRoutes = () => {
   return (
@@ -69,6 +69,9 @@ const GlobalRoutes = () => {
           <Route path="add-admin" element={<AddAdmin />} />
           <Route path="details-admin/:uid" element={<DetailsAdmin />} />
           <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="newsletter" element={<MainLayout />}>
+          <Route index element={<Newsletter />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
