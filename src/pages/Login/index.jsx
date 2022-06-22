@@ -10,7 +10,6 @@ import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
-
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState([
@@ -33,17 +32,34 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // axios.post(
+    //   "/auth/login",
+    //   JSON.stringify({
+    //     username: inputs[0].value,
+    //     password: inputs[1].value,
+    //   }),
+    //   {
+    //     headers: { "Content-Type": "application/json" },
+    //     withCredentials: true,
+    //   }
+    // );
+
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
+      },
+      withCredentials: true,
+    };
     axios
       .post(
         "/auth/login",
-        JSON.stringify({
+        {
           username: inputs[0].value,
           password: inputs[1].value,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+        },
+        axiosConfig
       )
       .then((result) => {
         console.log(result.data);
@@ -53,7 +69,6 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
       });
-
     setInputs([...inputs], (inputs[0].value = ""), (inputs[1].value = ""));
   };
 
