@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 /** Styles */
@@ -10,9 +9,6 @@ import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
-
-  const navigate = useNavigate();
-
   const [inputs, setInputs] = useState([
     {
       label: "Username",
@@ -35,20 +31,19 @@ const Login = () => {
 
     axios
       .post(
-        "/auth/login",
+        "/auth/login?username=" + inputs[0].value + "&password=" + inputs[1].value,
         JSON.stringify({
           username: inputs[0].value,
           password: inputs[1].value,
         }),
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           withCredentials: true,
         }
       )
       .then((result) => {
         console.log(result.data);
-        // localStorage.setItem("token", result.data.token);
-        navigate("/dashboard");
+        // localStorage.setItem("token", result.data.token); 
       })
       .catch((error) => {
         console.log(error);

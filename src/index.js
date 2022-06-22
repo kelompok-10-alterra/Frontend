@@ -13,8 +13,8 @@ import "./index.css";
 /** Components */
 import App from "./App";
 
-axios.defaults.baseURL = "http://www.api.rafdev.my.id";
-axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
+axios.defaults.baseURL = "https://api.rafdev.my.id";
+axios.defaults.headers.common['Authorization'] = localStorage.getItem("token");
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -27,7 +27,7 @@ root.render(
   </BrowserRouter>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// If you want to start measuring performance in your app, pass a function 
+// to log results (for example: reportWebVitals(console.log)) 
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals 
 reportWebVitals();
