@@ -22,7 +22,7 @@ import Admin from "../pages/Admin";
 import AddAdmin from "../pages/AddAdmin";
 import DetailsAdmin from "../pages/DetailsAdmin";
 import Dashboard from "../pages/Dashboard";
-import Newsletter from "../pages/Newsletter";
+import Newsletter from "../pages/NewsLetter";
 import Content from "../pages/Content";
 
 const GlobalRoutes = () => {
