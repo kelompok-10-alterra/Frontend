@@ -18,7 +18,7 @@ const Form = ({ inputs, setInputs }) => {
       {
         inputs.map((input, inputIdx) => (
           <div className={styles.form_item} key={inputIdx}>
-            {input.label !== null ? <label>{input.label}</label> : <></>}
+            {input.label !== "" ? <label>{input.label}</label> : <></>}
             <div className={styles.input_wrapper}>
               {
                 input.type === "textarea" ?
@@ -27,7 +27,7 @@ const Form = ({ inputs, setInputs }) => {
                       value={input.value}
                       name={input.name}
                       placeholder={input.placeholder}
-                      rows="8"
+                      rows={input.content ? "2" : "8"}
                       className={styles.textarea}></textarea>
                   )
                   :
