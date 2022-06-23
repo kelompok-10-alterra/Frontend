@@ -29,7 +29,7 @@ const GlobalRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/login" />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<MainLayout />}>
