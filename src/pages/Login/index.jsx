@@ -32,25 +32,25 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      getLoginToken({
-        username: inputs[0].value,
-        password: inputs[1].value,
+
+    getLoginToken({
+      username: inputs[0].value,
+      password: inputs[1].value,
+    })
+      .then((result) => {
+        localStorage.setItem(
+          "SPORTLY_ACCESS",
+          JSON.stringify({
+            token: result.data.access_token,
+            user: jwtDecode(result.data.access_token),
+          })
+        );
+        navigate("/dashboard");
       })
-        .then((result) => {
-          localStorage.setItem(
-            "SPORTLY_ACCESS",
-            JSON.stringify({
-              token: result.data.access_token,
-              user: jwtDecode(result.data.access_token),
-            })
-          );
-          navigate("/dashboard");
-        })
-        .catch((error) => {
-          localStorage.setItem("SPORTLY_ACCESS", "");
-        })
-    );
+      .catch((error) => {
+        localStorage.setItem("SPORTLY_ACCESS", "");
+      });
+
     setInputs([...inputs], (inputs[0].value = ""), (inputs[1].value = ""));
   };
 

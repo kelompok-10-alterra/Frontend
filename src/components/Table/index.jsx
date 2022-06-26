@@ -18,7 +18,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         let dataList = {};
         if (name === "user" || name === "admin") {
           dataList = {
-            id: data.id,
+            id: data.userId,
             name: data.name,
             contact: data.phone,
             email: data.email,
@@ -99,11 +99,11 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
                 <td key={dataIdx}>
                   <CgDetailsMore
                     className={styles.detail_icon}
-                    onClick={() => handleDetail(data.id)}
+                    onClick={() => handleDetail(dataList.id)}
                   />
                   <MdDeleteForever
                     className={styles.delete_icon}
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(dataList.id)}
                   />
                 </td>
               </tr>

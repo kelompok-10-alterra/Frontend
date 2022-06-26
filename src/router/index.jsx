@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
+import SuperAdmin from "./SuperAdmin";
 
 /** Pages */
 import Login from "../pages/Login";
@@ -42,14 +43,16 @@ const GlobalRoutes = () => {
           <Route path="add-user" element={<AddUser />} />
         </Route>
 
-        <Route path="membership" element={<MainLayout />}>
-          <Route index element={<Membership />} />
-          <Route
-            path="details-membership/:uid"
-            element={<DetailsMembership />}
-          />
-          <Route path="add-membership" element={<AddMembership />} />
-          <Route path="*" element={<NotFound />} />
+        <Route element={<SuperAdmin />}>
+          <Route path="membership" element={<MainLayout />}>
+            <Route index element={<Membership />} />
+            <Route
+              path="details-membership/:uid"
+              element={<DetailsMembership />}
+            />
+            <Route path="add-membership" element={<AddMembership />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Route>
 
         <Route path="class" element={<MainLayout />}>

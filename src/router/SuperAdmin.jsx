@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
   return data ? (
     <>
       {
-        (data["user"].roles = "ROLES_ADMIN" ? (
+        (data["user"].roles = "ROLES_SUPER_ADMIN" ? (
           <div className="private-routes-container">
             <Navbar />
             <div className="private-routes-wrapper">
