@@ -94,10 +94,7 @@ const DetailsAdmin = () => {
     editUserData({
       id: params.uid,
       name: firstInput[0].value,
-      username: data.username,
-      imageURL: data.imageURL,
       phone: firstInput[1].value,
-      email: secondInput[0].value,
       address: secondInput[1].value,
     })
       .then((result) => {

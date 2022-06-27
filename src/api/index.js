@@ -55,14 +55,11 @@ export const deleteUserData = async (id) => {
   return axios.delete(`capstone/user/adminAccess/deleteUser/${id}`, auth());
 };
 export const editUserData = async (payload) => {
-  const { id, name, username, password, email, phone, address } = payload;
+  const { id, name, phone, address } = payload;
   return axios.put(
-    `capstone/user/userAccess/updateUser?userId=${id}`,
+    `capstone/user/userAccess/updateUser/${id}`,
     JSON.stringify({
       name,
-      username,
-      password,
-      email,
       phone,
       address,
       imageUrl: "string",
@@ -73,4 +70,13 @@ export const editUserData = async (payload) => {
 export const getAdminData = async () => {
   return axios.get("/capstone/user/adminAccess/findAllRoleAdmin", auth());
 };
-export const addRoleToAdmin = async () => {};
+export const addRoleToAdmin = async (username) => {
+  return axios.post(
+    "/capstone/user/managerOnly/addRoleToUser",
+    JSON.stringify({
+      username: username,
+      roleName: "ROLE_ADMIN",
+    }),
+    auth()
+  );
+};

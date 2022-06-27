@@ -13,18 +13,23 @@ import styles from "./style.module.css";
 
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
+import { useEffect } from "react";
+import { getUserData } from "../../api";
 
 const AddMembership = () => {
-
   const navigate = useNavigate();
   /**
    * user select options came from api
    * fetch from api then put it in user state
    */
+  const [userDatas, setUserDatas] = useState([]);
+
+  const [userSelectedOption, setUserSelectedOption] = useState([]);
 
   const [userOption, setUserOption] = useState(null);
 
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] =
+    useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -86,7 +91,18 @@ const AddMembership = () => {
       { value: 3, label: "Doralynn" },
     ],
   ];
-
+  useEffect(() => {
+    getUserData().then((response) => {
+      setUserDatas(response);
+    });
+  }, []);
+  // useEffect(() => {
+  //   setUserOption([]);
+  //   userDatas?.map((user) => {
+  //     let temp = { value: user.userId, label: `${user.userId} - ${user.name}` };
+  //     return setUserOption((oldData) => [...oldData, temp]);
+  //   });
+  // }, [userDatas]);
   const handleSave = (e) => {
     e.preventDefault();
     navigate("/membership");
@@ -103,9 +119,9 @@ const AddMembership = () => {
                 <label className="label">User</label>
                 <Select
                   className={styles.select_input}
-                  defaultValue={userOption}
-                  onChange={setUserOption}
-                  options={options[1]}
+                  defaultValue={userSelectedOption}
+                  onChange={setUserSelectedOption}
+                  options={userOption}
                   placeholder="User"
                 />
               </div>
