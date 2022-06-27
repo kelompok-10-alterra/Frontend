@@ -14,6 +14,7 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
+import { getUserDataById } from "../../api";
 
 const DetailsUser = () => {
   const params = useParams();
@@ -53,45 +54,41 @@ const DetailsUser = () => {
   ]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${params.uid}`
-      )
-      .then(function (response) {
-        setData(response.data);
-        setFirstInput([
-          {
-            label: "Name",
-            name: "name",
-            type: "text",
-            placeholder: "",
-            value: response.data.name,
-          },
-          {
-            label: "Contact",
-            name: "contact",
-            type: "text",
-            placeholder: "",
-            value: response.data.phone,
-          },
-        ]);
-        setSecondInput([
-          {
-            label: "Email",
-            name: "email",
-            type: "email",
-            placeholder: "",
-            value: response.data.email,
-          },
-          {
-            label: "Address",
-            name: "address",
-            type: "text",
-            placeholder: "",
-            value: response.data.address,
-          },
-        ]);
-      });
+    getUserDataById(params.uid).then((response) => {
+      setData(response.data);
+      setFirstInput([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: "",
+          value: response.data.name,
+        },
+        {
+          label: "Contact",
+          name: "contact",
+          type: "text",
+          placeholder: "",
+          value: response.data.phone,
+        },
+      ]);
+      setSecondInput([
+        {
+          label: "Email",
+          name: "email",
+          type: "email",
+          placeholder: "",
+          value: response.data.email,
+        },
+        {
+          label: "Address",
+          name: "address",
+          type: "text",
+          placeholder: "",
+          value: response.data.address,
+        },
+      ]);
+    });
   }, []);
   const handleSave = () => {
     navigate("/admin");
@@ -104,7 +101,7 @@ const DetailsUser = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title="ID Admin" text={data?.id} />
+              <Details title="ID Admin" text={data?.userId} />
               <Details title="Name" text={data?.name} />
             </div>
             <div className="col">

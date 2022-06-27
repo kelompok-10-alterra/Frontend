@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -55,12 +54,13 @@ const User = () => {
   }, [userSelectedOption]);
 
   const handleDelete = (id) => {
-    deleteUserData(id).then(navigate("/user"));
-    getUserData().then((response) => {
-      setShow(response.data);
-      setDatas(response.data);
-      window.location.reload(true);
-    });
+    deleteUserData(id).then(
+      getUserData().then((response) => {
+        setShow(response.data);
+        setDatas(response.data);
+        window.location.reload(true);
+      })
+    );
   };
 
   const handleDetail = (id) => {

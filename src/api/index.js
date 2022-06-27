@@ -51,8 +51,8 @@ export const addUserData = async (payload) => {
     auth()
   );
 };
-export const deleteUserData = async (userId) => {
-  return axios.delete(`capstone/user/adminAccess/deleteUser/${userId}`, auth());
+export const deleteUserData = async (id) => {
+  return axios.delete(`capstone/user/adminAccess/deleteUser/${id}`, auth());
 };
 export const editUserData = async (payload) => {
   const { id, name, username, password, email, phone, address } = payload;
@@ -70,3 +70,7 @@ export const editUserData = async (payload) => {
     auth()
   );
 };
+export const getAdminData = async () => {
+  return axios.get("/capstone/user/adminAccess/findAllRoleAdmin", auth());
+};
+export const addRoleToAdmin = async () => {};
