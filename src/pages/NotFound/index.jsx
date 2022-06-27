@@ -12,6 +12,7 @@ import not_found_illustration from "../../assets/img/not_found_illustration.gif"
 
 const NotFound = () => {
   const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

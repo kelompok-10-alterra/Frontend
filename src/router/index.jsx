@@ -36,7 +36,6 @@ const GlobalRoutes = () => {
         <Route path="/dashboard" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
         </Route>
-
         <Route path="user" element={<MainLayout />}>
           <Route index element={<User />} />
           <Route path="details-user/:uid" element={<DetailsUser />} />

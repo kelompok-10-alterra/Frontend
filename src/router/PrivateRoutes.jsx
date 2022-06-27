@@ -5,21 +5,32 @@ import Navbar from "../components/Navbar";
 import NotFound from "../pages/NotFound";
 
 const PrivateRoutes = () => {
-  const data = JSON.parse(localStorage.getItem("SPORTLY_ACCESS"));
+  let data = JSON.parse(localStorage.getItem("SPORTLY_ACCESS"));
+
+  const role = data?.user.roles[0];
   return data ? (
     <>
-      {
-        (data["user"].roles = "ROLES_ADMIN" ? (
-          <div className="private-routes-container">
-            <Navbar />
-            <div className="private-routes-wrapper">
-              <Outlet />
+      {role === "ROLE_SUPER_ADMIN" || role === "ROLE_ADMIN" ? (
+        <>
+          {role === "ROLE_SUPER_ADMIN" ? (
+            <div className="private-routes-container">
+              <Navbar withMember={true} />
+              <div className="private-routes-wrapper">
+                <Outlet />
+              </div>
             </div>
-          </div>
-        ) : (
-          <NotFound />
-        ))
-      }
+          ) : (
+            <div className="private-routes-container">
+              <Navbar />
+              <div className="private-routes-wrapper">
+                <Outlet />
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <NotFound />
+      )}
     </>
   ) : (
     <NotFound />
