@@ -29,7 +29,7 @@ const AddUser = () => {
       password: secondInput[2].value,
     })
       .then((result) => {
-        // navigate("/user");
+        navigate("/user");
       })
       .catch((err) => {
         console.log(err);

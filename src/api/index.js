@@ -26,16 +26,19 @@ export const getLoginToken = async (payload) => {
   );
 };
 export const getUserData = async () => {
-  return axios.get("/capstone/user", auth());
+  return axios.get("/capstone/user/userAccess/findAllRoleUser", auth());
 };
 export const getUserDataById = async (id) => {
-  return axios.get(`capstone/user/user?userId=${id}`, auth());
+  return axios.get(
+    `/capstone/user/userAccess/getUserById?userId=${id}`,
+    auth()
+  );
 };
 
 export const addUserData = async (payload) => {
   const { name, username, password, email, phone, address } = payload;
   return axios.post(
-    "capstone/user/admin",
+    "capstone/user/adminAccess/createUser",
     JSON.stringify({
       name,
       username,
@@ -49,12 +52,12 @@ export const addUserData = async (payload) => {
   );
 };
 export const deleteUserData = async (userId) => {
-  return axios.delete(`capstone/user?userID=${userId}`, auth());
+  return axios.delete(`capstone/user/adminAccess/deleteUser/${userId}`, auth());
 };
 export const editUserData = async (payload) => {
   const { id, name, username, password, email, phone, address } = payload;
   return axios.put(
-    `capstone/user/user/${id}`,
+    `capstone/user/userAccess/updateUser?userId=${id}`,
     JSON.stringify({
       name,
       username,

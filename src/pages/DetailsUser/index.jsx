@@ -115,7 +115,7 @@ const DetailsAdmin = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title="ID User" text={data?.id} />
+              <Details title="ID User" text={data?.userId} />
               <Details title="Name" text={data?.name} />
             </div>
             <div className="col">

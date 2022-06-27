@@ -40,7 +40,10 @@ const User = () => {
   }, [datas]);
 
   useEffect(() => {
-    if (userSelectedOption.value === 0) {
+    if (
+      userSelectedOption.value === 0 ||
+      userSelectedOption.value === undefined
+    ) {
       getUserData().then((response) => {
         setShow(response.data);
       });
@@ -53,6 +56,11 @@ const User = () => {
 
   const handleDelete = (id) => {
     deleteUserData(id).then(navigate("/user"));
+    getUserData().then((response) => {
+      setShow(response.data);
+      setDatas(response.data);
+      window.location.reload(true);
+    });
   };
 
   const handleDetail = (id) => {
