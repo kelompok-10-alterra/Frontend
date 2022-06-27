@@ -17,9 +17,9 @@ import { addRoleToAdmin, addUserData } from "../../api";
 const AddAdmin = () => {
   const navigate = useNavigate();
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    addUserData({
+    await addUserData({
       name: firstInput[0].value,
       username: firstInput[1].value,
       email: firstInput[2].value,
@@ -27,7 +27,9 @@ const AddAdmin = () => {
       address: secondInput[1].value,
       password: secondInput[2].value,
     })
-      .then(addRoleToAdmin(firstInput[1].value.toString()))
+      .then(async () =>
+        addRoleToAdmin(firstInput[1].value.toString()).then(navigate("/admin"))
+      )
       .catch((err) => {
         console.log(err);
       });

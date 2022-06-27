@@ -81,7 +81,6 @@ const GlobalRoutes = () => {
           <Route index element={<Content />} />
         </Route>
       </Route>
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

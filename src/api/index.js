@@ -71,7 +71,7 @@ export const getAdminData = async () => {
   return axios.get("/capstone/user/adminAccess/findAllRoleAdmin", auth());
 };
 export const addRoleToAdmin = async (username) => {
-  return axios.post(
+  const respond = await axios.post(
     "/capstone/user/managerOnly/addRoleToUser",
     JSON.stringify({
       username: username,
@@ -79,4 +79,5 @@ export const addRoleToAdmin = async (username) => {
     }),
     auth()
   );
+  return respond;
 };

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -37,7 +36,6 @@ const Admin = () => {
 
   useEffect(() => {
     setAdminOption([]);
-
     datas?.map((admin) => {
       let temp = {
         value: admin.userId,
