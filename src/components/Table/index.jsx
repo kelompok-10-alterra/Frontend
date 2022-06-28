@@ -18,7 +18,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         let dataList = {};
         if (name === "user" || name === "admin") {
           dataList = {
-            id: data.id,
+            id: data.userId,
             name: data.name,
             contact: data.phone,
             email: data.email,
@@ -41,15 +41,46 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             address: data.address,
           };
         }
-        if (name === "member") {
+        if (name === "dashboard") {
           dataList = {
             class: `${data.class} - ${data.type}`,
             member: data.member,
           };
         }
+        if (name === "member") {
+          dataList = {
+            id: data.membershipId,
+            name: data.user.name,
+            contact: data.user.phone,
+            membership: `${data.user.name} months`,
+            expired: "not found",
+            status: data.status,
+          };
+          //data.member.length.substring(0, 1) > 1
+          if (true) {
+            dataList = {
+              id: data.membershipId,
+              name: data.user.name,
+              contact: data.user.phone,
+              membership: "renaming field..",
+              // membership: `${data.member.length.substring(0, 1)} months`,
+              expired: "entity not found ..",
+              status: data.status,
+            };
+          } else {
+            dataList = {
+              id: data.membershipId,
+              name: data.user.name,
+              contact: data.user.phone,
+              // membership: `${data.member.length.substring(0, 1)} month`,
+              expired: "not found",
+              status: data.status,
+            };
+          }
+        }
         return (
           <>
-            {name === "class" || name === "trainer" || name === "member" ? (
+            {name === "class" || name === "trainer" || name === "dashbno" ? (
               <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (
@@ -99,11 +130,11 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
                 <td key={dataIdx}>
                   <CgDetailsMore
                     className={styles.detail_icon}
-                    onClick={() => handleDetail(data.id)}
+                    onClick={() => handleDetail(dataList.id)}
                   />
                   <MdDeleteForever
                     className={styles.delete_icon}
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(dataList.id)}
                   />
                 </td>
               </tr>

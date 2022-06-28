@@ -12,6 +12,7 @@ import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
 import { Line } from "react-chartjs-2";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(32);
@@ -102,6 +103,7 @@ const Dashboard = () => {
       member: 40,
     },
   ]);
+
   return (
     <>
       <PageTitle icon={navItems[0].logo} title="Dashboard" />
@@ -142,7 +144,7 @@ const Dashboard = () => {
               <Table
                 headers={["Class", "Member"]}
                 datas={memberData}
-                name="member"
+                name="dashboard"
               />
             </div>
           </div>

@@ -13,3 +13,14 @@
 .btn:hover {
   cursor: pointer;
 }
+.secondary {
+  min-width: 100px;
+  height: 42px;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 0.6rem;
+  border-radius: 12px;
+  background-color: white;
+  font-weight: 500;
+  font-size: 14px;
+}

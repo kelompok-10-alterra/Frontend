@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -13,6 +12,12 @@ import { MdVpnKey } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import {
+  deleteUserData,
+  getAdminData,
+  getUserData,
+  getUserDataById,
+} from "../../api";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -23,43 +28,46 @@ const Admin = () => {
   const [show, setShow] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user")
-      .then((response) => {
-        setDatas(response.data);
-        setShow(response.data);
-      });
+    getAdminData().then((response) => {
+      setDatas(response.data);
+      setShow(response.data);
+    });
   }, []);
 
   useEffect(() => {
     setAdminOption([]);
-
     datas?.map((admin) => {
-      let temp = { value: admin.id, label: `${admin.id} - ${admin.name}` };
+      let temp = {
+        value: admin.userId,
+        label: `${admin.userId} - ${admin.name}`,
+      };
       return setAdminOption((oldData) => [...oldData, temp]);
     });
   }, [datas]);
 
   useEffect(() => {
-    if (adminSelectedOption.value === 0) {
-      axios
-        .get("https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user")
-        .then((response) => {
-          setShow(response.data);
-        });
+    if (
+      adminSelectedOption.value === 0 ||
+      adminSelectedOption.value === undefined
+    ) {
+      getAdminData().then((response) => {
+        setShow(response.data);
+      });
     } else {
-      axios
-        .get(
-          `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${adminSelectedOption.value}`
-        )
-        .then((response) => {
-          setShow([response.data]);
-        });
+      getUserDataById(adminSelectedOption.value).then((response) => {
+        setShow([response.data]);
+      });
     }
   }, [adminSelectedOption]);
 
   const handleDelete = (id) => {
-    // Delete
+    deleteUserData(id).then(
+      getUserData().then((response) => {
+        setShow(response.data);
+        setDatas(response.data);
+        window.location.reload(true);
+      })
+    );
   };
 
   const handleDetail = (id) => {
@@ -95,7 +103,7 @@ const Admin = () => {
               headers={["ID", "Name", "Contact", "Email", "Address"]}
               datas={show}
               handleDetail={handleDetail}
-              handleDelete={() => {}}
+              handleDelete={handleDelete}
             />
           ) : (
             <Table
@@ -103,7 +111,7 @@ const Admin = () => {
               headers={["ID", "Name", "Contact", "Email", "Address"]}
               datas={datas}
               handleDetail={handleDetail}
-              handleDelete={() => {}}
+              handleDelete={handleDelete}
             />
           )}
         </section>

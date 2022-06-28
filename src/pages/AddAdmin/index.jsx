@@ -11,14 +11,28 @@ import { MdVpnKey } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
-import Details from "../../components/Details";
 import Form from "../../components/Form";
+import { addRoleToAdmin, addUserData } from "../../api";
 
 const AddAdmin = () => {
   const navigate = useNavigate();
 
-  const handleSave = () => {
-    navigate("/admin");
+  const handleSave = async (e) => {
+    e.preventDefault();
+    await addUserData({
+      name: firstInput[0].value,
+      username: firstInput[1].value,
+      email: firstInput[2].value,
+      phone: secondInput[0].value,
+      address: secondInput[1].value,
+      password: secondInput[2].value,
+    })
+      .then(async () =>
+        addRoleToAdmin(firstInput[1].value.toString()).then(navigate("/admin"))
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const [firstInput, setFirstInput] = useState([

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -7,8 +9,10 @@ import styles from "./style.module.css";
 /** Components */
 import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
+import { getLoginToken } from "../../api";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState([
     {
       label: "Username",
@@ -29,24 +33,22 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post(
-        "/auth/login?username=" + inputs[0].value + "&password=" + inputs[1].value,
-        JSON.stringify({
-          username: inputs[0].value,
-          password: inputs[1].value,
-        }),
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          withCredentials: true,
-        }
-      )
+    getLoginToken({
+      username: inputs[0].value,
+      password: inputs[1].value,
+    })
       .then((result) => {
-        console.log(result.data);
-        // localStorage.setItem("token", result.data.token); 
+        localStorage.setItem(
+          "SPORTLY_ACCESS",
+          JSON.stringify({
+            token: result.data.access_token,
+            user: jwtDecode(result.data.access_token),
+          })
+        );
+        navigate("/dashboard");
       })
       .catch((error) => {
-        console.log(error);
+        localStorage.setItem("SPORTLY_ACCESS", "");
       });
 
     setInputs([...inputs], (inputs[0].value = ""), (inputs[1].value = ""));

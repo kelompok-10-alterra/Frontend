@@ -12,11 +12,25 @@ import { MdVerifiedUser } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import {
+  deleteMembership,
+  getMember,
+  getMembershipData,
+  getUserData,
+} from "../../api";
 
 const Membership = () => {
   const navigate = useNavigate();
 
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const [datas, setDatas] = useState([]);
+
+  const [userOptions, setUserOptions] = useState();
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
+
+  const [membershipOptions, setMembershipOptions] = useState([]);
+  const [membershipSelectedOption, setMembershipSelectedOption] =
+    useState(null);
 
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
@@ -35,14 +49,51 @@ const Membership = () => {
   ];
 
   const handleDelete = (id) => {
-    // Delete
+    deleteMembership(id).then(
+      getMember().then((response) => {
+        setDatas(response.data);
+        window.location.reload(true);
+      })
+    );
   };
 
   const handleDetail = (id) => {
     // Detail
-
-    navigate("details-membership");
+    navigate(`details-membership/${id}`);
   };
+  useEffect(() => {
+    getMember().then((response) => {
+      setDatas(response.data);
+    });
+
+    getMembershipData().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        if (data.memberId > 1) {
+          return temp.push({
+            value: data.memberId,
+            label: `${data.memberId} Months`,
+          });
+        } else {
+          return temp.push({
+            value: data.memberId,
+            label: `${data.memberId} Month`,
+          });
+        }
+      });
+      setMembershipOptions(temp);
+    });
+    getUserData().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({
+          value: data.userId,
+          label: `${data.userId} - ${data.name}`,
+        });
+      });
+      setUserOptions(temp);
+    });
+  }, []);
 
   return (
     <div className={styles.content_wrapper}>
@@ -52,9 +103,9 @@ const Membership = () => {
           <div className={styles.filter_wrapper}>
             <Select
               className={styles.select_input}
-              defaultValue={membershipSelectedOption}
-              onChange={setMembershipSelectedOption}
-              options={options[0]}
+              defaultValue={userSelectedOption}
+              onChange={setUserSelectedOption}
+              options={userOptions}
               placeholder="User"
             />
             <Select
@@ -80,19 +131,37 @@ const Membership = () => {
           />
         </section>
         <section>
-          <Table
-            headers={[
-              "ID",
-              "Name",
-              "Contact",
-              "Membership",
-              "Expired",
-              "Status",
-            ]}
-            datas={[]}
-            handleDetail={() => handleDetail()}
-            handleDelete={() => { }}
-          />
+          {datas ? (
+            <Table
+              headers={[
+                "ID",
+                "Name",
+                "Contact",
+                "Membership",
+                "Expired",
+                "Status",
+              ]}
+              name="member"
+              datas={datas}
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          ) : (
+            <Table
+              headers={[
+                "ID",
+                "Name",
+                "Contact",
+                "Membership",
+                "Expired",
+                "Status",
+              ]}
+              name="member"
+              datas={[]}
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
     </div>

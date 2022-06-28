@@ -44,3 +44,6 @@
 div.css-14el2xx-placeholder {
   color: var(--dark60);
 }
+.red {
+  color: var(--error-default);
+}

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -14,6 +13,7 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
+import { editUserData, getUserDataById } from "../../api";
 
 const DetailsAdmin = () => {
   const params = useParams();
@@ -53,48 +53,56 @@ const DetailsAdmin = () => {
   ]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://62a1942bcc8c0118ef4e77a7.mockapi.io/capstone-10/api/user/${params.uid}`
-      )
-      .then(function (response) {
-        setData(response.data);
-        setFirstInput([
-          {
-            label: "Name",
-            name: "name",
-            type: "text",
-            placeholder: "",
-            value: response.data.name,
-          },
-          {
-            label: "Contact",
-            name: "contact",
-            type: "text",
-            placeholder: "",
-            value: response.data.phone,
-          },
-        ]);
-        setSecondInput([
-          {
-            label: "Email",
-            name: "email",
-            type: "email",
-            placeholder: "",
-            value: response.data.email,
-          },
-          {
-            label: "Address",
-            name: "address",
-            type: "text",
-            placeholder: "",
-            value: response.data.address,
-          },
-        ]);
-      });
+    getUserDataById(params.uid).then(function (response) {
+      setData(response.data);
+      setFirstInput([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: "",
+          value: response.data.name,
+        },
+        {
+          label: "Contact",
+          name: "contact",
+          type: "text",
+          placeholder: "",
+          value: response.data.phone,
+        },
+      ]);
+      setSecondInput([
+        {
+          label: "Email",
+          name: "email",
+          type: "email",
+          placeholder: "",
+          value: response.data.email,
+        },
+        {
+          label: "Address",
+          name: "address",
+          type: "text",
+          placeholder: "",
+          value: response.data.address,
+        },
+      ]);
+    });
   }, []);
-  const handleSave = () => {
-    navigate("/admin");
+  const handleSave = (e) => {
+    e.preventDefault();
+    editUserData({
+      id: params.uid,
+      name: firstInput[0].value,
+      phone: firstInput[1].value,
+      address: secondInput[1].value,
+    })
+      .then((result) => {
+        navigate("/user");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -104,7 +112,7 @@ const DetailsAdmin = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title="ID User" text={data?.id} />
+              <Details title="ID User" text={data?.userId} />
               <Details title="Name" text={data?.name} />
             </div>
             <div className="col">

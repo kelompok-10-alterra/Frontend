@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
+import SuperAdmin from "./SuperAdmin";
 
 /** Pages */
 import Login from "../pages/Login";
@@ -29,19 +30,17 @@ const GlobalRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/login" />} />
 
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
         </Route>
-
         <Route path="user" element={<MainLayout />}>
           <Route index element={<User />} />
           <Route path="details-user/:uid" element={<DetailsUser />} />
           <Route path="add-user" element={<AddUser />} />
         </Route>
-
         <Route path="membership" element={<MainLayout />}>
           <Route index element={<Membership />} />
           <Route
@@ -65,12 +64,13 @@ const GlobalRoutes = () => {
           <Route path="details-booking/:uid" element={<DetailsBooking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-
-        <Route path="admin" element={<MainLayout />}>
-          <Route index element={<Admin />} />
-          <Route path="add-admin" element={<AddAdmin />} />
-          <Route path="details-admin/:uid" element={<DetailsAdmin />} />
-          <Route path="*" element={<NotFound />} />
+        <Route element={<SuperAdmin />}>
+          <Route path="admin" element={<MainLayout />}>
+            <Route index element={<Admin />} />
+            <Route path="add-admin" element={<AddAdmin />} />
+            <Route path="details-admin/:uid" element={<DetailsAdmin />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Route>
 
         <Route path="newsletter" element={<MainLayout />}>
@@ -81,7 +81,6 @@ const GlobalRoutes = () => {
           <Route index element={<Content />} />
         </Route>
       </Route>
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
