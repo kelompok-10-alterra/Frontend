@@ -56,25 +56,27 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             expired: "not found",
             status: data.status,
           };
-          // if (data.member.length.substring(0, 1) > 1) {
-          //   dataList = {
-          //     id: data.membershipId,
-          //     name: data.user.name,
-          //     contact: data.user.phone,
-          //     // membership: `${data.member.length.substring(0, 1)} months`,
-          //     expired: "not found",
-          //     status: data.status,
-          //   };
-          // } else {
-          //   dataList = {
-          //     id: data.membershipId,
-          //     name: data.user.name,
-          //     contact: data.user.phone,
-          //     membership: `${data.member.length.substring(0, 1)} month`,
-          //     expired: "not found",
-          //     status: data.status,
-          //   };
-          // }
+          //data.member.length.substring(0, 1) > 1
+          if (true) {
+            dataList = {
+              id: data.membershipId,
+              name: data.user.name,
+              contact: data.user.phone,
+              membership: "renaming field..",
+              // membership: `${data.member.length.substring(0, 1)} months`,
+              expired: "entity not found ..",
+              status: data.status,
+            };
+          } else {
+            dataList = {
+              id: data.membershipId,
+              name: data.user.name,
+              contact: data.user.phone,
+              // membership: `${data.member.length.substring(0, 1)} month`,
+              expired: "not found",
+              status: data.status,
+            };
+          }
         }
         return (
           <>

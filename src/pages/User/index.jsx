@@ -30,7 +30,7 @@ const User = () => {
   }, []);
 
   useEffect(() => {
-    setUserOption([]);
+    setUserOption([{ value: 0, label: "All" }]);
 
     datas?.map((user) => {
       let temp = { value: user.userId, label: `${user.userId} - ${user.name}` };

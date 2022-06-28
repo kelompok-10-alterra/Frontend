@@ -107,3 +107,20 @@ export const getMemberById = async (id) => {
     auth()
   );
 };
+export const editMembership = async ({ membershipId, userId, memberId }) => {
+  return await axios.put(
+    `/capstone/membership/adminAccess/updateMembership?membershipId=${membershipId}`,
+    JSON.stringify({
+      status: true,
+      userId,
+      memberId,
+    }),
+    auth()
+  );
+};
+export const deleteMembership = async (id) => {
+  return await axios.delete(
+    `/capstone/membership/adminAccess/deleteMembership/${id}`,
+    auth()
+  );
+};

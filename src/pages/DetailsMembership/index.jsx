@@ -15,23 +15,30 @@ import Button from "../../components/Button";
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
 import { useEffect } from "react";
-import { getMemberById } from "../../api";
+import { editMembership, getMemberById } from "../../api";
 
 const DetailsMembership = () => {
   const navigate = useNavigate();
   const params = useParams();
-  // const data = {
-  //   id: 1,
-  //   nama: "Genta Fatuh",
-  //   email: "Gentafatuh@gmail.com",
-  //   contact: "081315484421",
-  //   address: "Jakarta",
-  //   class: ["Zumba A - Online", "Cardio A - Online"],
-  //   status: "Active",
-  //   membership: 3,
-  //   expired: 1,
-  // };
-  const [data, setData] = useState([]);
+
+  const [data, setData] = useState({
+    membershipId: "",
+    status: "",
+    user: {
+      address: "",
+      email: "",
+      membership: "",
+      name: "",
+      phone: "",
+    },
+    class: ["Zumba A - Online", "Cardio A - Online"],
+    member: {
+      // length: "1 bulan",
+      memberId: "",
+      price: "",
+    },
+  });
+
   const [membershipSelectedOption, setMembershipSelectedOption] = useState(
     // data.member.length
     null
@@ -61,15 +68,31 @@ const DetailsMembership = () => {
     ],
   ];
   useEffect(() => {
-    getMemberById(params.uid).then((response) => setData(response.data));
-  }, []);
+    getMemberById(params.uid).then((response) => {
+      setData(response.data);
+      setInputs([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: response.data?.user.name,
+          value: response.data?.user.name,
+          disabled: true,
+        },
+      ]);
+    });
+  }, [params.uid]);
   useEffect(() => {
-    console.log(data.member.length);
+    console.log(data);
   }, [data]);
 
-  const handleSave = () => {
-    //save to database
-    navigate("/membership");
+  const handleSave = (e) => {
+    e.preventDefault();
+    editMembership({
+      membershipId: data?.membershipId,
+      userId: data?.user.userId,
+      memberId: membershipSelectedOption,
+    }).then(navigate("/membership"));
   };
 
   return (
@@ -79,39 +102,46 @@ const DetailsMembership = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title={"Membership Id"} text={data.membershipId} />
-              <Details title={"Nama"} text={data.user.name} />
-              <Details title={"Email"} text={data.user.email} />
+              <Details title={"Membership Id"} text={data?.membershipId} />
+              <Details title={"Nama"} text={data?.user.name} />
+              <Details title={"Email"} text={data?.user.email} />
             </div>
             <div className="col">
-              <Details title={"Contact"} text={data.user.phone} />
-              <Details title={"Address"} text={data.user.address} />
-              <Details
-                title={"Class"}
-                text={data.class?.map((item, index) => {
-                  return <li key={index}>{item}</li>;
-                })}
-              />
+              <Details title={"Contact"} text={data?.user.phone} />
+              <Details title={"Address"} text={data?.user.address} />
+              {data.class ? (
+                <Details
+                  title={"Class"}
+                  text={data?.class.map((item, index) => {
+                    return <li key={index}>{item}</li>;
+                  })}
+                />
+              ) : (
+                <Details
+                  title={"Class"}
+                  text={"Not having any class registered yet"}
+                />
+              )}
             </div>
             <div className="col">
-              {data.status === true ? (
+              {data?.status === true ? (
                 <Details title={"Status"} text={"Active"} />
               ) : (
                 <Details title={"Status"} red={true} text={"Not - Active"} />
               )}
 
-              {data.member.length.substring(0, 1) > 1 ? (
+              {/* {data?.member.length.substring(0, 1) > 1 ? (
                 <Details
                   title={"Membership"}
-                  text={`${data.member.length.substring(0, 1)} Months`}
+                  text={`${data?.member.length.substring(0, 1)} Months`}
                 />
               ) : (
                 <Details
                   title={"Membership"}
-                  text={`${data.member.length.substring(0, 1)} Month`}
+                  text={`${data?.member.length.substring(0, 1)} Month`}
                 />
-              )}
-              {data.expired > 1 ? (
+              )} */}
+              {data?.expired > 1 ? (
                 <Details title={"Expired"} text={`${data.expired} Months`} />
               ) : (
                 <Details title={"Expired"} text={`${data.expired} Month`} />
