@@ -29,7 +29,8 @@ const Membership = () => {
   const [userOptions, setUserOptions] = useState();
   const [userSelectedOption, setUserSelectedOption] = useState(null);
   const [membershipOptions, setMembershipOptions] = useState([]);
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] =
+    useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const options = [
@@ -48,30 +49,25 @@ const Membership = () => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#0583d2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteMembership(id)
-          .then(
-            getMember().then((response) => {
-              setDatas(response.data);
-              window.location.reload(true);
-            })
-          );
+        deleteMembership(id).then(
+          getMember().then((response) => {
+            setDatas(response.data);
+            window.location.reload(true);
+          })
+        );
 
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
-    })
+    });
   };
 
   const handleDetail = (id) => {
@@ -80,10 +76,10 @@ const Membership = () => {
   };
 
   useEffect(() => {
-    getMember()
-      .then((response) => {
-        setDatas(response.data);
-      });
+    getMember().then((response) => {
+      setDatas(response.data);
+      console.log(response.data);
+    });
 
     getMembershipData().then((response) => {
       let temp = [];
@@ -94,8 +90,7 @@ const Membership = () => {
             value: data.memberId,
             label: `${data.memberId} Months`,
           });
-        }
-        else {
+        } else {
           return temp.push({
             value: data.memberId,
             label: `${data.memberId} Month`,
@@ -113,7 +108,6 @@ const Membership = () => {
           label: `${data.userId} - ${data.name}`,
         });
       });
-
       setUserOptions(temp);
     });
   }, []);

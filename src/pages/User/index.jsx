@@ -26,11 +26,10 @@ const User = () => {
   const [show, setShow] = useState(null);
 
   useEffect(() => {
-    getUserData()
-      .then((response) => {
-        setDatas(response.data);
-        setShow(response.data);
-      });
+    getUserData().then((response) => {
+      setDatas(response.data);
+      setShow(response.data);
+    });
   }, []);
 
   useEffect(() => {
@@ -59,32 +58,22 @@ const User = () => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#0583d2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteUserData(id)
-          .then(
-            getUserData()
-              .then((response) => {
-                setShow(response.data);
-                setDatas(response.data);
-                window.location.reload(true);
-              })
-          );
+        deleteUserData(id).then(
+          getUserData().then(window.location.reload(true))
+        );
 
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
-    })
+    });
   };
 
   const handleDetail = (id) => {

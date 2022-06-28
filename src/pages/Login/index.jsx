@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Swal from "sweetalert2";
@@ -13,8 +13,14 @@ import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
-
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   const [inputs, setInputs] = useState([
     {
@@ -52,14 +58,14 @@ const Login = () => {
 
         Swal.fire({
           title: "Login Success!",
-          icon: "success"
+          icon: "success",
         });
       })
       .catch((error) => {
         Swal.fire({
           title: "Login Error!",
           text: "An error occurred when login",
-          icon: "error"
+          icon: "error",
         });
       });
 

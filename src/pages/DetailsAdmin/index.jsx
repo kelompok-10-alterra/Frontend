@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { getUserDataById } from "../../api";
+import { editUserData, getUserDataById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -58,49 +58,61 @@ const DetailsUser = () => {
   ]);
 
   useEffect(() => {
-    getUserDataById(params.uid)
-      .then((response) => {
-        setData(response.data);
+    getUserDataById(params.uid).then((response) => {
+      setData(response.data);
 
-        setFirstInput([
-          {
-            label: "Name",
-            name: "name",
-            type: "text",
-            placeholder: "",
-            value: response.data.name,
-          },
-          {
-            label: "Contact",
-            name: "contact",
-            type: "text",
-            placeholder: "",
-            value: response.data.phone,
-          },
-        ]);
+      setFirstInput([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: "",
+          value: response.data.name,
+        },
+        {
+          label: "Contact",
+          name: "contact",
+          type: "text",
+          placeholder: "",
+          value: response.data.phone,
+        },
+      ]);
 
-        setSecondInput([
-          {
-            label: "Email",
-            name: "email",
-            type: "email",
-            placeholder: "",
-            value: response.data.email,
-            disabled: true
-          },
-          {
-            label: "Address",
-            name: "address",
-            type: "text",
-            placeholder: "",
-            value: response.data.address,
-          },
-        ]);
-      });
+      setSecondInput([
+        {
+          label: "Email",
+          name: "email",
+          type: "email",
+          placeholder: "",
+          value: response.data.email,
+          disabled: true,
+        },
+        {
+          label: "Address",
+          name: "address",
+          type: "text",
+          placeholder: "",
+          value: response.data.address,
+        },
+      ]);
+    });
   }, []);
 
-  const handleSave = () => {
-    navigate("/admin");
+  const handleSave = (e) => {
+    e.preventDefault();
+
+    editUserData({
+      id: params.uid,
+      name: firstInput[0].value,
+      phone: firstInput[1].value,
+      address: secondInput[1].value,
+    })
+      .then((result) => {
+        navigate("/admin");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

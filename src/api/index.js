@@ -7,7 +7,9 @@ const CONFIG = {
 const auth = () => {
   const headers = {
     headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token}`,
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
       "Content-Type": "application/json",
     },
   };
@@ -108,10 +110,7 @@ export const addMembership = async ({ userId, memberId }) => {
 };
 
 export const getMember = async () => {
-  return await axios.get(
-    "/capstone/membership/adminAccess/getAllMembership",
-    auth()
-  );
+  return axios.get("/capstone/membership/adminAccess/getAllMembership", auth());
 };
 
 export const getMemberById = async (id) => {
