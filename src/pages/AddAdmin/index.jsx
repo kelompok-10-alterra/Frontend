@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addRoleToAdmin, addUserData } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -12,13 +13,13 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
-import { addRoleToAdmin, addUserData } from "../../api";
 
 const AddAdmin = () => {
   const navigate = useNavigate();
 
   const handleSave = async (e) => {
     e.preventDefault();
+
     await addUserData({
       name: firstInput[0].value,
       username: firstInput[1].value,
@@ -58,6 +59,7 @@ const AddAdmin = () => {
       value: "",
     },
   ]);
+
   const [secondInput, setSecondInput] = useState([
     {
       label: "Contact",

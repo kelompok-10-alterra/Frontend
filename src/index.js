@@ -14,9 +14,6 @@ import "./index.css";
 import App from "./App";
 
 axios.defaults.baseURL = "https://api.rafdev.my.id";
-axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

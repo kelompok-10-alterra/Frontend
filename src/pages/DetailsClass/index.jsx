@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -189,6 +189,7 @@ const DetailsClass = () => {
       created_at: "12/05/2021",
     },
   ];
+
   const handleSave = () => {
     //save to database
     navigate("/class");

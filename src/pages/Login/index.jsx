@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import Swal from "sweetalert2";
+
+import { getLoginToken } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -9,10 +11,11 @@ import styles from "./style.module.css";
 /** Components */
 import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
-import { getLoginToken } from "../../api";
 
 const Login = () => {
+
   const navigate = useNavigate();
+
   const [inputs, setInputs] = useState([
     {
       label: "Username",
@@ -39,16 +42,25 @@ const Login = () => {
     })
       .then((result) => {
         localStorage.setItem(
-          "SPORTLY_ACCESS",
+          "token",
           JSON.stringify({
             token: result.data.access_token,
             user: jwtDecode(result.data.access_token),
           })
         );
         navigate("/dashboard");
+
+        Swal.fire({
+          title: "Login Success!",
+          icon: "success"
+        });
       })
       .catch((error) => {
-        localStorage.setItem("SPORTLY_ACCESS", "");
+        Swal.fire({
+          title: "Login Error!",
+          text: "An error occurred when login",
+          icon: "error"
+        });
       });
 
     setInputs([...inputs], (inputs[0].value = ""), (inputs[1].value = ""));

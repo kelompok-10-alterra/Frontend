@@ -1,6 +1,14 @@
-import { useState } from "react";
-import Select from "react-select";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import Swal from "sweetalert2";
+
+import {
+  deleteMembership,
+  getMember,
+  getMembershipData,
+  getUserData,
+} from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -12,13 +20,6 @@ import { MdVerifiedUser } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
-import { useEffect } from "react";
-import {
-  deleteMembership,
-  getMember,
-  getMembershipData,
-  getUserData,
-} from "../../api";
 
 const Membership = () => {
   const navigate = useNavigate();
@@ -27,11 +28,8 @@ const Membership = () => {
 
   const [userOptions, setUserOptions] = useState();
   const [userSelectedOption, setUserSelectedOption] = useState(null);
-
   const [membershipOptions, setMembershipOptions] = useState([]);
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
-
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const options = [
@@ -49,32 +47,55 @@ const Membership = () => {
   ];
 
   const handleDelete = (id) => {
-    deleteMembership(id).then(
-      getMember().then((response) => {
-        setDatas(response.data);
-        window.location.reload(true);
-      })
-    );
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0583d2',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMembership(id)
+          .then(
+            getMember().then((response) => {
+              setDatas(response.data);
+              window.location.reload(true);
+            })
+          );
+
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   };
 
   const handleDetail = (id) => {
     // Detail
     navigate(`details-membership/${id}`);
   };
+
   useEffect(() => {
-    getMember().then((response) => {
-      setDatas(response.data);
-    });
+    getMember()
+      .then((response) => {
+        setDatas(response.data);
+      });
 
     getMembershipData().then((response) => {
       let temp = [];
+
       response.data.map((data) => {
         if (data.memberId > 1) {
           return temp.push({
             value: data.memberId,
             label: `${data.memberId} Months`,
           });
-        } else {
+        }
+        else {
           return temp.push({
             value: data.memberId,
             label: `${data.memberId} Month`,
@@ -83,6 +104,7 @@ const Membership = () => {
       });
       setMembershipOptions(temp);
     });
+
     getUserData().then((response) => {
       let temp = [];
       response.data.map((data) => {
@@ -91,6 +113,7 @@ const Membership = () => {
           label: `${data.userId} - ${data.name}`,
         });
       });
+
       setUserOptions(temp);
     });
   }, []);

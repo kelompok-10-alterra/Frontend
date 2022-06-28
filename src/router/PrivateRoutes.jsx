@@ -5,9 +5,10 @@ import Navbar from "../components/Navbar";
 import NotFound from "../pages/NotFound";
 
 const PrivateRoutes = () => {
-  let data = JSON.parse(localStorage.getItem("SPORTLY_ACCESS"));
+  const data = JSON.parse(localStorage.getItem("token"));
 
   const role = data?.user.roles[0];
+
   return data ? (
     <>
       {role === "ROLE_SUPER_ADMIN" || role === "ROLE_ADMIN" ? (

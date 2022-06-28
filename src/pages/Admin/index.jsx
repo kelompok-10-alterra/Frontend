@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import Swal from "sweetalert2";
+
+import {
+  deleteUserData,
+  getAdminData,
+  getUserData,
+  getUserDataById,
+} from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -12,12 +20,6 @@ import { MdVpnKey } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
-import {
-  deleteUserData,
-  getAdminData,
-  getUserData,
-  getUserDataById,
-} from "../../api";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -28,10 +30,11 @@ const Admin = () => {
   const [show, setShow] = useState(null);
 
   useEffect(() => {
-    getAdminData().then((response) => {
-      setDatas(response.data);
-      setShow(response.data);
-    });
+    getAdminData()
+      .then((response) => {
+        setDatas(response.data);
+        setShow(response.data);
+      });
   }, []);
 
   useEffect(() => {
@@ -61,13 +64,31 @@ const Admin = () => {
   }, [adminSelectedOption]);
 
   const handleDelete = (id) => {
-    deleteUserData(id).then(
-      getUserData().then((response) => {
-        setShow(response.data);
-        setDatas(response.data);
-        window.location.reload(true);
-      })
-    );
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0583d2',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserData(id).then(
+          getUserData().then((response) => {
+            setShow(response.data);
+            setDatas(response.data);
+            window.location.reload(true);
+          })
+        );
+
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   };
 
   const handleDetail = (id) => {

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Line } from "react-chartjs-2";
+
 /** Icon */
 import { navItems } from "../../utils/navItems";
 
@@ -11,13 +13,12 @@ import PageTitle from "../../components/PageTitle";
 import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
-import { Line } from "react-chartjs-2";
-import { useEffect } from "react";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(32);
   const [sumUser, setSumUser] = useState(52);
   const [sumBooking, setSumBooking] = useState(24);
+
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -35,6 +36,7 @@ const Dashboard = () => {
       },
     ],
   };
+
   const [datas, setDatas] = useState([
     {
       class: "Cardio - Online",
@@ -45,6 +47,7 @@ const Dashboard = () => {
       member: 20,
     },
   ]);
+
   const [trainerData, setTrainerData] = useState([
     {
       id: 1,
@@ -77,6 +80,7 @@ const Dashboard = () => {
       address: "60111 Alpine Hill",
     },
   ]);
+
   const [memberData, setMemberData] = useState([
     {
       id: 1,

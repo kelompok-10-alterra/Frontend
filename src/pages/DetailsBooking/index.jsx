@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
@@ -50,6 +50,7 @@ const DetailsBooking = () => {
   ];
 
   const tomorrow = new Date(new Date());
+
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const handleSave = () => {

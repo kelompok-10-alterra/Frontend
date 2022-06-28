@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 
 const Header = ({ name, role }) => {
   const location = useLocation();
+
   return (
     <div className={styles.container_header}>
       <div className={styles.header_left}>

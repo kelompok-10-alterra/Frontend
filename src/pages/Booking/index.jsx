@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 /** Styles */
 import styles from "./style.module.css";

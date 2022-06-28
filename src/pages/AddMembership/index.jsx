@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 /** Components */
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
-import Form from "../../components/Form";
 import PageTitle from "../../components/PageTitle";
 
 /** Styles */
@@ -88,9 +87,11 @@ const AddMembership = () => {
       { value: 6, label: "6 Months" },
     ],
   ];
+
   useEffect(() => {
     getUserData().then((response) => {
       let temp = [];
+
       response.data.map((data) => {
         return temp.push({
           value: data.userId,
@@ -99,6 +100,7 @@ const AddMembership = () => {
       });
       setUserOptions(temp);
     });
+
     getMembershipData().then((response) => {
       let temp = [];
       response.data.map((data) => {
@@ -114,19 +116,24 @@ const AddMembership = () => {
           });
         }
       });
+
       setMembershipOptions(temp);
     });
   }, []);
+
   const handleAddMembership = (e) => {
     e.preventDefault();
     addMembership({
       userId: userSelectedOption.value,
       memberId: membershipSelectedOption.value,
-    }).then((response) => console.log(response));
+    })
+      .then((response) => console.log(response));
     // navigate("/membership")
   };
+
   const handleAddAcount = (e) => {
     e.preventDefault();
+
     addUserData({
       name: inputs[0].value,
       username: inputs[1].value,
@@ -134,7 +141,8 @@ const AddMembership = () => {
       email: inputs[2].value,
       phone: secondInputs[0].value,
       address: secondInputs[1].value,
-    }).then((response) => console.log(response));
+    })
+      .then((response) => console.log(response));
   };
 
   return (

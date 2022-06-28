@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Select from "react-select";
+
+import { editMembership, getMemberById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -14,11 +16,10 @@ import Button from "../../components/Button";
 
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
-import { useEffect } from "react";
-import { editMembership, getMemberById } from "../../api";
 
 const DetailsMembership = () => {
   const navigate = useNavigate();
+
   const params = useParams();
 
   const [data, setData] = useState({
@@ -67,32 +68,38 @@ const DetailsMembership = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
+
   useEffect(() => {
-    getMemberById(params.uid).then((response) => {
-      setData(response.data);
-      setInputs([
-        {
-          label: "Name",
-          name: "name",
-          type: "text",
-          placeholder: response.data?.user.name,
-          value: response.data?.user.name,
-          disabled: true,
-        },
-      ]);
-    });
+    getMemberById(params.uid)
+      .then((response) => {
+        setData(response.data);
+
+        setInputs([
+          {
+            label: "Name",
+            name: "name",
+            type: "text",
+            placeholder: response.data?.user.name,
+            value: response.data?.user.name,
+            disabled: true,
+          },
+        ]);
+      });
   }, [params.uid]);
+
   useEffect(() => {
     console.log(data);
   }, [data]);
 
   const handleSave = (e) => {
     e.preventDefault();
+
     editMembership({
       membershipId: data?.membershipId,
       userId: data?.user.userId,
       memberId: membershipSelectedOption,
-    }).then(navigate("/membership"));
+    })
+      .then(navigate("/membership"));
   };
 
   return (

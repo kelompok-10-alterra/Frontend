@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /** Styles */
@@ -11,7 +11,6 @@ import { FaUserCircle } from "react-icons/fa";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
-import Details from "../../components/Details";
 import Form from "../../components/Form";
 import { addUserData } from "../../api";
 
@@ -20,6 +19,7 @@ const AddUser = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+
     addUserData({
       name: firstInput[0].value,
       username: firstInput[1].value,
@@ -30,6 +30,7 @@ const AddUser = () => {
     })
       .then((result) => {
         navigate("/user");
+        console.log(result);
       })
       .catch((err) => {
         console.log(err);

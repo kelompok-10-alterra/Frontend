@@ -3,21 +3,23 @@ import axios from "axios";
 const CONFIG = {
   withCredentials: true,
 };
+
 const auth = () => {
-  let respond = {
+  const headers = {
     headers: {
-      Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem("SPORTLY_ACCESS")).token
-      }`,
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token}`,
       "Content-Type": "application/json",
     },
   };
-  return respond;
+
+  return headers;
 };
+
 export const getLoginToken = async (payload) => {
   const { username, password } = payload;
+
   return axios.post(
-    "/auth/login?username=" + username + "&password=" + password,
+    `/auth/login?username=${username}&password=${password}`,
     JSON.stringify({
       username: username,
       password: password,
@@ -25,9 +27,11 @@ export const getLoginToken = async (payload) => {
     CONFIG
   );
 };
+
 export const getUserData = async () => {
   return axios.get("/capstone/user/userAccess/findAllRoleUser", auth());
 };
+
 export const getUserDataById = async (id) => {
   return axios.get(
     `/capstone/user/userAccess/getUserById?userId=${id}`,
@@ -37,6 +41,7 @@ export const getUserDataById = async (id) => {
 
 export const addUserData = async (payload) => {
   const { name, username, password, email, phone, address } = payload;
+
   return axios.post(
     "capstone/user/adminAccess/createUser",
     JSON.stringify({
@@ -51,11 +56,14 @@ export const addUserData = async (payload) => {
     auth()
   );
 };
+
 export const deleteUserData = async (id) => {
   return axios.delete(`capstone/user/adminAccess/deleteUser/${id}`, auth());
 };
+
 export const editUserData = async (payload) => {
   const { id, name, phone, address } = payload;
+
   return axios.put(
     `capstone/user/userAccess/updateUser/${id}`,
     JSON.stringify({
@@ -67,11 +75,13 @@ export const editUserData = async (payload) => {
     auth()
   );
 };
+
 export const getAdminData = async () => {
   return axios.get("/capstone/user/adminAccess/findAllRoleAdmin", auth());
 };
+
 export const addRoleToAdmin = async (username) => {
-  const respond = await axios.post(
+  return await axios.post(
     "/capstone/user/managerOnly/addRoleToUser",
     JSON.stringify({
       username,
@@ -79,11 +89,12 @@ export const addRoleToAdmin = async (username) => {
     }),
     auth()
   );
-  return respond;
 };
+
 export const getMembershipData = async () => {
   return await axios.get("/capstone/member/userAccess/getAllMember", auth());
 };
+
 export const addMembership = async ({ userId, memberId }) => {
   return await axios.post(
     "/capstone/membership/adminAccess/createNewMembership",
@@ -95,18 +106,21 @@ export const addMembership = async ({ userId, memberId }) => {
     auth()
   );
 };
+
 export const getMember = async () => {
   return await axios.get(
     "/capstone/membership/adminAccess/getAllMembership",
     auth()
   );
 };
+
 export const getMemberById = async (id) => {
   return await axios.get(
     `/capstone/membership/userAccess/getMembershipById?membershipId=${id}`,
     auth()
   );
 };
+
 export const editMembership = async ({ membershipId, userId, memberId }) => {
   return await axios.put(
     `/capstone/membership/adminAccess/updateMembership?membershipId=${membershipId}`,
@@ -118,6 +132,7 @@ export const editMembership = async ({ membershipId, userId, memberId }) => {
     auth()
   );
 };
+
 export const deleteMembership = async (id) => {
   return await axios.delete(
     `/capstone/membership/adminAccess/deleteMembership/${id}`,

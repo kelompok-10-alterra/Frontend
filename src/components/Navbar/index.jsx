@@ -14,10 +14,12 @@ const Navbar = ({ withMember }) => {
   return (
     <div className={styles.container}>
       <TitleLogo className={styles.logo} />
-      {withMember
-        ? navItems.map((item) => {
+      {
+        withMember ?
+          navItems.map((item) => {
             return (
               <NavItem
+                key={item.id}
                 id={item.id}
                 logo={item.logo}
                 name={item.name}
@@ -25,7 +27,8 @@ const Navbar = ({ withMember }) => {
               />
             );
           })
-        : navItems.map((item) => {
+          :
+          navItems.map((item) => {
             return (
               <>
                 {item.name !== "Manage Admin" ? (
@@ -40,7 +43,8 @@ const Navbar = ({ withMember }) => {
                 )}
               </>
             );
-          })}
+          })
+      }
     </div>
   );
 };

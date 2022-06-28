@@ -62,6 +62,7 @@ const AddClass = () => {
       min: temp,
     },
   ]);
+
   const [priceInput, setPriceInput] = useState([
     {
       label: "Price",

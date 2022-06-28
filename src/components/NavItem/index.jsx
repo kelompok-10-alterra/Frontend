@@ -11,7 +11,7 @@ const NavItems = ({ logo, name, link, id }) => {
         <NavLink
           to={`${link}`}
           key={id}
-          onClick={() => localStorage.setItem("SPORTLY_ACCESS", "")}
+          onClick={() => localStorage.removeItem("token")}
           className={styles.container}
           style={({ isActive }) => {
             return {

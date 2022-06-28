@@ -29,11 +29,13 @@ const AddBooking = () => {
       //user
     ],
   ];
+
   const tomorrow = new Date(new Date());
 
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const handleSave = () => { };
+
   return (
     <>
       <PageTitle icon={<MdEventAvailable />} title="Booking" />
