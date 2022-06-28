@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -14,24 +14,28 @@ import Button from "../../components/Button";
 
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
+import { useEffect } from "react";
+import { getMemberById } from "../../api";
 
 const DetailsMembership = () => {
-
   const navigate = useNavigate();
-
-  const props = {
-    id: 1,
-    nama: "Genta Fatuh",
-    email: "Gentafatuh@gmail.com",
-    contact: "081315484421",
-    address: "Jakarta",
-    class: ["Zumba A - Online", "Cardio A - Online"],
-    status: "Active",
-    membership: 3,
-    expired: 1,
-  };
-
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const params = useParams();
+  // const data = {
+  //   id: 1,
+  //   nama: "Genta Fatuh",
+  //   email: "Gentafatuh@gmail.com",
+  //   contact: "081315484421",
+  //   address: "Jakarta",
+  //   class: ["Zumba A - Online", "Cardio A - Online"],
+  //   status: "Active",
+  //   membership: 3,
+  //   expired: 1,
+  // };
+  const [data, setData] = useState([]);
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState(
+    // data.member.length
+    null
+  );
 
   const [inputs, setInputs] = useState([
     {
@@ -39,7 +43,7 @@ const DetailsMembership = () => {
       name: "name",
       type: "text",
       placeholder: "",
-      value: props.nama,
+      value: "",
       disable: true,
     },
   ]);
@@ -56,6 +60,12 @@ const DetailsMembership = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
+  useEffect(() => {
+    getMemberById(params.uid).then((response) => setData(response.data));
+  }, []);
+  useEffect(() => {
+    console.log(data.member.length);
+  }, [data]);
 
   const handleSave = () => {
     //save to database
@@ -69,38 +79,42 @@ const DetailsMembership = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title={"ID User"} text={props.id} />
-              <Details title={"Nama"} text={props.nama} />
-              <Details title={"Email"} text={props.email} />
+              <Details title={"Membership Id"} text={data.membershipId} />
+              <Details title={"Nama"} text={data.user.name} />
+              <Details title={"Email"} text={data.user.email} />
             </div>
             <div className="col">
-              <Details title={"Contact"} text={props.contact} />
-              <Details title={"Address"} text={props.address} />
+              <Details title={"Contact"} text={data.user.phone} />
+              <Details title={"Address"} text={data.user.address} />
               <Details
                 title={"Class"}
-                text={props.class?.map((item, index) => {
+                text={data.class?.map((item, index) => {
                   return <li key={index}>{item}</li>;
                 })}
               />
             </div>
             <div className="col">
-              <Details title={"Status"} text={props.status} />
+              {data.status === true ? (
+                <Details title={"Status"} text={"Active"} />
+              ) : (
+                <Details title={"Status"} red={true} text={"Not - Active"} />
+              )}
 
-              {props.membership > 1 ? (
+              {data.member.length.substring(0, 1) > 1 ? (
                 <Details
                   title={"Membership"}
-                  text={`${props.membership} Months`}
+                  text={`${data.member.length.substring(0, 1)} Months`}
                 />
               ) : (
                 <Details
                   title={"Membership"}
-                  text={`${props.membership} Month`}
+                  text={`${data.member.length.substring(0, 1)} Month`}
                 />
               )}
-              {props.expired > 1 ? (
-                <Details title={"Expired"} text={`${props.expired} Months`} />
+              {data.expired > 1 ? (
+                <Details title={"Expired"} text={`${data.expired} Months`} />
               ) : (
-                <Details title={"Expired"} text={`${props.expired} Month`} />
+                <Details title={"Expired"} text={`${data.expired} Month`} />
               )}
             </div>
           </div>
@@ -120,7 +134,7 @@ const DetailsMembership = () => {
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
                   options={options[0]}
-                  placeholder={`${props.membership} Months`}
+                  placeholder={`${data.membership} Months`}
                 />
               </div>
             </div>

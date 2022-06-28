@@ -9,7 +9,7 @@
   color: var(--dark90);
 }
 
-.select_input>div {
+.select_input > div {
   padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;
@@ -29,4 +29,7 @@
 .button {
   float: right;
   margin-top: 20px;
+}
+.notActive > div > div > b {
+  color: var(--error-default);
 }

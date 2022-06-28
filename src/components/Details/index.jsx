@@ -1,11 +1,11 @@
 import React from "react";
 
-const Details = ({ title, text }) => {
+const Details = ({ title, text, red }) => {
   return (
     <div className="container mt-3 no-pl">
       <div className="col">{title}</div>
       <div className="col">
-        <b>{text}</b>
+        {red ? <b className="red">{text}</b> : <b>{text}</b>}
       </div>
     </div>
   );

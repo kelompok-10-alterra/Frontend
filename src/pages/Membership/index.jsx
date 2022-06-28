@@ -12,11 +12,15 @@ import { MdVerifiedUser } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import { getMember } from "../../api";
 
 const Membership = () => {
   const navigate = useNavigate();
 
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(null);
+  const [datas, setDatas] = useState([]);
+  const [membershipSelectedOption, setMembershipSelectedOption] =
+    useState(null);
 
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
@@ -41,8 +45,14 @@ const Membership = () => {
   const handleDetail = (id) => {
     // Detail
 
-    navigate("details-membership");
+    navigate(`details-membership/${id}`);
   };
+  useEffect(() => {
+    getMember().then((response) => setDatas(response.data));
+  }, []);
+  useEffect(() => {
+    console.log(datas);
+  }, [datas]);
 
   return (
     <div className={styles.content_wrapper}>
@@ -89,9 +99,10 @@ const Membership = () => {
               "Expired",
               "Status",
             ]}
-            datas={[]}
-            handleDetail={() => handleDetail()}
-            handleDelete={() => { }}
+            name="member"
+            datas={datas}
+            handleDetail={handleDetail}
+            handleDelete={() => {}}
           />
         </section>
       </main>

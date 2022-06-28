@@ -74,10 +74,36 @@ export const addRoleToAdmin = async (username) => {
   const respond = await axios.post(
     "/capstone/user/managerOnly/addRoleToUser",
     JSON.stringify({
-      username: username,
+      username,
       roleName: "ROLE_ADMIN",
     }),
     auth()
   );
   return respond;
+};
+export const getMembershipData = async () => {
+  return await axios.get("/capstone/member/userAccess/getAllMember", auth());
+};
+export const addMembership = async ({ userId, memberId }) => {
+  return await axios.post(
+    "/capstone/membership/adminAccess/createNewMembership",
+    JSON.stringify({
+      userId,
+      memberId,
+      status: true,
+    }),
+    auth()
+  );
+};
+export const getMember = async () => {
+  return await axios.get(
+    "/capstone/membership/adminAccess/getAllMembership",
+    auth()
+  );
+};
+export const getMemberById = async (id) => {
+  return await axios.get(
+    `/capstone/membership/userAccess/getMembershipById?membershipId=${id}`,
+    auth()
+  );
 };

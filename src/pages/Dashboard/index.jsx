@@ -144,7 +144,7 @@ const Dashboard = () => {
               <Table
                 headers={["Class", "Member"]}
                 datas={memberData}
-                name="member"
+                name="dashboard"
               />
             </div>
           </div>

@@ -14,7 +14,13 @@ import styles from "./style.module.css";
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
 import { useEffect } from "react";
-import { getUserData } from "../../api";
+import {
+  addMembership,
+  addUserData,
+  getAllMembership,
+  getMembershipData,
+  getUserData,
+} from "../../api";
 
 const AddMembership = () => {
   const navigate = useNavigate();
@@ -22,14 +28,10 @@ const AddMembership = () => {
    * user select options came from api
    * fetch from api then put it in user state
    */
-  const [userDatas, setUserDatas] = useState([]);
-
   const [userSelectedOption, setUserSelectedOption] = useState([]);
-
-  const [userOption, setUserOption] = useState(null);
-
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState([]);
+  const [userOptions, setUserOptions] = useState(null);
+  const [membershipOptions, setMembershipOptions] = useState(null);
 
   const [inputs, setInputs] = useState([
     {
@@ -85,27 +87,54 @@ const AddMembership = () => {
       { value: 3, label: "3 Months" },
       { value: 6, label: "6 Months" },
     ],
-    [
-      { value: 1, label: "Laverna" },
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-    ],
   ];
   useEffect(() => {
     getUserData().then((response) => {
-      setUserDatas(response);
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({
+          value: data.userId,
+          label: `${data.userId} - ${data.name}`,
+        });
+      });
+      setUserOptions(temp);
+    });
+    getMembershipData().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        if (data.memberId > 1) {
+          return temp.push({
+            value: data.memberId,
+            label: `${data.memberId} Months`,
+          });
+        } else {
+          return temp.push({
+            value: data.memberId,
+            label: `${data.memberId} Month`,
+          });
+        }
+      });
+      setMembershipOptions(temp);
     });
   }, []);
-  // useEffect(() => {
-  //   setUserOption([]);
-  //   userDatas?.map((user) => {
-  //     let temp = { value: user.userId, label: `${user.userId} - ${user.name}` };
-  //     return setUserOption((oldData) => [...oldData, temp]);
-  //   });
-  // }, [userDatas]);
-  const handleSave = (e) => {
+  const handleAddMembership = (e) => {
     e.preventDefault();
-    navigate("/membership");
+    addMembership({
+      userId: userSelectedOption.value,
+      memberId: membershipSelectedOption.value,
+    }).then((response) => console.log(response));
+    // navigate("/membership")
+  };
+  const handleAddAcount = (e) => {
+    e.preventDefault();
+    addUserData({
+      name: inputs[0].value,
+      username: inputs[1].value,
+      password: inputs[3].value,
+      email: inputs[2].value,
+      phone: secondInputs[0].value,
+      address: secondInputs[1].value,
+    }).then((response) => console.log(response));
   };
 
   return (
@@ -113,7 +142,7 @@ const AddMembership = () => {
       <PageTitle icon={<MdVerifiedUser />} title="Membership" />
       <Container title={"Add New Membership"}>
         <div className="container no-pl mt-4">
-          <form onSubmit={handleSave}>
+          <form onSubmit={handleAddMembership}>
             <div className="row">
               <div className="col">
                 <label className="label">User</label>
@@ -121,7 +150,7 @@ const AddMembership = () => {
                   className={styles.select_input}
                   defaultValue={userSelectedOption}
                   onChange={setUserSelectedOption}
-                  options={userOption}
+                  options={userOptions}
                   placeholder="User"
                 />
               </div>
@@ -131,7 +160,7 @@ const AddMembership = () => {
                   className={styles.select_input}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
-                  options={options[0]}
+                  options={membershipOptions}
                   placeholder="Membership"
                 />
               </div>
@@ -141,38 +170,7 @@ const AddMembership = () => {
                 text="Save"
                 type="submit"
                 onClick={(e) => {
-                  handleSave(e);
-                }}
-              />
-            </span>
-          </form>
-        </div>
-      </Container>
-      <Container title={"Add New Account & Membership"}>
-        <div className="container mt-3 no-pl">
-          <form onSubmit={handleSave}>
-            <div className="row">
-              <div className="col">
-                <Form inputs={inputs} setInputs={setInputs} />
-              </div>
-              <div className="col">
-                <Form inputs={secondInputs} setInputs={setSecondInputs} />
-                <label className="label mt-4">Membership</label>
-                <Select
-                  className={`mt-3 ${styles.select_input}`}
-                  defaultValue={membershipSelectedOption}
-                  onChange={setMembershipSelectedOption}
-                  options={options[0]}
-                  placeholder="Membership"
-                />
-              </div>
-            </div>
-            <span className={styles.button}>
-              <Button
-                text="Save"
-                type="submit"
-                onClick={(e) => {
-                  handleSave(e);
+                  handleAddMembership(e);
                 }}
               />
             </span>
