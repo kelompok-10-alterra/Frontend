@@ -82,9 +82,9 @@ const AddMembership = () => {
 
   const options = [
     [
-      { value: 1, label: "1 Month" },
-      { value: 3, label: "3 Months" },
-      { value: 6, label: "6 Months" },
+      { value: 1, label: "Platinum" },
+      { value: 2, label: "Gold" },
+      { value: 3, label: "Silver" },
     ],
   ];
 
@@ -126,8 +126,7 @@ const AddMembership = () => {
     addMembership({
       userId: userSelectedOption.value,
       memberId: membershipSelectedOption.value,
-    })
-      .then((response) => console.log(response));
+    }).then((response) => console.log(response));
     // navigate("/membership")
   };
 
@@ -141,8 +140,7 @@ const AddMembership = () => {
       email: inputs[2].value,
       phone: secondInputs[0].value,
       address: secondInputs[1].value,
-    })
-      .then((response) => console.log(response));
+    }).then((response) => console.log(response));
   };
 
   return (
