@@ -51,7 +51,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
           if (data.member.substring(0, 1) > 1) {
             dataList = {
               id: data.membershipId,
-              name: data.userName,
+              name: data.name,
               contact: data.contact,
               membership: `${data.member.substring(0, 1)} months`,
               expired: expired,
@@ -60,7 +60,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
           } else {
             dataList = {
               id: data.membershipId,
-              name: data.userName,
+              name: data.name,
               contact: data.contact,
               membership: `${data.member.substring(0, 1)} month`,
               expired: expired,
