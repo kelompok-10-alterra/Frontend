@@ -76,7 +76,7 @@ const Login = () => {
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form_container}>
         <TitleLogo />
-        <Form inputs={inputs} setInputs={setInputs} />
+        <Form inputs={inputs} setInputs={setInputs} type="login" />
         <button type="submit" className={styles.login_btn}>
           Login
         </button>

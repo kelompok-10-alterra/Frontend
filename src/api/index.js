@@ -138,3 +138,26 @@ export const deleteMembership = async (id) => {
     auth()
   );
 };
+export const getNewsLetter = async () => {
+  return await axios.get(
+    "/capstone/newsletter/userAccess/getAllNewsletter",
+    auth()
+  );
+};
+export const addNewsLetter = async ({
+  title,
+  description,
+  imageUrl,
+  videoUrl,
+}) => {
+  return await axios.post(
+    "/capstone/newsletter/adminAccess/createNewNewsletter",
+    JSON.stringify({
+      title,
+      description,
+      imageUrl: "",
+      videoUrl: "",
+    }),
+    auth()
+  );
+};

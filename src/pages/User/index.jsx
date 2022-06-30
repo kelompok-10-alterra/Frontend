@@ -67,8 +67,11 @@ const User = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteUserData(id).then(
-          getUserData().then(window.location.reload(true))
+        deleteUserData(id).then(async () =>
+          getUserData().then((response) => {
+            setDatas(response.data);
+            setShow(response.data);
+          })
         );
 
         Swal.fire("Deleted!", "Your file has been deleted.", "success");

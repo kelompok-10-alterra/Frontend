@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   row-gap: 20px;
+  min-height: 50%;
 }
 .wrapper {
   padding: 20px;
@@ -9,6 +10,8 @@
   flex-wrap: wrap;
   border-radius: 12px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  min-width: 98%;
+  flex-direction: column;
 }
 
 .content {
