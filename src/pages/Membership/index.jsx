@@ -36,9 +36,9 @@ const Membership = () => {
   const options = [
     [],
     [
-      { value: 1, label: "1 Month" },
-      { value: 3, label: "3 Months" },
-      { value: 6, label: "6 Months" },
+      { value: 1, label: "Platinum" },
+      { value: 2, label: "Gold" },
+      { value: 3, label: "Silver" },
     ],
     [
       { value: "all", label: "All" },

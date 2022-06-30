@@ -58,9 +58,9 @@ const DetailsMembership = () => {
 
   const options = [
     [
-      { value: 1, label: "1 Month" },
-      { value: 3, label: "3 Months" },
-      { value: 6, label: "6 Months" },
+      { value: 1, label: "Platinum" },
+      { value: 2, label: "Gold" },
+      { value: 3, label: "Silver" },
     ],
     [
       { value: "all", label: "All" },
@@ -70,21 +70,20 @@ const DetailsMembership = () => {
   ];
 
   useEffect(() => {
-    getMemberById(params.uid)
-      .then((response) => {
-        setData(response.data);
+    getMemberById(params.uid).then((response) => {
+      setData(response.data);
 
-        setInputs([
-          {
-            label: "Name",
-            name: "name",
-            type: "text",
-            placeholder: response.data?.user.name,
-            value: response.data?.user.name,
-            disabled: true,
-          },
-        ]);
-      });
+      setInputs([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: response.data?.user.name,
+          value: response.data?.user.name,
+          disabled: true,
+        },
+      ]);
+    });
   }, [params.uid]);
 
   useEffect(() => {
@@ -98,8 +97,7 @@ const DetailsMembership = () => {
       membershipId: data?.membershipId,
       userId: data?.user.userId,
       memberId: membershipSelectedOption,
-    })
-      .then(navigate("/membership"));
+    }).then(navigate("/membership"));
   };
 
   return (
