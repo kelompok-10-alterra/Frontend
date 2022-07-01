@@ -12,7 +12,7 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
-import { addUserData } from "../../api";
+import { addUserData, getUserByUsername } from "../../api";
 import useDebounce from "../../hooks/useDebounce";
 import { useEffect } from "react";
 

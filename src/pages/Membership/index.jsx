@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import {
   deleteMembership,
   getMember,
-  getMembershipData,
+  getMemberById,
   getUserData,
 } from "../../api";
 
@@ -25,27 +25,28 @@ const Membership = () => {
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([]);
-
+  const [show, setShow] = useState([]);
   const [userOptions, setUserOptions] = useState();
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [membershipOptions, setMembershipOptions] = useState([]);
+  const [userSelectedOption, setUserSelectedOption] = useState([
+    { value: 0, label: "All" },
+  ]);
   const [membershipSelectedOption, setMembershipSelectedOption] =
     useState(null);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
-  const options = [
-    [],
-    [
-      { value: 1, label: "Platinum" },
-      { value: 2, label: "Gold" },
-      { value: 3, label: "Silver" },
-    ],
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
+  // const options = [
+  //   [],
+  //   [
+  //     { value: 1, label: "Platinum" },
+  //     { value: 2, label: "Gold" },
+  //     { value: 3, label: "Silver" },
+  //   ],
+  //   [
+  //     { value: "all", label: "All" },
+  //     { value: 1, label: "Active" },
+  //     { value: 0, label: "Non-Active" },
+  //   ],
+  // ];
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -78,39 +79,34 @@ const Membership = () => {
   useEffect(() => {
     getMember().then((response) => {
       setDatas(response.data);
+      setShow(response.data);
       console.log(response.data);
-    });
-
-    getMembershipData().then((response) => {
-      let temp = [];
-
-      response.data.map((data) => {
-        if (data.memberId > 1) {
-          return temp.push({
-            value: data.memberId,
-            label: `${data.memberId} Months`,
-          });
-        } else {
-          return temp.push({
-            value: data.memberId,
-            label: `${data.memberId} Month`,
-          });
-        }
-      });
-      setMembershipOptions(temp);
-    });
-
-    getUserData().then((response) => {
       let temp = [];
       response.data.map((data) => {
         return temp.push({
-          value: data.userId,
-          label: `${data.userId} - ${data.name}`,
+          value: data.membershipId,
+          label: `${data.membershipId} - ${data.username}`,
         });
       });
       setUserOptions(temp);
     });
   }, []);
+
+  useEffect(() => {
+    if (
+      userSelectedOption.value === 0 ||
+      userSelectedOption.value === undefined
+    ) {
+      getMember().then((response) => {
+        setDatas(response.data);
+        setShow(response.data);
+      });
+    } else {
+      getMemberById(userSelectedOption.value).then((response) => {
+        setShow([response.data]);
+      });
+    }
+  }, [userSelectedOption]);
 
   return (
     <div className={styles.content_wrapper}>
@@ -125,7 +121,7 @@ const Membership = () => {
               options={userOptions}
               placeholder="User"
             />
-            <Select
+            {/* <Select
               className={styles.select_input}
               defaultValue={membershipSelectedOption}
               onChange={setMembershipSelectedOption}
@@ -138,7 +134,7 @@ const Membership = () => {
               onChange={setStatusSelectedOption}
               options={options[2]}
               placeholder="Status"
-            />
+            /> */}
           </div>
           <Button
             className={styles.btn_add}
@@ -148,37 +144,13 @@ const Membership = () => {
           />
         </section>
         <section>
-          {datas ? (
-            <Table
-              headers={[
-                "ID",
-                "Name",
-                "Contact",
-                "Membership",
-                "Expired",
-                "Status",
-              ]}
-              name="member"
-              datas={datas}
-              handleDetail={handleDetail}
-              handleDelete={handleDelete}
-            />
-          ) : (
-            <Table
-              headers={[
-                "ID",
-                "Name",
-                "Contact",
-                "Membership",
-                "Expired",
-                "Status",
-              ]}
-              name="member"
-              datas={[]}
-              handleDetail={handleDetail}
-              handleDelete={handleDelete}
-            />
-          )}
+          <Table
+            headers={["ID", "Name", "Contact", "Membership", "Status"]}
+            name="member"
+            datas={show}
+            handleDetail={handleDetail}
+            handleDelete={handleDelete}
+          />
         </section>
       </main>
     </div>

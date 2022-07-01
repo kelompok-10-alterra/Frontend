@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
-import { editMembership, getMemberById } from "../../api";
+import { editMembership, getMemberById, getMembershipData } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -16,11 +16,14 @@ import Button from "../../components/Button";
 
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const DetailsMembership = () => {
   const navigate = useNavigate();
 
   const params = useParams();
+
+  let priceIDR = Intl.NumberFormat("en-ID");
 
   const [data, setData] = useState({
     membershipId: "",
@@ -40,11 +43,9 @@ const DetailsMembership = () => {
     },
   });
 
-  const [membershipSelectedOption, setMembershipSelectedOption] = useState(
-    // data.member.length
-    null
-  );
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState("");
 
+  const [membershipOptions, setMembershipOptions] = useState([]);
   const [inputs, setInputs] = useState([
     {
       label: "Name",
@@ -56,19 +57,6 @@ const DetailsMembership = () => {
     },
   ]);
 
-  const options = [
-    [
-      { value: 1, label: "Platinum" },
-      { value: 2, label: "Gold" },
-      { value: 3, label: "Silver" },
-    ],
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
-
   useEffect(() => {
     getMemberById(params.uid).then((response) => {
       setData(response.data);
@@ -78,26 +66,84 @@ const DetailsMembership = () => {
           label: "Name",
           name: "name",
           type: "text",
-          placeholder: response.data?.user.name,
-          value: response.data?.user.name,
+          placeholder: response.data?.username,
+          value: response.data?.username,
           disabled: true,
         },
       ]);
+    });
+
+    getMembershipData().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({
+          value: data.memberId,
+          label: data.name,
+          price: data.price,
+        });
+      });
+
+      setMembershipOptions(temp);
     });
   }, [params.uid]);
 
   useEffect(() => {
     console.log(data);
   }, [data]);
+  useEffect(() => {
+    console.log(membershipSelectedOption);
+  }, [membershipSelectedOption]);
 
   const handleSave = (e) => {
     e.preventDefault();
 
-    editMembership({
-      membershipId: data?.membershipId,
-      userId: data?.user.userId,
-      memberId: membershipSelectedOption,
-    }).then(navigate("/membership"));
+    if (membershipSelectedOption === "") {
+      Swal.fire({
+        title: "Error!",
+        text: "Please select membership type",
+        icon: "error",
+      });
+    } else if (membershipSelectedOption.label === data.memberName) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please select different membership type",
+        icon: "error",
+      });
+    } else {
+      const selected = membershipSelectedOption;
+
+      Swal.fire({
+        title: "Upgrade Membership Payment",
+        html: `<div>
+        <div class="alert-container ${selected.label}">
+        <div class="alert-wrap">
+         <h4>SPORTLY</h4>
+        </div>
+        <div class="alert-wrap second">
+          <p class="alert-title">${data.username}</p>
+          <p>${selected.label} Membership</p>
+        </div>
+        </div>
+        <br/>
+        <div>
+          Price to Pay : Rp. ${priceIDR.format(selected.price)}
+        </div></div>`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Pay",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          editMembership({
+            membershipId: data?.membershipId,
+            userId: data?.userId,
+            memberId: membershipSelectedOption.value,
+          }).then(navigate("/membership"));
+          Swal.fire("Sucess!", "Membership Upgraded!", "success");
+        }
+      });
+    }
   };
 
   return (
@@ -108,48 +154,19 @@ const DetailsMembership = () => {
           <div className="row">
             <div className="col">
               <Details title={"Membership Id"} text={data?.membershipId} />
-              <Details title={"Nama"} text={data?.user.name} />
-              <Details title={"Email"} text={data?.user.email} />
+              <Details title={"Username"} text={data?.username} />
+              <Details title={"Email"} text={data?.email} />
             </div>
             <div className="col">
-              <Details title={"Contact"} text={data?.user.phone} />
-              <Details title={"Address"} text={data?.user.address} />
-              {data.class ? (
-                <Details
-                  title={"Class"}
-                  text={data?.class.map((item, index) => {
-                    return <li key={index}>{item}</li>;
-                  })}
-                />
-              ) : (
-                <Details
-                  title={"Class"}
-                  text={"Not having any class registered yet"}
-                />
-              )}
+              <Details title={"Contact"} text={data?.contact} />
+              <Details title={"Address"} text={data?.address} />
+              <Details title={"Membership"} text={data?.memberName} />
             </div>
             <div className="col">
               {data?.status === true ? (
                 <Details title={"Status"} text={"Active"} />
               ) : (
                 <Details title={"Status"} red={true} text={"Not - Active"} />
-              )}
-
-              {/* {data?.member.length.substring(0, 1) > 1 ? (
-                <Details
-                  title={"Membership"}
-                  text={`${data?.member.length.substring(0, 1)} Months`}
-                />
-              ) : (
-                <Details
-                  title={"Membership"}
-                  text={`${data?.member.length.substring(0, 1)} Month`}
-                />
-              )} */}
-              {data?.expired > 1 ? (
-                <Details title={"Expired"} text={`${data.expired} Months`} />
-              ) : (
-                <Details title={"Expired"} text={`${data.expired} Month`} />
               )}
             </div>
           </div>
@@ -168,8 +185,8 @@ const DetailsMembership = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={membershipSelectedOption}
                   onChange={setMembershipSelectedOption}
-                  options={options[0]}
-                  placeholder={`${data.membership} Months`}
+                  options={membershipOptions}
+                  placeholder={data.memberName}
                 />
               </div>
             </div>

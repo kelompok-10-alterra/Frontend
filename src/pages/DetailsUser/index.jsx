@@ -58,45 +58,43 @@ const DetailsAdmin = () => {
   ]);
 
   useEffect(() => {
-    getUserDataById(params.uid)
-      .then((response) => {
-        setData(response.data);
+    getUserDataById(params.uid).then((response) => {
+      setData(response.data);
+      setFirstInput([
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          placeholder: response.data.name,
+          value: response.data.name,
+        },
+        {
+          label: "Contact",
+          name: "contact",
+          type: "text",
+          placeholder: response.data.phone,
+          value: response.data.phone,
+        },
+      ]);
 
-        setFirstInput([
-          {
-            label: "Name",
-            name: "name",
-            type: "text",
-            placeholder: "",
-            value: response.data.name,
-          },
-          {
-            label: "Contact",
-            name: "contact",
-            type: "text",
-            placeholder: "",
-            value: response.data.phone,
-          },
-        ]);
-
-        setSecondInput([
-          {
-            label: "Email",
-            name: "email",
-            type: "email",
-            placeholder: "",
-            value: response.data.email,
-            disabled: true
-          },
-          {
-            label: "Address",
-            name: "address",
-            type: "text",
-            placeholder: "",
-            value: response.data.address,
-          },
-        ]);
-      });
+      setSecondInput([
+        {
+          label: "Email",
+          name: "email",
+          type: "email",
+          placeholder: response.data.email,
+          value: response.data.email,
+          disabled: true,
+        },
+        {
+          label: "Address",
+          name: "address",
+          type: "text",
+          placeholder: response.data.address,
+          value: response.data.address,
+        },
+      ]);
+    });
   }, []);
 
   const handleSave = (e) => {

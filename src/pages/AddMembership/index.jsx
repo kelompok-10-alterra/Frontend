@@ -16,10 +16,10 @@ import { useEffect } from "react";
 import {
   addMembership,
   addUserData,
-  getAllMembership,
   getMembershipData,
   getUserData,
 } from "../../api";
+import Swal from "sweetalert2";
 
 const AddMembership = () => {
   const navigate = useNavigate();
@@ -31,63 +31,7 @@ const AddMembership = () => {
   const [membershipSelectedOption, setMembershipSelectedOption] = useState([]);
   const [userOptions, setUserOptions] = useState(null);
   const [membershipOptions, setMembershipOptions] = useState(null);
-
-  const [inputs, setInputs] = useState([
-    {
-      label: "Name",
-      name: "name",
-      type: "text",
-      placeholder: "Type your name...",
-      value: "",
-    },
-    {
-      label: "Username",
-      name: "username",
-      type: "text",
-      placeholder: "Type your username...",
-      value: "",
-    },
-    {
-      label: "Email",
-      name: "email",
-      type: "email",
-      placeholder: "Type your email...",
-      value: "",
-    },
-    {
-      label: "Password",
-      name: "password",
-      type: "password",
-      placeholder: "Type your password...",
-      value: "",
-    },
-  ]);
-
-  const [secondInputs, setSecondInputs] = useState([
-    {
-      label: "Contact",
-      name: "contact",
-      type: "number",
-      placeholder: "Type your phone number...",
-      value: "",
-    },
-    {
-      label: "Address",
-      name: "address",
-      type: "text",
-      placeholder: "Type your address...",
-      value: "",
-    },
-  ]);
-
-  const options = [
-    [
-      { value: 1, label: "Platinum" },
-      { value: 2, label: "Gold" },
-      { value: 3, label: "Silver" },
-    ],
-  ];
-
+  let priceIDR = Intl.NumberFormat("en-ID");
   useEffect(() => {
     getUserData().then((response) => {
       let temp = [];
@@ -96,6 +40,7 @@ const AddMembership = () => {
         return temp.push({
           value: data.userId,
           label: `${data.userId} - ${data.name}`,
+          name: data.name,
         });
       });
       setUserOptions(temp);
@@ -104,17 +49,11 @@ const AddMembership = () => {
     getMembershipData().then((response) => {
       let temp = [];
       response.data.map((data) => {
-        if (data.memberId > 1) {
-          return temp.push({
-            value: data.memberId,
-            label: `${data.memberId} Months`,
-          });
-        } else {
-          return temp.push({
-            value: data.memberId,
-            label: `${data.memberId} Month`,
-          });
-        }
+        return temp.push({
+          value: data.memberId,
+          label: data.name,
+          price: data.price,
+        });
       });
 
       setMembershipOptions(temp);
@@ -123,24 +62,42 @@ const AddMembership = () => {
 
   const handleAddMembership = (e) => {
     e.preventDefault();
-    addMembership({
-      userId: userSelectedOption.value,
-      memberId: membershipSelectedOption.value,
-    }).then((response) => console.log(response));
+    const selected = membershipSelectedOption;
+
+    Swal.fire({
+      title: "Payment Summary",
+      html: `
+      <div>
+      <div class="alert-container ${selected.label}">
+      <div class="alert-wrap">
+        <h4>SPORTLY</h4>
+      </div>
+      <div class="alert-wrap second">
+        <p class="alert-title">${userSelectedOption.name}</p>
+        <p>${selected.label} Membership</p>
+      </div>
+      </div>
+      <br/>
+      <div>
+      Price to Pay : Rp. ${priceIDR.format(selected.price)}
+      </div></div>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Pay",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addMembership({
+          userId: userSelectedOption.value,
+          memberId: membershipSelectedOption.value,
+        }).then(navigate("/membership"));
+
+        Swal.fire("Sucess!", "Membership registered!", "success");
+      }
+    });
+
     // navigate("/membership")
-  };
-
-  const handleAddAcount = (e) => {
-    e.preventDefault();
-
-    addUserData({
-      name: inputs[0].value,
-      username: inputs[1].value,
-      password: inputs[3].value,
-      email: inputs[2].value,
-      phone: secondInputs[0].value,
-      address: secondInputs[1].value,
-    }).then((response) => console.log(response));
   };
 
   return (

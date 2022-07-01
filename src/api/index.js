@@ -40,7 +40,12 @@ export const getUserDataById = async (id) => {
     auth()
   );
 };
-
+export const getUserByUsername = async (username) => {
+  return axios.get(
+    `capstone/user/userAccess/getUserByUsername?username=${username}`,
+    auth()
+  );
+};
 export const addUserData = async (payload) => {
   const { name, username, password, email, phone, address } = payload;
 
@@ -122,9 +127,8 @@ export const getMemberById = async (id) => {
 
 export const editMembership = async ({ membershipId, userId, memberId }) => {
   return await axios.put(
-    `/capstone/membership/adminAccess/updateMembership?membershipId=${membershipId}`,
+    `/capstone/membership/adminAccess/updateMembership/${membershipId}`,
     JSON.stringify({
-      status: true,
       userId,
       memberId,
     }),

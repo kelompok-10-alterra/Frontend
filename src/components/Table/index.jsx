@@ -47,26 +47,13 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
           };
         }
         if (name === "member") {
-          const expired = new Date(data.expiredAt).toLocaleDateString();
-          if (data.member.substring(0, 1) > 1) {
-            dataList = {
-              id: data.membershipId,
-              name: data.name,
-              contact: data.contact,
-              membership: `${data.member.substring(0, 1)} months`,
-              expired: expired,
-              status: data.status,
-            };
-          } else {
-            dataList = {
-              id: data.membershipId,
-              name: data.name,
-              contact: data.contact,
-              membership: `${data.member.substring(0, 1)} month`,
-              expired: expired,
-              status: data.status,
-            };
-          }
+          dataList = {
+            id: data.membershipId,
+            name: data.username,
+            contact: data.contact,
+            membership: data.memberName,
+            status: data.status,
+          };
         }
 
         return (
