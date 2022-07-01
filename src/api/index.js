@@ -161,3 +161,25 @@ export const addNewsLetter = async ({
     auth()
   );
 };
+
+export const getContent = async () => {
+  return await axios.get("/capstone/content/userAccess/getAllContent", auth());
+};
+
+export const addContent = async ({
+  title,
+  description,
+  imageUrl,
+  videoUrl,
+}) => {
+  return await axios.post(
+    "/capstone/content/adminAccess/createNewContent",
+    JSON.stringify({
+      title,
+      description: "",
+      imageUrl: "",
+      videoUrl,
+    }),
+    auth()
+  );
+};

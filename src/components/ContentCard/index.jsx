@@ -13,16 +13,15 @@ const ContentCard = ({ lists }) => {
             return (
               <div className={styles.wrapper} key={list?.id}>
                 <p className={styles.title}>{list.title}</p>
-                <p className={styles.link}>Link Youtube: <span>{list.link}</span></p>
+                <p className={styles.link}>
+                  Link Youtube: <a href={list.videoUrl}> {list.videoUrl}</a>
+                </p>
               </div>
             );
           })}
         </>
       ) : (
-        <div className={styles.wrapper}>
-          <h5 className={styles.title}>{lists.title}</h5>
-          <p className={styles.link}>Link Youtube: {lists.link}</p>
-        </div>
+        <></>
       )}
     </div>
   );
