@@ -66,8 +66,8 @@ const DetailsMembership = () => {
           label: "Name",
           name: "name",
           type: "text",
-          placeholder: response.data?.username,
-          value: response.data?.username,
+          placeholder: response.data?.name,
+          value: response.data?.name,
           disabled: true,
         },
       ]);
@@ -154,7 +154,7 @@ const DetailsMembership = () => {
           <div className="row">
             <div className="col">
               <Details title={"Membership Id"} text={data?.membershipId} />
-              <Details title={"Username"} text={data?.username} />
+              <Details title={"Name"} text={data?.name} />
               <Details title={"Email"} text={data?.email} />
             </div>
             <div className="col">

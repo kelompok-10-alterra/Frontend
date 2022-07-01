@@ -95,7 +95,7 @@ const DetailsAdmin = () => {
         },
       ]);
     });
-  }, []);
+  }, [params.uid]);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -117,7 +117,7 @@ const DetailsAdmin = () => {
   return (
     <>
       <PageTitle icon={<FaUserCircle />} title="User" />
-      <Container title="Details Admin">
+      <Container title="Details User">
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">

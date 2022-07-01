@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Swal from "sweetalert2";
 
-import {
-  deleteMembership,
-  getMember,
-  getMemberById,
-  getUserData,
-} from "../../api";
+import { deleteMembership, getMember, getMemberById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -25,28 +20,46 @@ const Membership = () => {
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([]);
-  const [show, setShow] = useState([]);
-  const [userOptions, setUserOptions] = useState();
-  const [userSelectedOption, setUserSelectedOption] = useState([
+  const [show, setShow] = useState(null);
+  const [membershipOptions, setMembershipOptions] = useState([
     { value: 0, label: "All" },
   ]);
-  const [membershipSelectedOption, setMembershipSelectedOption] =
-    useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+  const [membershipSelectedOption, setMembershipSelectedOption] = useState([]);
 
-  // const options = [
-  //   [],
-  //   [
-  //     { value: 1, label: "Platinum" },
-  //     { value: 2, label: "Gold" },
-  //     { value: 3, label: "Silver" },
-  //   ],
-  //   [
-  //     { value: "all", label: "All" },
-  //     { value: 1, label: "Active" },
-  //     { value: 0, label: "Non-Active" },
-  //   ],
-  // ];
+  useEffect(() => {
+    getMember().then((response) => {
+      setDatas(response.data);
+      setShow(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    setMembershipOptions([{ value: 0, label: "All" }]);
+    datas?.map((data) => {
+      let temp = {
+        value: data.membershipId,
+        label: `${data.membershipId} - ${data.name}`,
+      };
+      return setMembershipOptions((oldData) => [...oldData, temp]);
+    });
+  }, [datas]);
+
+  useEffect(() => {
+    if (
+      membershipSelectedOption.value === 0 ||
+      membershipSelectedOption.value === undefined
+    ) {
+      getMember().then((response) => {
+        setDatas(response.data);
+        setShow(response.data);
+      });
+    } else {
+      getMemberById(membershipSelectedOption.value).then((response) => {
+        setDatas(response.data);
+        setShow(response.data);
+      });
+    }
+  }, [membershipSelectedOption]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -59,13 +72,12 @@ const Membership = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteMembership(id).then(
+        deleteMembership(id).then(async () =>
           getMember().then((response) => {
             setDatas(response.data);
-            window.location.reload(true);
+            setShow(response.data);
           })
         );
-
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -76,38 +88,6 @@ const Membership = () => {
     navigate(`details-membership/${id}`);
   };
 
-  useEffect(() => {
-    getMember().then((response) => {
-      setDatas(response.data);
-      setShow(response.data);
-      console.log(response.data);
-      let temp = [];
-      response.data.map((data) => {
-        return temp.push({
-          value: data.membershipId,
-          label: `${data.membershipId} - ${data.username}`,
-        });
-      });
-      setUserOptions(temp);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (
-      userSelectedOption.value === 0 ||
-      userSelectedOption.value === undefined
-    ) {
-      getMember().then((response) => {
-        setDatas(response.data);
-        setShow(response.data);
-      });
-    } else {
-      getMemberById(userSelectedOption.value).then((response) => {
-        setShow([response.data]);
-      });
-    }
-  }, [userSelectedOption]);
-
   return (
     <div className={styles.content_wrapper}>
       <main>
@@ -116,25 +96,11 @@ const Membership = () => {
           <div className={styles.filter_wrapper}>
             <Select
               className={styles.select_input}
-              defaultValue={userSelectedOption}
-              onChange={setUserSelectedOption}
-              options={userOptions}
-              placeholder="User"
-            />
-            {/* <Select
-              className={styles.select_input}
               defaultValue={membershipSelectedOption}
               onChange={setMembershipSelectedOption}
-              options={options[1]}
+              options={membershipOptions}
               placeholder="Membership"
             />
-            <Select
-              className={styles.select_input}
-              defaultValue={statusSelectedOption}
-              onChange={setStatusSelectedOption}
-              options={options[2]}
-              placeholder="Status"
-            /> */}
           </div>
           <Button
             className={styles.btn_add}
@@ -144,13 +110,23 @@ const Membership = () => {
           />
         </section>
         <section>
-          <Table
-            headers={["ID", "Name", "Contact", "Membership", "Status"]}
-            name="member"
-            datas={show}
-            handleDetail={handleDetail}
-            handleDelete={handleDelete}
-          />
+          {show ? (
+            <Table
+              headers={["ID", "Name", "Contact", "Membership", "Status"]}
+              name="member"
+              datas={show}
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          ) : (
+            <Table
+              headers={["ID", "Name", "Contact", "Membership", "Status"]}
+              name="member"
+              datas={datas}
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
     </div>

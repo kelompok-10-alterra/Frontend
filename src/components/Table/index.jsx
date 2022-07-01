@@ -49,7 +49,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         if (name === "member") {
           dataList = {
             id: data.membershipId,
-            name: data.username,
+            name: data.name,
             contact: data.contact,
             membership: data.memberName,
             status: data.status,

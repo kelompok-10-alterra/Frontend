@@ -68,17 +68,44 @@ const Newsletter = () => {
         icon: "error",
       });
     } else {
-      console.log(content);
-      addNewsLetter({
-        title: title,
-        description: inputs[1].value,
-      }).then(async () =>
-        getNewsLetter().then((response) => setLists(response.data))
-      );
       Swal.fire({
-        title: "Success!",
-        text: "Newsletter has been posted sucessfully!",
-        icon: "success",
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, post it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addNewsLetter({
+            title: title,
+            description: inputs[1].value,
+          }).then(async () =>
+            getNewsLetter().then((response) => setLists(response.data))
+          );
+          Swal.fire({
+            title: "Success!",
+            text: "Newsletter has been posted sucessfully!",
+            icon: "success",
+          });
+          setInputs([
+            {
+              label: "",
+              name: "title",
+              type: "text",
+              placeholder: "Type your Title",
+              value: "",
+            },
+            {
+              label: "",
+              name: "content",
+              type: "textarea",
+              placeholder: "Type your text here",
+              value: "",
+            },
+          ]);
+        }
       });
     }
   };

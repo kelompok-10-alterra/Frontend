@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Swal from "sweetalert2";
 
-import {
-  deleteUserData,
-  getAdminData,
-  getUserData,
-  getUserDataById,
-} from "../../api";
+import { deleteUserData, getAdminData, getUserDataById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -73,8 +68,11 @@ const Admin = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteUserData(id).then(
-          getUserData().then(window.location.reload(true))
+        deleteUserData(id).then(async () =>
+          getAdminData().then((response) => {
+            setDatas(response.data);
+            setShow(response.data);
+          })
         );
 
         Swal.fire("Deleted!", "Your file has been deleted.", "success");

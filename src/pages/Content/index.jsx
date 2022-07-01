@@ -56,16 +56,43 @@ const Content = () => {
         icon: "error",
       });
     } else {
-      addContent({
-        title: title,
-        videoUrl: link,
-      }).then(async () =>
-        getContent().then((response) => setLists(response.data))
-      );
       Swal.fire({
-        title: "Success!",
-        text: "Content has been posted sucessfully!",
-        icon: "success",
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, post it!",
+      }).then((result) => {
+        addContent({
+          title: title,
+          videoUrl: link,
+        }).then(async () =>
+          getContent().then((response) => setLists(response.data))
+        );
+        Swal.fire({
+          title: "Success!",
+          text: "Content has been posted sucessfully!",
+          icon: "success",
+        });
+        setInputs([
+          {
+            label: "",
+            name: "title",
+            type: "text",
+            placeholder: "Type your Title",
+            value: "",
+          },
+          {
+            label: "",
+            name: "content",
+            type: "textarea",
+            placeholder: "Type your link youtube here",
+            value: "",
+            content: true,
+          },
+        ]);
       });
     }
   };

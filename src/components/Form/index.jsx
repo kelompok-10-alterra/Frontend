@@ -80,7 +80,7 @@ const Form = ({ inputs, setInputs, type }) => {
                     : input.type
                 }
                 name={input.name}
-                value={input.vaue}
+                value={input.value}
                 placeholder={input.placeholder}
                 min={input.min}
                 disabled={input.disabled}
