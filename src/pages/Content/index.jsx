@@ -12,6 +12,9 @@ import styles from "./style.module.css";
 
 /** Icons */
 import { MdLibraryAdd } from "react-icons/md";
+import { useEffect } from "react";
+import { addContent, getContent } from "../../api";
+import Swal from "sweetalert2";
 
 const Content = () => {
   const [inputs, setInputs] = useState([
@@ -32,22 +35,43 @@ const Content = () => {
     },
   ]);
 
-  const [lists, setLists] = useState([
-    {
-      id: 1,
-      title: "When You Burn Fat, Where Does it Go?",
-      link: "https://youtu.be/C8ialLlcdcw"
-    },
-    {
-      id: 2,
-      title: "When You Burn Fat, Where Does it Go?",
-      link: "https://youtu.be/C8ialLlcdcw"
-    },
-  ]);
+  const [lists, setLists] = useState([]);
 
   const handleClick = () => {
-    //
+    let message = "";
+    const title = inputs[0].value;
+    const link = inputs[1].value;
+    if (title === "" || link === "") {
+      message = "Please fill out title and youtube link";
+    }
+    if (title === "") {
+      message = "Title cannot be empty";
+    } else if (link === "") {
+      message = "Link cannot be empty";
+    }
+    if (message !== "") {
+      Swal.fire({
+        title: "Error!",
+        text: message,
+        icon: "error",
+      });
+    } else {
+      addContent({
+        title: title,
+        videoUrl: link,
+      }).then(async () =>
+        getContent().then((response) => setLists(response.data))
+      );
+      Swal.fire({
+        title: "Success!",
+        text: "Content has been posted sucessfully!",
+        icon: "success",
+      });
+    }
   };
+  useEffect(() => {
+    getContent().then((response) => setLists(response.data));
+  }, []);
 
   return (
     <>

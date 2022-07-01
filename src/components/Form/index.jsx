@@ -9,7 +9,7 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
 const emailRegex = /^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const phoneRegex = /^[1-9][0-9]{11,12}$/;
 const phoneRegexType1 = /^[1-9][0-9]/;
-const numberRegex = /^[0-9]/;
+// const numberRegex = /^[0-9]/;
 const Form = ({ inputs, setInputs, type }) => {
   const [showPassword, setShowPassword] = useState(false);
 
