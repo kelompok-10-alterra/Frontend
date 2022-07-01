@@ -198,8 +198,5 @@ export const getSumMembership = async () => {
   );
 };
 export const getSumBooking = async () => {
-  return axios.get(
-    "/capstone/membership/adminAccess/countTotalBooking",
-    auth()
-  );
+  return axios.get("/capstone/booking/adminAccess/countTotalBooking", auth());
 };

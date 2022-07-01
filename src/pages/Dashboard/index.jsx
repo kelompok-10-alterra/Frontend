@@ -14,7 +14,7 @@ import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
 import { useEffect } from "react";
-import { getSumBooking } from "../../api";
+import { getSumBooking, getSumMembership, getSumUser } from "../../api";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(32);
@@ -111,6 +111,8 @@ const Dashboard = () => {
   ]);
   useEffect(() => {
     getSumBooking().then((respond) => setSumBooking(respond.data));
+    getSumMembership().then((respond) => setSumMember(respond.data));
+    getSumUser().then((respond) => setSumUser(respond.data));
   }, []);
 
   return (
