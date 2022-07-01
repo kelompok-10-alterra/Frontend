@@ -7,9 +7,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "./style.module.css";
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
 const emailRegex = /^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const phoneRegex = /^[1-9][0-9]{11,12}$/;
-const phoneRegexType1 = /^[1-9][0-9]/;
-// const numberRegex = /^[0-9]/;
+const phoneRegex = /^[0-9]{10,13}$/;
 const Form = ({ inputs, setInputs, type }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,11 +36,7 @@ const Form = ({ inputs, setInputs, type }) => {
         setInputs([...inputs], temp);
       }
     } else if (inputLabel === "Contact") {
-      if (phoneRegexType1.test(value) === false) {
-        temp[index].error =
-          "Please input your phone number starting from the second digit";
-        setInputs([...inputs], temp);
-      } else if (phoneRegex.test(value) === false) {
+      if (phoneRegex.test(value) === false) {
         temp[index].error = "Phone number invalid";
         setInputs([...inputs], temp);
       } else {
