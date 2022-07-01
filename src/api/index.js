@@ -187,3 +187,19 @@ export const addContent = async ({
     auth()
   );
 };
+
+export const getSumUser = async () => {
+  return axios.get("/capstone/user/adminAccess/countTotalUser", auth());
+};
+export const getSumMembership = async () => {
+  return axios.get(
+    "/capstone/membership/adminAccess/countTotalMembership",
+    auth()
+  );
+};
+export const getSumBooking = async () => {
+  return axios.get(
+    "/capstone/membership/adminAccess/countTotalBooking",
+    auth()
+  );
+};

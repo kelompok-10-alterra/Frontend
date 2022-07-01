@@ -13,6 +13,8 @@ import PageTitle from "../../components/PageTitle";
 import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import { getSumBooking } from "../../api";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(32);
@@ -107,6 +109,9 @@ const Dashboard = () => {
       member: 40,
     },
   ]);
+  useEffect(() => {
+    getSumBooking().then((respond) => setSumBooking(respond.data));
+  }, []);
 
   return (
     <>
