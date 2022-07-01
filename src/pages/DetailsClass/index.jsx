@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
@@ -19,10 +19,20 @@ import { IoIosPeople } from "react-icons/io";
 /** React js  chart */
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
+import { getCategory, getInstructor, getRoom, getType } from "../../api";
 
 const DetailsClass = () => {
   const navigate = useNavigate();
+  const tomorrow = new Date(new Date());
 
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
   const props = {
     id: 1123,
     type: "Yoga",
@@ -43,11 +53,19 @@ const DetailsClass = () => {
   const percentage = Math.round((props.members / props.capacity) * 100);
 
   const rest = props.capacity - props.members;
-
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [roomOptions, setRoomOptions] = useState(null);
+
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
+  const [instructureOptions, setInstructureOptions] = useState(null);
+
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [typeOptions, setTypeOptions] = useState(null);
+
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [categoryOptions, setCategoryOptions] = useState(null);
+
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const [capacityInput, setCapacityInput] = useState([
@@ -55,8 +73,8 @@ const DetailsClass = () => {
       label: "Capacity",
       name: "capacity",
       type: "number",
-      placeholder: props.capacity,
-      value: props.capacity,
+      placeholder: "Type class capacity...",
+      value: "",
     },
   ]);
 
@@ -65,8 +83,8 @@ const DetailsClass = () => {
       label: "Description",
       name: "description",
       type: "textarea",
-      placeholder: props.description,
-      value: props.description,
+      placeholder: "Type class details...",
+      value: "",
     },
   ]);
 
@@ -75,8 +93,9 @@ const DetailsClass = () => {
       label: "Schedule",
       name: "schedule",
       type: "date",
-      placeholder: props.schedule,
-      value: props.schedule,
+      placeholder: "dd/mm/yy",
+      value: "",
+      min: temp,
     },
   ]);
 
@@ -85,8 +104,8 @@ const DetailsClass = () => {
       label: "Price",
       name: "price",
       type: "number",
-      placeholder: props.price,
-      value: props.price,
+      placeholder: "Type class price...",
+      value: "",
     },
   ]);
 
@@ -101,32 +120,6 @@ const DetailsClass = () => {
   });
 
   let priceIDR = Intl.NumberFormat("en-ID");
-
-  const options = [
-    [
-      { value: 1, label: "A" },
-      { value: 2, label: "B" },
-    ], //room
-    [
-      { value: 1, label: "Laverna" }, // instructure
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-      { value: 4, label: "Ahmad Fauze" },
-    ],
-    [
-      { value: 1, label: "Yoga" },
-      { value: 2, label: "Zumba" },
-    ], //type
-    [
-      { value: 1, label: "Online" }, //category
-      { value: 0, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" }, //status
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
   const lists = [
     {
       id: 1,
@@ -190,6 +183,43 @@ const DetailsClass = () => {
     },
   ];
 
+  const options = [
+    //status
+    { value: true, label: "Active" },
+    { value: false, label: "Non-Active" },
+  ];
+  useEffect(() => {
+    getRoom().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.roomId, label: data.name });
+      });
+      setRoomOptions(temp);
+    });
+    getInstructor().then((response) => {
+      let temp = [];
+
+      response.data.map((data) => {
+        return temp.push({ value: data.instructorId, label: data.name });
+      });
+      setInstructureOptions(temp);
+    });
+    getType().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.typeId, label: data.name });
+      });
+
+      setTypeOptions(temp);
+    });
+    getCategory().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.categoryId, label: data.name });
+      });
+      setCategoryOptions(temp);
+    });
+  }, []);
   const handleSave = () => {
     //save to database
     navigate("/class");
@@ -248,17 +278,17 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={roomSelectedOption}
                   onChange={setRoomSelectedOption}
-                  options={options[0]}
-                  placeholder={props.room}
+                  options={roomOptions}
+                  placeholder="Room"
                 />
 
                 <label className="label mt-3">Instructure</label>
                 <Select
                   className={`mt-3 ${styles.select_input}`}
-                  defaultValue={instructureOption}
+                  defaultValue={instructureSelectedOption}
                   onChange={setInstructureSelectedOption}
-                  options={options[1]}
-                  placeholder={props.instructure}
+                  options={instructureOptions}
+                  placeholder="Instructure"
                 />
 
                 <label className="label mt-3">Type</label>
@@ -282,8 +312,8 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
-                  options={options[3]}
-                  placeholder={props.category}
+                  options={categoryOptions}
+                  placeholder="Category"
                 />
 
                 <label className="label mt-3">Status</label>
@@ -291,8 +321,8 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
-                  options={options[4]}
-                  placeholder={props.status}
+                  options={options}
+                  placeholder="Status"
                 />
                 <span className={styles.input}>
                   <Form inputs={capacityInput} setInputs={setCapacityInput} />

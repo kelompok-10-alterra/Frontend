@@ -200,3 +200,54 @@ export const getSumMembership = async () => {
 export const getSumBooking = async () => {
   return axios.get("/capstone/booking/adminAccess/countTotalBooking", auth());
 };
+
+export const getClass = async () => {
+  return await axios.get("/capstone/class/userAccess/getAllClass", auth());
+};
+export const deleteClass = async (id) => {
+  return await axios.delete(
+    `/capstone/class/adminAccess/deleteClass/${id}`,
+    auth()
+  );
+};
+export const addClass = async ({
+  status,
+  description,
+  capacity,
+  schedule,
+  price,
+  instructureId,
+  categoryId,
+  roomId,
+  typeId,
+}) => {
+  return await axios.post(
+    `/capstone/class/adminAccess/createNewClass`,
+    JSON.stringify({
+      status,
+      name: "string",
+      description,
+      capacity,
+      schedule: new Date(`${schedule}T15:31:43.420Z`),
+      price,
+      imageUrl: "",
+      instructureId,
+      categoryId,
+      roomId,
+      typeId,
+    }),
+    auth()
+  );
+};
+export const getRoom = async () => {
+  return axios.get("/capstone/room/userAccess/getAllRoom", auth());
+};
+export const getInstructor = async () => {
+  return axios.get("/capstone/instructor/userAcess/getAllInstructure", auth());
+};
+export const getType = async () => {
+  return axios.get("/capstone/type/userAccess/getAllType", auth());
+};
+export const getCategory = async () => {
+  return axios.get("/capstone/category/userAccess/getAllCategory", auth());
+};
