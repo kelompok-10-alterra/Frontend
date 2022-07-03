@@ -50,13 +50,11 @@ const Membership = () => {
       membershipSelectedOption.value === undefined
     ) {
       getMember().then((response) => {
-        setDatas(response.data);
         setShow(response.data);
       });
     } else {
       getMemberById(membershipSelectedOption.value).then((response) => {
-        setDatas(response.data);
-        setShow(response.data);
+        setShow([response.data]);
       });
     }
   }, [membershipSelectedOption]);
