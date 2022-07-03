@@ -32,7 +32,7 @@ const Admin = () => {
   }, []);
 
   useEffect(() => {
-    setAdminOption([]);
+    setAdminOption([{ value: 0, label: "All" }]);
     datas?.map((admin) => {
       let temp = {
         value: admin.userId,
