@@ -12,9 +12,18 @@ import { IoIosPeople } from "react-icons/io";
 
 /** Style */
 import styles from "./style.module.css";
+import { useEffect } from "react";
+import {
+  addClass,
+  getCategory,
+  getInstructor,
+  getRoom,
+  getType,
+} from "../../api";
+import { useNavigate } from "react-router-dom";
 
 const AddClass = () => {
-
+  const navigate = useNavigate();
   const tomorrow = new Date(new Date());
 
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -27,9 +36,18 @@ const AddClass = () => {
     String(tomorrow.getDate()).padStart(2, "0");
 
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [roomOptions, setRoomOptions] = useState(null);
+
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
+  const [instructureOptions, setInstructureOptions] = useState(null);
+
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [typeOptions, setTypeOptions] = useState(null);
+
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [categoryOptions, setCategoryOptions] = useState(null);
+
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const [capacityInput, setCapacityInput] = useState([
@@ -38,7 +56,7 @@ const AddClass = () => {
       name: "capacity",
       type: "number",
       placeholder: "Type class capacity...",
-      value: "",
+      value: 0,
     },
   ]);
 
@@ -74,25 +92,65 @@ const AddClass = () => {
   ]);
 
   const options = [
-    [], //room
-    [
-      { value: 1, label: "Laverna" }, // instructure
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-    ],
-    [], //type
-    [
-      { value: 1, label: "Online" }, //category
-      { value: 0, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" }, //status
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
+    //status
+    { value: true, label: "Active" },
+    { value: false, label: "Non-Active" },
   ];
+  useEffect(() => {
+    getRoom().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.roomId, label: data.name });
+      });
+      setRoomOptions(temp);
+      console.log(...temp);
+    });
+    getInstructor().then((response) => {
+      let temp = [];
 
-  const handleSave = () => { };
+      response.data.map((data) => {
+        return temp.push({ value: data.instructorId, label: data.name });
+      });
+      setInstructureOptions(temp);
+    });
+    getType().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.typeId, label: data.name });
+      });
+      console.log(...temp);
+      setTypeOptions(temp);
+    });
+    getCategory().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.categoryId, label: data.name });
+      });
+      setCategoryOptions(temp);
+    });
+  }, []);
+  const handleSave = (e) => {
+    e.preventDefault();
+    let temp = new Date(scheduleInput[0].value);
+    let date = "";
+    if (temp.getMonth() > 9) {
+      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    } else {
+      date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    }
+
+    addClass({
+      status: statusSelectedOption.value,
+      description: descriptionInput[0].value,
+      capacity: parseInt(capacityInput[0].value),
+      schedule: date,
+      price: parseInt(priceInput[0].value),
+      instructorId: instructureSelectedOption.value,
+      categoryId: categorySelectedOption.value,
+      roomId: roomSelectedOption.value,
+      typeId: typeSelectedOption.value,
+    }).then((result) => navigate("/class"));
+  };
 
   return (
     <>
@@ -107,16 +165,16 @@ const AddClass = () => {
                   className={styles.select_input}
                   defaultValue={roomSelectedOption}
                   onChange={setRoomSelectedOption}
-                  options={options[0]}
+                  options={roomOptions}
                   placeholder="Room"
                 />
 
                 <label className="label">Instructure</label>
                 <Select
                   className={styles.select_input}
-                  defaultValue={instructureOption}
+                  defaultValue={instructureSelectedOption}
                   onChange={setInstructureSelectedOption}
-                  options={options[1]}
+                  options={instructureOptions}
                   placeholder="Instructure"
                 />
 
@@ -125,7 +183,7 @@ const AddClass = () => {
                   className={styles.select_input}
                   defaultValue={typeSelectedOption}
                   onChange={setTypeSelectedOption}
-                  options={options[2]}
+                  options={typeOptions}
                   placeholder="Type"
                 />
                 <span className={styles.input}>
@@ -141,7 +199,7 @@ const AddClass = () => {
                   className={styles.select_input}
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
-                  options={options[3]}
+                  options={categoryOptions}
                   placeholder="Category"
                 />
 
@@ -150,7 +208,7 @@ const AddClass = () => {
                   className={styles.select_input}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
-                  options={options[4]}
+                  options={options}
                   placeholder="Status"
                 />
 

@@ -12,10 +12,15 @@ import { IoIosPeople } from "react-icons/io";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import { deleteClass, getClass } from "../../api";
+import Swal from "sweetalert2";
 
 const Class = () => {
   const navigate = useNavigate();
 
+  const [datas, setDatas] = useState([]);
+  const [show, setShow] = useState([]);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -36,15 +41,39 @@ const Class = () => {
       { value: 0, label: "Non-Active" },
     ],
   ];
+  useEffect(() => {
+    getClass().then((response) => {
+      setDatas(response.data);
+      setShow(response.data);
+    });
+  }, []);
 
   const handleDelete = (id) => {
-    // Delete
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteClass(id).then(async () => {
+          getClass().then((response) => {
+            setDatas(response.data);
+            setShow(response.data);
+          });
+        });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
   };
 
   const handleDetail = (id) => {
     // Detail
 
-    navigate("details-class");
+    navigate(`details-class/${id}`);
   };
 
   return (
@@ -60,7 +89,7 @@ const Class = () => {
               options={options[0]}
               placeholder="Class"
             />
-            <Select
+            {/* <Select
               className={styles.select_input}
               defaultValue={instructureOption}
               onChange={setInstructureSelectedOption}
@@ -73,10 +102,16 @@ const Class = () => {
               onChange={setTypeSelectedOption}
               options={options[2]}
               placeholder="Type"
+            /> */}
+            <Button
+              className={styles.btn_add}
+              text="+ Add New Class"
+              type="button"
+              onClick={() => navigate("add-class")}
             />
           </div>
           <div className={styles.filter_wrapper_bottom}>
-            <div>
+            {/* <div>
               <Select
                 className={styles.select_input}
                 defaultValue={categorySelectedOption}
@@ -91,29 +126,47 @@ const Class = () => {
                 options={options[4]}
                 placeholder="Status"
               />
-            </div>
-            <Button
+            </div> */}
+            {/* <Button
               className={styles.btn_add}
               text="+ Add New Class"
               type="button"
               onClick={() => navigate("add-class")}
-            />
+            /> */}
           </div>
         </section>
         <section>
-          <Table
-            headers={[
-              "ID Class",
-              "Room",
-              "Instructure",
-              "Type",
-              "Category",
-              "Status",
-            ]}
-            datas={[]}
-            handleDetail={() => handleDetail()}
-            handleDelete={() => { }}
-          />
+          {show ? (
+            <Table
+              headers={[
+                "ID Class",
+                "Room",
+                "Instructure",
+                "Type",
+                "Category",
+                "Status",
+              ]}
+              datas={show}
+              name="class"
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          ) : (
+            <Table
+              headers={[
+                "ID Class",
+                "Room",
+                "Instructure",
+                "Type",
+                "Category",
+                "Status",
+              ]}
+              datas={datas}
+              name="class"
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
     </div>

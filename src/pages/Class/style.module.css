@@ -19,6 +19,7 @@ section {
 .filter_wrapper_top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -47,8 +48,7 @@ section {
   width: 220px;
 }
 
-
-.select_input>div {
+.select_input > div {
   padding: 0.15rem 0.5rem;
   border: 1px solid var(--dark80);
   border-radius: 12px;

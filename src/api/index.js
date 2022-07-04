@@ -200,3 +200,104 @@ export const getSumMembership = async () => {
 export const getSumBooking = async () => {
   return axios.get("/capstone/booking/adminAccess/countTotalBooking", auth());
 };
+
+export const getClass = async () => {
+  return await axios.get("/capstone/class/userAccess/getAllClass", auth());
+};
+export const deleteClass = async (id) => {
+  return await axios.delete(
+    `/capstone/class/adminAccess/deleteClass/${id}`,
+    auth()
+  );
+};
+export const addClass = async ({
+  status,
+  description,
+  capacity,
+  schedule,
+  price,
+  instructorId,
+  categoryId,
+  roomId,
+  typeId,
+}) => {
+  return await axios.post(
+    `/capstone/class/adminAccess/createNewClass`,
+    JSON.stringify({
+      status,
+      name: "string",
+      description,
+      capacity,
+      schedule,
+      price,
+      imageUrl: "string",
+      instructorId,
+      categoryId,
+      roomId,
+      typeId,
+    }),
+    auth()
+  );
+};
+export const getRoom = async () => {
+  return axios.get("/capstone/room/userAccess/getAllRoom", auth());
+};
+export const getInstructor = async () => {
+  return axios.get("/capstone/instructor/userAcess/getAllInstructure", auth());
+};
+export const getType = async () => {
+  return await axios.get("/capstone/type/userAccess/getAllType", auth());
+};
+export const getCategory = async () => {
+  return await axios.get(
+    "/capstone/category/userAccess/getAllCategory",
+    auth()
+  );
+};
+
+export const getClassById = async (id) => {
+  return await axios.get(
+    `/capstone/class/userAccess/getClassByIdDto?classId=${id}`,
+    auth()
+  );
+};
+
+export const editClass = async ({
+  id,
+  status,
+  name,
+  description,
+  capacity,
+  schedule,
+  price,
+  imageUrl,
+  instructorId,
+  categoryId,
+  roomId,
+  typeId,
+}) => {
+  return await axios.put(
+    `/capstone/class/adminAccess/updateClass/${id}`,
+    JSON.stringify({
+      status,
+      name: "string",
+      description,
+      capacity,
+      schedule,
+      price,
+      imageUrl: "string",
+      instructorId,
+      categoryId,
+      roomId,
+      typeId,
+    }),
+    auth()
+  );
+};
+
+export const getUserByClassId = async (id) => {
+  return await axios.get(
+    `/capstone/class/adminAccess/getUserByClassId?classId=${id}`,
+    auth()
+  );
+};

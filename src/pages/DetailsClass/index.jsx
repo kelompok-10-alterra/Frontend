@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 /** Styles */
@@ -19,35 +19,46 @@ import { IoIosPeople } from "react-icons/io";
 /** React js  chart */
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
+import {
+  editClass,
+  getCategory,
+  getClassById,
+  getInstructor,
+  getRoom,
+  getType,
+  getUserByClassId,
+} from "../../api";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const DetailsClass = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const tomorrow = new Date(new Date());
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const temp =
+    tomorrow.getFullYear() +
+    "-" +
+    String(tomorrow.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(tomorrow.getDate()).padStart(2, "0");
 
-  const props = {
-    id: 1123,
-    type: "Yoga",
-    room: "A",
-    instructure: "Ahmad Fauze",
-    contact: "08219398",
-    address: "Jakarta",
-    status: "Active",
-    category: 1,
-    members: 10,
-    capacity: 30,
-    schedule: "2022-06-22",
-    price: 100000,
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga fugiat odio, nobis impedit maiores nemo consequuntur rerum cupiditate porro suscipit quos accusamus? Omnis velit, tempora ea magni blanditiis perferendis consectetur.",
-  };
+  // const percentage = Math.round((props.members / props.capacity) * 100);
 
-  const percentage = Math.round((props.members / props.capacity) * 100);
-
-  const rest = props.capacity - props.members;
+  // const rest = props.capacity - props.members;
+  const [data, setData] = useState();
 
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
+  const [roomOptions, setRoomOptions] = useState(null);
+
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
+  const [instructureOptions, setInstructureOptions] = useState(null);
+
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
+  const [typeOptions, setTypeOptions] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
+  const [categoryOptions, setCategoryOptions] = useState(null);
+  const [lists, setLists] = useState([]);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
   const [capacityInput, setCapacityInput] = useState([
@@ -55,8 +66,8 @@ const DetailsClass = () => {
       label: "Capacity",
       name: "capacity",
       type: "number",
-      placeholder: props.capacity,
-      value: props.capacity,
+      placeholder: "Type class capacity...",
+      value: "",
     },
   ]);
 
@@ -65,8 +76,8 @@ const DetailsClass = () => {
       label: "Description",
       name: "description",
       type: "textarea",
-      placeholder: props.description,
-      value: props.description,
+      placeholder: "Type class details...",
+      value: "",
     },
   ]);
 
@@ -75,8 +86,9 @@ const DetailsClass = () => {
       label: "Schedule",
       name: "schedule",
       type: "date",
-      placeholder: props.schedule,
-      value: props.schedule,
+      placeholder: "dd/mm/yy",
+      value: "",
+      min: temp,
     },
   ]);
 
@@ -85,114 +97,163 @@ const DetailsClass = () => {
       label: "Price",
       name: "price",
       type: "number",
-      placeholder: props.price,
-      value: props.price,
+      placeholder: "Type class price...",
+      value: "",
     },
   ]);
-
-  const [data, setData] = useState({
-    datasets: [
-      {
-        data: [props.members, rest],
-        backgroundColor: ["#0583d2", "#E8F4FC"],
-      },
-    ],
-    labels: ["Members", "Available"],
-  });
+  const [percentage, setPercentage] = useState(0);
+  const [dataSet, setDataSet] = useState({});
 
   let priceIDR = Intl.NumberFormat("en-ID");
 
   const options = [
-    [
-      { value: 1, label: "A" },
-      { value: 2, label: "B" },
-    ], //room
-    [
-      { value: 1, label: "Laverna" }, // instructure
-      { value: 2, label: "Brynn" },
-      { value: 3, label: "Doralynn" },
-      { value: 4, label: "Ahmad Fauze" },
-    ],
-    [
-      { value: 1, label: "Yoga" },
-      { value: 2, label: "Zumba" },
-    ], //type
-    [
-      { value: 1, label: "Online" }, //category
-      { value: 0, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" }, //status
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
+    //status
+    { value: true, label: "Active" },
+    { value: false, label: "Non-Active" },
   ];
-  const lists = [
-    {
-      id: 1,
-      name: "Duff",
-      status: false,
-      created_at: "05/08/2022",
-    },
-    {
-      id: 2,
-      name: "Hailee",
-      status: true,
-      created_at: "04/30/2022",
-    },
-    {
-      id: 3,
-      name: "Angele",
-      status: true,
-      created_at: "08/11/2021",
-    },
-    {
-      id: 4,
-      name: "Philippe",
-      status: true,
-      created_at: "10/11/2021",
-    },
-    {
-      id: 5,
-      name: "Tymon",
-      status: false,
-      created_at: "11/07/2021",
-    },
-    {
-      id: 6,
-      name: "Verile",
-      status: true,
-      created_at: "08/27/2021",
-    },
-    {
-      id: 7,
-      name: "Eudora",
-      status: true,
-      created_at: "01/16/2022",
-    },
-    {
-      id: 8,
-      name: "Harland",
-      status: true,
-      created_at: "11/22/2021",
-    },
-    {
-      id: 9,
-      name: "Evyn",
-      status: false,
-      created_at: "10/09/2021",
-    },
-    {
-      id: 10,
-      name: "Darwin",
-      status: true,
-      created_at: "12/05/2021",
-    },
-  ];
+  useEffect(() => {
+    let capacity = 0;
+    getRoom().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.roomId, label: data.name });
+      });
+      setRoomOptions(temp);
+    });
+    getInstructor().then((response) => {
+      let temp = [];
 
-  const handleSave = () => {
-    //save to database
-    navigate("/class");
+      response.data.map((data) => {
+        return temp.push({ value: data.instructorId, label: data.name });
+      });
+      setInstructureOptions(temp);
+    });
+    getCategory().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.categoryId, label: data.name });
+      });
+      setCategoryOptions(temp);
+    });
+    getType().then((response) => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.typeId, label: data.name });
+      });
+
+      setTypeOptions(temp);
+    });
+    getClassById(params.uid).then((response) => {
+      setData(response.data);
+      console.log(response.data);
+      capacity = response.data.capacity;
+      setCapacityInput([
+        {
+          label: "Capacity",
+          name: "capacity",
+          type: "number",
+          placeholder: "Type class capacity...",
+          value: response.data.capacity,
+        },
+      ]);
+      setDescriptionInput([
+        {
+          label: "Description",
+          name: "description",
+          type: "textarea",
+          placeholder: "Type class details...",
+          value: response.data.description,
+        },
+      ]);
+      let schedule = response.data.schedule;
+
+      setScheduleInput([
+        {
+          label: "Schedule",
+          name: "schedule",
+          type: "date",
+          placeholder: "dd/mm/yy",
+          value: `${schedule.substring(6, 10)}-${schedule.substring(
+            3,
+            5
+          )}-${schedule.substring(0, 2)}`,
+          min: temp,
+        },
+      ]);
+      setPriceInput([
+        {
+          label: "Price",
+          name: "price",
+          type: "number",
+          placeholder: "Type class price...",
+          value: response.data.price,
+        },
+      ]);
+
+      setTypeSelectedOption({
+        value: response.data.typeId,
+        label: response.data.typeName,
+      });
+      setRoomSelectedOption({
+        value: response.data.roomId,
+        label: response.data.roomName,
+      });
+      setInstructureSelectedOption({
+        value: response.data.instructureId,
+        label: response.data.instructureName,
+      });
+      setCategorySelectedOption({
+        value: response.data.categoryId,
+        label: response.data.categoryName,
+      });
+      if (response.data.status) {
+        setStatusSelectedOption({ value: true, label: "Active" });
+      } else {
+        setStatusSelectedOption({ value: false, label: "Non-Active" });
+      }
+    });
+    getUserByClassId(params.uid).then((response) => {
+      setLists(response.data);
+      setDataSet({
+        datasets: [
+          {
+            data: [response.data.length(), capacity - response.data.length()],
+            backgroundColor: ["#0583d2", "#E8F4FC"],
+          },
+        ],
+        labels: ["Members", "Available"],
+      });
+      setPercentage(Math.round(response.data.length / capacity) * 100);
+    });
+  }, [params.uid]);
+  const handleSave = (e) => {
+    e.preventDefault();
+    let temp = new Date(scheduleInput[0].value);
+    console.log(temp.getDate());
+    let date = "";
+
+    if (temp.getDate() < 10 && temp.getMonth() < 10) {
+      date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
+      date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+      date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    } else {
+      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    }
+
+    editClass({
+      id: params.uid,
+      status: statusSelectedOption.value,
+      description: descriptionInput[0].value,
+      capacity: parseInt(capacityInput[0].value),
+      schedule: date,
+      price: parseInt(priceInput[0].value),
+      instructorId: instructureSelectedOption.value,
+      categoryId: categorySelectedOption.value,
+      roomId: roomSelectedOption.value,
+      typeId: typeSelectedOption.value,
+    }).then((result) => navigate("/class"));
   };
 
   return (
@@ -202,23 +263,23 @@ const DetailsClass = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title={"ID Class"} text={props.id} />
-              <Details title={"Type"} text={props.type} />
-              <Details title={"Room"} text={props.room} />
-              <Details title={"Instructure"} text={props.instructure} />
+              <Details title={"ID Class"} text={data?.classId} />
+              <Details title={"Type"} text={data?.typeName} />
+              <Details title={"Room"} text={data?.roomName} />
+              <Details title={"Instructure"} text={data?.instructureName} />
             </div>
             <div className="col">
-              <Details title={"Contact Instructure"} text={props.contact} />
+              <Details title={"Contact Instructure"} text={data?.contact} />
 
-              <Details title={"Status"} text={props.status} />
-              {props.category === 1 ? (
+              <Details title={"Status"} text={data?.status} />
+              {data?.typeName ? (
                 <Details title={"Category"} text={"Online"} />
               ) : (
                 <Details title={"Category"} text={"Offline"} />
               )}
             </div>
             <div className="col">
-              {props.members > 1 ? (
+              {/* {data?.members > 1 ? (
                 <Details
                   title={"Total Members"}
                   text={`${props.members} persons`}
@@ -228,12 +289,12 @@ const DetailsClass = () => {
                   title={"Total Members"}
                   text={`${props.members} person`}
                 />
-              )}
+              )} */}
               <Details
                 title={"Price"}
-                text={`Rp. ${priceIDR.format(props.price)}`}
+                text={`Rp. ${priceIDR.format(data?.price)}`}
               />
-              <Details title={"Held On"} text={props.schedule} />
+              <Details title={"Held On"} text={data?.schedule} />
             </div>
           </div>
         </div>
@@ -248,17 +309,17 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={roomSelectedOption}
                   onChange={setRoomSelectedOption}
-                  options={options[0]}
-                  placeholder={props.room}
+                  options={roomOptions}
+                  placeholder={data?.roomName}
                 />
 
                 <label className="label mt-3">Instructure</label>
                 <Select
                   className={`mt-3 ${styles.select_input}`}
-                  defaultValue={instructureOption}
+                  defaultValue={instructureSelectedOption}
                   onChange={setInstructureSelectedOption}
-                  options={options[1]}
-                  placeholder={props.instructure}
+                  options={instructureOptions}
+                  placeholder={data?.instructureName}
                 />
 
                 <label className="label mt-3">Type</label>
@@ -266,8 +327,8 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={typeSelectedOption}
                   onChange={setTypeSelectedOption}
-                  options={options[2]}
-                  placeholder={props.type}
+                  options={typeOptions}
+                  placeholder={data?.typeName}
                 />
                 <span className={styles.input}>
                   <Form
@@ -282,8 +343,8 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={categorySelectedOption}
                   onChange={setCategorySelectedOption}
-                  options={options[3]}
-                  placeholder={props.category}
+                  options={categoryOptions}
+                  placeholder={data?.categoryName}
                 />
 
                 <label className="label mt-3">Status</label>
@@ -291,8 +352,8 @@ const DetailsClass = () => {
                   className={`mt-3 ${styles.select_input}`}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
-                  options={options[4]}
-                  placeholder={props.status}
+                  options={options}
+                  placeholder={data?.status ? "Active" : "Not-Active"}
                 />
                 <span className={styles.input}>
                   <Form inputs={capacityInput} setInputs={setCapacityInput} />
@@ -322,20 +383,20 @@ const DetailsClass = () => {
             <Table
               headers={["ID", "Name", "Status", "Joined At"]}
               datas={lists}
-              name="class"
+              name="class-table"
             />
           </Container>
         </span>
 
         <section className={styles.doughnut}>
           <h5>Current Students</h5>
-          <Doughnut data={data} />
+          <Doughnut data={dataSet} />
           <div className={styles.donut_inner}>
             <h3>{percentage} %</h3>
             <h5>Available</h5>
           </div>
           <div className={styles.info}>
-            <b>Capactiy : </b> {props.capacity} people
+            {/* <b>Capactiy : </b> {data.capacity} people */}
           </div>
         </section>
       </div>
