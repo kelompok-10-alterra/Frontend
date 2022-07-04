@@ -216,7 +216,7 @@ export const addClass = async ({
   capacity,
   schedule,
   price,
-  instructureId,
+  instructorId,
   categoryId,
   roomId,
   typeId,
@@ -228,10 +228,10 @@ export const addClass = async ({
       name: "string",
       description,
       capacity,
-      schedule: new Date(`${schedule}T15:31:43.420Z`),
+      schedule,
       price,
-      imageUrl: "",
-      instructureId,
+      imageUrl: "string",
+      instructorId,
       categoryId,
       roomId,
       typeId,
@@ -246,8 +246,58 @@ export const getInstructor = async () => {
   return axios.get("/capstone/instructor/userAcess/getAllInstructure", auth());
 };
 export const getType = async () => {
-  return axios.get("/capstone/type/userAccess/getAllType", auth());
+  return await axios.get("/capstone/type/userAccess/getAllType", auth());
 };
 export const getCategory = async () => {
-  return axios.get("/capstone/category/userAccess/getAllCategory", auth());
+  return await axios.get(
+    "/capstone/category/userAccess/getAllCategory",
+    auth()
+  );
+};
+
+export const getClassById = async (id) => {
+  return await axios.get(
+    `/capstone/class/userAccess/getClassByIdDto?classId=${id}`,
+    auth()
+  );
+};
+
+export const editClass = async ({
+  id,
+  status,
+  name,
+  description,
+  capacity,
+  schedule,
+  price,
+  imageUrl,
+  instructorId,
+  categoryId,
+  roomId,
+  typeId,
+}) => {
+  return await axios.put(
+    `/capstone/class/adminAccess/updateClass/${id}`,
+    JSON.stringify({
+      status,
+      name: "string",
+      description,
+      capacity,
+      schedule,
+      price,
+      imageUrl: "string",
+      instructorId,
+      categoryId,
+      roomId,
+      typeId,
+    }),
+    auth()
+  );
+};
+
+export const getUserByClassId = async (id) => {
+  return await axios.get(
+    `/capstone/class/adminAccess/getUserByClassId?classId=${id}`,
+    auth()
+  );
 };

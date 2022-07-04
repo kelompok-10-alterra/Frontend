@@ -20,8 +20,10 @@ import {
   getRoom,
   getType,
 } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 const AddClass = () => {
+  const navigate = useNavigate();
   const tomorrow = new Date(new Date());
 
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -54,7 +56,7 @@ const AddClass = () => {
       name: "capacity",
       type: "number",
       placeholder: "Type class capacity...",
-      value: "",
+      value: 0,
     },
   ]);
 
@@ -129,17 +131,25 @@ const AddClass = () => {
   }, []);
   const handleSave = (e) => {
     e.preventDefault();
+    let temp = new Date(scheduleInput[0].value);
+    let date = "";
+    if (temp.getMonth() > 9) {
+      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    } else {
+      date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    }
+
     addClass({
       status: statusSelectedOption.value,
       description: descriptionInput[0].value,
-      capacity: capacityInput[0].value,
-      schedule: scheduleInput[0].value,
-      price: priceInput[0].value,
-      instructureId: instructureSelectedOption.value,
+      capacity: parseInt(capacityInput[0].value),
+      schedule: date,
+      price: parseInt(priceInput[0].value),
+      instructorId: instructureSelectedOption.value,
       categoryId: categorySelectedOption.value,
       roomId: roomSelectedOption.value,
       typeId: typeSelectedOption.value,
-    });
+    }).then((result) => navigate("/class"));
   };
 
   return (

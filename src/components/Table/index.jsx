@@ -61,7 +61,9 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
 
         return (
           <>
-            {name === "trainer" || name === "dashboard" ? (
+            {name === "trainer" ||
+            name === "dashboard" ||
+            name === "class-table" ? (
               <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (

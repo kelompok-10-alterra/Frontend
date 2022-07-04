@@ -89,7 +89,7 @@ const Class = () => {
               options={options[0]}
               placeholder="Class"
             />
-            <Select
+            {/* <Select
               className={styles.select_input}
               defaultValue={instructureOption}
               onChange={setInstructureSelectedOption}
@@ -102,10 +102,16 @@ const Class = () => {
               onChange={setTypeSelectedOption}
               options={options[2]}
               placeholder="Type"
+            /> */}
+            <Button
+              className={styles.btn_add}
+              text="+ Add New Class"
+              type="button"
+              onClick={() => navigate("add-class")}
             />
           </div>
           <div className={styles.filter_wrapper_bottom}>
-            <div>
+            {/* <div>
               <Select
                 className={styles.select_input}
                 defaultValue={categorySelectedOption}
@@ -120,30 +126,47 @@ const Class = () => {
                 options={options[4]}
                 placeholder="Status"
               />
-            </div>
-            <Button
+            </div> */}
+            {/* <Button
               className={styles.btn_add}
               text="+ Add New Class"
               type="button"
               onClick={() => navigate("add-class")}
-            />
+            /> */}
           </div>
         </section>
         <section>
-          <Table
-            headers={[
-              "ID Class",
-              "Room",
-              "Instructure",
-              "Type",
-              "Category",
-              "Status",
-            ]}
-            datas={datas}
-            name="class"
-            handleDetail={handleDetail}
-            handleDelete={handleDelete}
-          />
+          {show ? (
+            <Table
+              headers={[
+                "ID Class",
+                "Room",
+                "Instructure",
+                "Type",
+                "Category",
+                "Status",
+              ]}
+              datas={show}
+              name="class"
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          ) : (
+            <Table
+              headers={[
+                "ID Class",
+                "Room",
+                "Instructure",
+                "Type",
+                "Category",
+                "Status",
+              ]}
+              datas={datas}
+              name="class"
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
     </div>

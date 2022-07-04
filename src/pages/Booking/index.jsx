@@ -14,7 +14,6 @@ import Button from "../../components/Button";
 import Table from "../../components/Table";
 
 const Booking = () => {
-
   const navigate = useNavigate();
 
   const [userSelectedOption, setUserSelectedOption] = useState(null);
@@ -54,6 +53,8 @@ const Booking = () => {
         <PageTitle icon={<MdEventAvailable />} title="Booking" />
         <section className={styles.top_section}>
           <div className={styles.filter_wrapper_top}>
+            {/* [1:10 PM, 7/3/2022] malvino: yauda itu ubah aja titlenya jadi Booking
+[1:10 PM, 7/3/2022] malvino: placeholder sma nama variabelnya */}
             <Select
               className={styles.select_input}
               defaultValue={userSelectedOption}
@@ -113,7 +114,7 @@ const Booking = () => {
             ]}
             datas={[]}
             handleDetail={() => handleDetail()}
-            handleDelete={() => { }}
+            handleDelete={() => {}}
           />
         </section>
       </main>
