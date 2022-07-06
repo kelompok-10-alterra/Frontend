@@ -13,7 +13,7 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
 import { useEffect } from "react";
-import { deleteClass, getClass } from "../../api";
+import { deleteClass, getClass, getClassById } from "../../api";
 import Swal from "sweetalert2";
 
 const Class = () => {
@@ -21,7 +21,8 @@ const Class = () => {
 
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState([]);
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [classSelectedOption, setClassSelectedOption] = useState([]);
+  const [classOptions, setClassOptions] = useState();
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
@@ -47,6 +48,17 @@ const Class = () => {
       setShow(response.data);
     });
   }, []);
+  useEffect(() => {
+    setClassOptions([{ value: 0, label: "All" }]);
+
+    datas?.map((data) => {
+      let temp = {
+        value: data.classId,
+        label: `${data.classId} - ${data.name}`,
+      };
+      return setClassOptions((oldData) => [...oldData, temp]);
+    });
+  }, [datas]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -69,6 +81,20 @@ const Class = () => {
       }
     });
   };
+  useEffect(() => {
+    if (
+      classSelectedOption.value === 0 ||
+      classSelectedOption.value === undefined
+    ) {
+      getClass().then((response) => {
+        setShow(response.data);
+      });
+    } else {
+      getClassById(classSelectedOption.value).then((response) => {
+        setShow([response.data]);
+      });
+    }
+  }, [classSelectedOption]);
 
   const handleDetail = (id) => {
     // Detail
@@ -86,7 +112,7 @@ const Class = () => {
               className={styles.select_input}
               defaultValue={classSelectedOption}
               onChange={setClassSelectedOption}
-              options={options[0]}
+              options={classOptions}
               placeholder="Class"
             />
             {/* <Select

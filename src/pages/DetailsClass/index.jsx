@@ -28,7 +28,6 @@ import {
   getType,
   getUserByClassId,
 } from "../../api";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const DetailsClass = () => {
   const navigate = useNavigate();
@@ -42,9 +41,6 @@ const DetailsClass = () => {
     "-" +
     String(tomorrow.getDate()).padStart(2, "0");
 
-  // const percentage = Math.round((props.members / props.capacity) * 100);
-
-  // const rest = props.capacity - props.members;
   const [data, setData] = useState();
 
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
@@ -102,7 +98,15 @@ const DetailsClass = () => {
     },
   ]);
   const [percentage, setPercentage] = useState(0);
-  const [dataSet, setDataSet] = useState({});
+  const [dataSet, setDataSet] = useState({
+    datasets: [
+      {
+        data: [0, 0],
+        backgroundColor: ["#0583d2", "#E8F4FC"],
+      },
+    ],
+    labels: ["Members", "Available"],
+  });
 
   let priceIDR = Intl.NumberFormat("en-ID");
 
@@ -145,8 +149,36 @@ const DetailsClass = () => {
     });
     getClassById(params.uid).then((response) => {
       setData(response.data);
-      console.log(response.data);
       capacity = response.data.capacity;
+      getUserByClassId(params.uid).then((response) => {
+        setLists(response.data);
+        if (!response.data.length > 0) {
+          console.log(capacity);
+          setDataSet({
+            datasets: [
+              {
+                data: [0, capacity],
+                backgroundColor: ["#0583d2", "#E8F4FC"],
+              },
+            ],
+            labels: ["Members", "Available"],
+          });
+          setPercentage(100);
+        } else {
+          getUserByClassId(params.uid).then((response) => {
+            setDataSet({
+              datasets: [
+                {
+                  data: [response.data.booked, capacity - response.data.booked],
+                  backgroundColor: ["#0583d2", "#E8F4FC"],
+                },
+              ],
+              labels: ["Members", "Available"],
+            });
+            setPercentage(Math.round(response.data.booked / capacity) * 100);
+          });
+        }
+      });
       setCapacityInput([
         {
           label: "Capacity",
@@ -166,7 +198,6 @@ const DetailsClass = () => {
         },
       ]);
       let schedule = response.data.schedule;
-
       setScheduleInput([
         {
           label: "Schedule",
@@ -212,19 +243,6 @@ const DetailsClass = () => {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
-    getUserByClassId(params.uid).then((response) => {
-      setLists(response.data);
-      setDataSet({
-        datasets: [
-          {
-            data: [response.data.length(), capacity - response.data.length()],
-            backgroundColor: ["#0583d2", "#E8F4FC"],
-          },
-        ],
-        labels: ["Members", "Available"],
-      });
-      setPercentage(Math.round(response.data.length / capacity) * 100);
-    });
   }, [params.uid]);
   const handleSave = (e) => {
     e.preventDefault();
@@ -255,7 +273,6 @@ const DetailsClass = () => {
       typeId: typeSelectedOption.value,
     }).then((result) => navigate("/class"));
   };
-
   return (
     <div className={styles.content_wrapper}>
       <PageTitle icon={<IoIosPeople />} title="Class" />
@@ -279,17 +296,14 @@ const DetailsClass = () => {
               )}
             </div>
             <div className="col">
-              {/* {data?.members > 1 ? (
-                <Details
-                  title={"Total Members"}
-                  text={`${props.members} persons`}
-                />
+              {!lists?.length > 0 ? (
+                <Details title={"Total Members"} text={`0 person`} />
               ) : (
                 <Details
                   title={"Total Members"}
-                  text={`${props.members} person`}
+                  text={`${lists.length} person`}
                 />
-              )} */}
+              )}
               <Details
                 title={"Price"}
                 text={`Rp. ${priceIDR.format(data?.price)}`}
@@ -387,7 +401,6 @@ const DetailsClass = () => {
             />
           </Container>
         </span>
-
         <section className={styles.doughnut}>
           <h5>Current Students</h5>
           <Doughnut data={dataSet} />
@@ -396,7 +409,7 @@ const DetailsClass = () => {
             <h5>Available</h5>
           </div>
           <div className={styles.info}>
-            {/* <b>Capactiy : </b> {data.capacity} people */}
+            <b>Capactiy : </b> {data?.capacity} people
           </div>
         </section>
       </div>
