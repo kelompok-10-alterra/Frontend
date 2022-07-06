@@ -58,6 +58,7 @@ const AddClass = () => {
       type: "number",
       placeholder: "Type class capacity...",
       value: 0,
+      error: "",
     },
   ]);
 
@@ -139,36 +140,63 @@ const AddClass = () => {
     } else {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
     }
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#0583d2",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, save it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        addClass({
-          status: statusSelectedOption.value,
-          description: descriptionInput[0].value,
-          capacity: parseInt(capacityInput[0].value),
-          schedule: date,
-          price: parseInt(priceInput[0].value),
-          instructorId: instructureSelectedOption.value,
-          categoryId: categorySelectedOption.value,
-          roomId: roomSelectedOption.value,
-          typeId: typeSelectedOption.value,
-        }).then((result) => {
-          navigate("/class");
-          Swal.fire({
-            title: "Success!",
-            text: "Booking has been added sucessfully!",
-            icon: "success",
+    if (
+      priceInput[0].value === "" ||
+      roomSelectedOption === null ||
+      instructureOptions === null ||
+      typeSelectedOption === null ||
+      categorySelectedOption === null ||
+      statusSelectedOption === null ||
+      scheduleInput[0].value === "" ||
+      descriptionInput[0].value === ""
+    ) {
+      Swal.fire({
+        text: "Please fill all field",
+        icon: "warning",
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "OK",
+      });
+    } else if (capacityInput[0].value <= 5) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Capacity should not be lower than 5",
+        icon: "warning",
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "OK",
+      });
+    } else {
+      Swal.fire({
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0583d2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, save it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addClass({
+            status: statusSelectedOption.value,
+            description: descriptionInput[0].value,
+            capacity: parseInt(capacityInput[0].value),
+            schedule: date,
+            price: parseInt(priceInput[0].value),
+            instructorId: instructureSelectedOption.value,
+            categoryId: categorySelectedOption.value,
+            roomId: roomSelectedOption.value,
+            typeId: typeSelectedOption.value,
+          }).then((result) => {
+            navigate("/class");
+            Swal.fire({
+              title: "Success!",
+              text: "Class has been added sucessfully!",
+              icon: "success",
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   };
 
   return (

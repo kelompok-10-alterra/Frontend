@@ -276,7 +276,7 @@ const DetailsClass = () => {
           navigate("/class");
           Swal.fire({
             title: "Success!",
-            text: "Booking has been updated sucessfully!",
+            text: "Class has been modified sucessfully!",
             icon: "success",
           });
         });

@@ -12,9 +12,8 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
-import { addUserData, getUserByUsername } from "../../api";
-import useDebounce from "../../hooks/useDebounce";
-import { useEffect } from "react";
+import { addUserData } from "../../api";
+import Swal from "sweetalert2";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -72,22 +71,33 @@ const AddUser = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-
-    addUserData({
-      name: firstInput[0].value,
-      username: firstInput[1].value,
-      email: firstInput[2].value,
-      phone: secondInput[0].value,
-      address: secondInput[1].value,
-      password: secondInput[2].value,
-    })
-      .then((result) => {
-        navigate("/user");
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addUserData({
+          name: firstInput[0].value,
+          username: firstInput[1].value,
+          email: firstInput[2].value,
+          phone: secondInput[0].value,
+          address: secondInput[1].value,
+          password: secondInput[2].value,
+        }).then((result) => {
+          navigate("/user");
+          Swal.fire({
+            title: "Success!",
+            text: "User has been added sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    });
   };
 
   return (

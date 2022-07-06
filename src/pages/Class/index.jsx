@@ -23,25 +23,7 @@ const Class = () => {
   const [show, setShow] = useState([]);
   const [classSelectedOption, setClassSelectedOption] = useState([]);
   const [classOptions, setClassOptions] = useState();
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
-  const [typeSelectedOption, setTypeSelectedOption] = useState(null);
-  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
-  const options = [
-    [],
-    [],
-    [],
-    [
-      { value: 0, label: "Online" },
-      { value: 1, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
   useEffect(() => {
     getClass().then((response) => {
       setDatas(response.data);
@@ -117,50 +99,12 @@ const Class = () => {
               options={classOptions}
               placeholder="Class"
             />
-            {/* <Select
-              className={styles.select_input}
-              defaultValue={instructureOption}
-              onChange={setInstructureSelectedOption}
-              options={options[1]}
-              placeholder="Instructure"
-            />
-            <Select
-              className={styles.select_input}
-              defaultValue={typeSelectedOption}
-              onChange={setTypeSelectedOption}
-              options={options[2]}
-              placeholder="Type"
-            /> */}
             <Button
               className={styles.btn_add}
               text="+ Add New Class"
               type="button"
               onClick={() => navigate("add-class")}
             />
-          </div>
-          <div className={styles.filter_wrapper_bottom}>
-            {/* <div>
-              <Select
-                className={styles.select_input}
-                defaultValue={categorySelectedOption}
-                onChange={setCategorySelectedOption}
-                options={options[3]}
-                placeholder="Category"
-              />
-              <Select
-                className={styles.select_input}
-                defaultValue={statusSelectedOption}
-                onChange={setStatusSelectedOption}
-                options={options[4]}
-                placeholder="Status"
-              />
-            </div> */}
-            {/* <Button
-              className={styles.btn_add}
-              text="+ Add New Class"
-              type="button"
-              onClick={() => navigate("add-class")}
-            /> */}
           </div>
         </section>
         <section>
