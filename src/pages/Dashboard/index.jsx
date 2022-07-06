@@ -83,33 +83,30 @@ const Dashboard = () => {
     let user = [];
     let member = [];
     let months = [];
-    getGraph()
-      .then(async (respond) => {
-        respond.data.map((data) => {
-          user.push(data.totalUser);
-          member.push(data.totalMember);
-          months.push(data.month);
-        });
-      })
-      .then(
-        setData({
-          labels: months,
-          datasets: [
-            {
-              label: "Total User",
-              data: user,
-              fill: false,
-              borderColor: "rgba(236, 155, 39)",
-            },
-            {
-              label: "Total Member",
-              data: member,
-              fill: false,
-              borderColor: "rgba(54, 159, 0)",
-            },
-          ],
-        })
-      );
+    getGraph().then(async (respond) => {
+      respond.data.map((data) => {
+        user.push(data.totalUser);
+        member.push(data.totalMember);
+        months.push(data.month);
+      });
+      setData({
+        labels: months,
+        datasets: [
+          {
+            label: "Total User",
+            data: user,
+            fill: false,
+            borderColor: "rgba(236, 155, 39)",
+          },
+          {
+            label: "Total Member",
+            data: member,
+            fill: false,
+            borderColor: "rgba(54, 159, 0)",
+          },
+        ],
+      });
+    });
   }, []);
 
   return (
