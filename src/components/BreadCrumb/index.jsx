@@ -27,8 +27,7 @@ const BreadCrumb = ({ location }) => {
     location === "/admin/add-admin"
   ) {
     key = location.substring(1);
-  }
-  else {
+  } else {
     arr.push(...location.split("/"));
     arr.shift();
     arr.pop();
@@ -40,29 +39,31 @@ const BreadCrumb = ({ location }) => {
   const isLast = (index) => {
     return index === crumbs.length - 1;
   };
-
+  console.log(crumbs);
   return (
     <nav>
       <ul className={styles.breadcrumb}>
-        {
-          crumbs.length !== undefined ? (
-            crumbs.map((crumb, index) => {
-              return isLast(index) ? (
-                <li key={crumb.id} className={styles.links_disabled}>
-                  <Link to={crumb.link}>/ {crumb.name}</Link>
-                </li>
-              ) : (
-                <li key={crumb.id} className={styles.links}>
-                  <Link to={crumb.link}>{crumb.name} </Link>
-                </li>
-              );
-            })
-          ) : (
-            <li key={crumbs.id} className={styles.links_disabled}>
-              <Link to={crumbs.link}>{crumbs.name}</Link>
-            </li>
-          )
-        }
+        {crumbs && (
+          <>
+            {crumbs.length !== undefined ? (
+              crumbs.map((crumb, index) => {
+                return isLast(index) ? (
+                  <li key={crumb.id} className={styles.links_disabled}>
+                    <Link to={crumb.link}>/ {crumb.name}</Link>
+                  </li>
+                ) : (
+                  <li key={crumb.id} className={styles.links}>
+                    <Link to={crumb.link}>{crumb.name} </Link>
+                  </li>
+                );
+              })
+            ) : (
+              <li key={crumbs.id} className={styles.links_disabled}>
+                <Link to={crumbs.link}>{crumbs.name}</Link>
+              </li>
+            )}
+          </>
+        )}
       </ul>
     </nav>
   );
