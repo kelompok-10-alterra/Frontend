@@ -19,6 +19,7 @@ section {
 .filter_wrapper_top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -38,7 +39,7 @@ section {
   width: 100%;
 }
 
-.filter_wrapper_bottom > div {
+.filter_wrapper_bottom>div {
   display: flex;
   flex-grow: 2;
 }

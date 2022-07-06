@@ -48,13 +48,14 @@ const Class = () => {
       setShow(response.data);
     });
   }, []);
+
   useEffect(() => {
     setClassOptions([{ value: 0, label: "All" }]);
 
     datas?.map((data) => {
       let temp = {
         value: data.classId,
-        label: `${data.classId} - ${data.name}`,
+        label: `${data.classId} - ${data.typeName} ${data.roomName} ${data.categoryName}`,
       };
       return setClassOptions((oldData) => [...oldData, temp]);
     });
@@ -81,6 +82,7 @@ const Class = () => {
       }
     });
   };
+
   useEffect(() => {
     if (
       classSelectedOption.value === 0 ||

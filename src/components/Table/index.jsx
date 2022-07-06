@@ -58,6 +58,16 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             status: data.status,
           };
         }
+        if (name === "booking") {
+          dataList = {
+            id: data.bookingId,
+            user: `${data.userId} - ${data.userName}`,
+            instructure: data.instructureName,
+            class: `${data.type} ${data.room}`,
+            category: data.categoryName,
+            status: data.status
+          }
+        }
 
         return (
           <>

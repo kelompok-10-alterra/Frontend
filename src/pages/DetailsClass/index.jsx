@@ -288,7 +288,7 @@ const DetailsClass = () => {
             <div className="col">
               <Details title={"Contact Instructure"} text={data?.contact} />
 
-              <Details title={"Status"} text={data?.status} />
+              <Details title={"Status"} text={data?.status ? "Active" : "Non-Active"} />
               {data?.typeName ? (
                 <Details title={"Category"} text={"Online"} />
               ) : (

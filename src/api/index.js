@@ -7,9 +7,8 @@ const CONFIG = {
 const auth = () => {
   const headers = {
     headers: {
-      Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem("token")).token
-      }`,
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token
+        }`,
       "Content-Type": "application/json",
     },
   };
@@ -304,4 +303,15 @@ export const getUserByClassId = async (id) => {
 
 export const getGraph = async () => {
   return await axios.get("/capstone/graph/adminAccess/getAllGraph", auth());
+};
+
+export const getBooking = async () => {
+  return await axios.get("/capstone/booking/adminAccess/getAllBooking", auth());
+}
+
+export const getBookingById = async (id) => {
+  return await axios.get(
+    `/capstone/booking/userAcess/getBookingByIdDto?bookingId=${id}`,
+    auth()
+  );
 };

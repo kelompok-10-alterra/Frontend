@@ -12,11 +12,16 @@ import { MdEventAvailable } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import { getBooking, getBookingById } from "../../api";
 
 const Booking = () => {
   const navigate = useNavigate();
 
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
+  const [datas, setDatas] = useState([]);
+  const [show, setShow] = useState([]);
+  const [bookingSelectedOption, setBookingSelectedOption] = useState([]);
+  const [bookingOptions, setBookingOptions] = useState();
   const [instructureOption, setInstructureSelectedOption] = useState(null);
   const [classSelectedOption, setClassSelectedOption] = useState(null);
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
@@ -37,6 +42,42 @@ const Booking = () => {
     ],
   ];
 
+  useEffect(() => {
+    getBooking().then(response => {
+      setDatas(response.data);
+      setShow(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    setBookingOptions([{ value: 0, label: "All" }]);
+
+    datas?.map((data) => {
+      let temp = {
+        value: data.bookingId,
+        label: `${data.bookingId} - ${data.userName}`,
+      };
+      return setBookingOptions((oldData) => [...oldData, temp]);
+    });
+  }, [datas]);
+
+  useEffect(() => {
+    console.log(bookingSelectedOption.value)
+    if (
+      bookingSelectedOption.value === 0 ||
+      bookingSelectedOption.value === undefined
+    ) {
+      getBooking().then((response) => {
+        setShow(response.data);
+      });
+    } else {
+      getBookingById(bookingSelectedOption.value).then((response) => {
+        console.log(response)
+        setShow([response.data]);
+      });
+    }
+  }, [bookingSelectedOption]);
+
   const handleDelete = (id) => {
     // Delete
   };
@@ -53,16 +94,20 @@ const Booking = () => {
         <PageTitle icon={<MdEventAvailable />} title="Booking" />
         <section className={styles.top_section}>
           <div className={styles.filter_wrapper_top}>
-            {/* [1:10 PM, 7/3/2022] malvino: yauda itu ubah aja titlenya jadi Booking
-[1:10 PM, 7/3/2022] malvino: placeholder sma nama variabelnya */}
             <Select
               className={styles.select_input}
-              defaultValue={userSelectedOption}
-              onChange={setUserSelectedOption}
-              options={options[0]}
-              placeholder="User"
+              defaultValue={bookingSelectedOption}
+              onChange={setBookingSelectedOption}
+              options={bookingOptions}
+              placeholder="Booking"
             />
-            <Select
+            <Button
+              className={styles.btn_add}
+              text="+ Add New Booking"
+              type="button"
+              onClick={() => navigate("add-booking")}
+            />
+            {/* <Select
               className={styles.select_input}
               defaultValue={instructureOption}
               onChange={setInstructureSelectedOption}
@@ -75,11 +120,11 @@ const Booking = () => {
               onChange={setClassSelectedOption}
               options={options[2]}
               placeholder="Class"
-            />
+            /> */}
           </div>
           <div className={styles.filter_wrapper_bottom}>
             <div>
-              <Select
+              {/* <Select
                 className={styles.select_input}
                 defaultValue={categorySelectedOption}
                 onChange={setCategorySelectedOption}
@@ -92,14 +137,8 @@ const Booking = () => {
                 onChange={setStatusSelectedOption}
                 options={options[4]}
                 placeholder="Status"
-              />
+              /> */}
             </div>
-            <Button
-              className={styles.btn_add}
-              text="+ Add New Booking"
-              type="button"
-              onClick={() => navigate("add-booking")}
-            />
           </div>
         </section>
         <section>
@@ -112,9 +151,10 @@ const Booking = () => {
               "Category",
               "Status",
             ]}
-            datas={[]}
+            name="booking"
+            datas={show ? show : datas}
             handleDetail={() => handleDetail()}
-            handleDelete={() => {}}
+            handleDelete={() => { }}
           />
         </section>
       </main>
