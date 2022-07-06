@@ -14,12 +14,18 @@ import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
 import { useEffect } from "react";
-import { getSumBooking, getSumMembership, getSumUser } from "../../api";
+import {
+  getClass,
+  getInstructor,
+  getSumBooking,
+  getSumMembership,
+  getSumUser,
+} from "../../api";
 
 const Dashboard = () => {
-  const [sumMember, setSumMember] = useState(32);
-  const [sumUser, setSumUser] = useState(52);
-  const [sumBooking, setSumBooking] = useState(24);
+  const [sumMember, setSumMember] = useState(0);
+  const [sumUser, setSumUser] = useState(0);
+  const [sumBooking, setSumBooking] = useState(0);
 
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -39,49 +45,7 @@ const Dashboard = () => {
     ],
   };
 
-  const [datas, setDatas] = useState([
-    {
-      class: "Cardio - Online",
-      member: 20,
-    },
-    {
-      class: "Cardio - Online",
-      member: 20,
-    },
-  ]);
-
-  const [trainerData, setTrainerData] = useState([
-    {
-      id: 1,
-      name: "Averill",
-      phone: "689-252-6374",
-      address: "9 North Park",
-    },
-    {
-      id: 2,
-      name: "Prudy",
-      phone: "333-547-0419",
-      address: "04 Bluejay Court",
-    },
-    {
-      id: 3,
-      name: "Jemmie",
-      phone: "606-420-3354",
-      address: "27 Reindahl Plaza",
-    },
-    {
-      id: 4,
-      name: "Richart",
-      phone: "330-302-9271",
-      address: "274 Oriole Street",
-    },
-    {
-      id: 5,
-      name: "Josias",
-      phone: "872-918-8311",
-      address: "60111 Alpine Hill",
-    },
-  ]);
+  const [trainerData, setTrainerData] = useState([]);
 
   const [memberData, setMemberData] = useState([
     {
@@ -113,6 +77,8 @@ const Dashboard = () => {
     getSumBooking().then((respond) => setSumBooking(respond.data));
     getSumMembership().then((respond) => setSumMember(respond.data));
     getSumUser().then((respond) => setSumUser(respond.data));
+    getInstructor().then((respond) => setTrainerData(respond.data));
+    getClass().then((respond) => setMemberData(respond.data));
   }, []);
 
   return (
@@ -140,11 +106,13 @@ const Dashboard = () => {
           <div className={styles.container}>
             <h4 className={styles.title}>Trainer</h4>
             <div className={styles.table_wrapper}>
-              <Table
-                headers={["ID", "Name", "Contact", "Address"]}
-                datas={trainerData}
-                name="trainer"
-              />
+              {trainerData && (
+                <Table
+                  headers={["ID", "Name", "Contact", "Address"]}
+                  datas={trainerData}
+                  name="trainer"
+                />
+              )}
             </div>
           </div>
         </div>

@@ -37,16 +37,16 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         }
         if (name === "trainer") {
           dataList = {
-            id: data.id,
+            id: data.instructorId,
             name: data.name,
-            contact: data.phone,
+            contact: data.contact,
             address: data.address,
           };
         }
         if (name === "dashboard") {
           dataList = {
-            class: `${data.class} - ${data.type}`,
-            member: data.member,
+            class: `${data.categoryName} - ${data.typeName}`,
+            member: data.booked,
           };
         }
         if (name === "member") {
