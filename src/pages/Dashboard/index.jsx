@@ -16,34 +16,35 @@ import Table from "../../components/Table";
 import { useEffect } from "react";
 import {
   getClass,
+  getGraph,
   getInstructor,
   getSumBooking,
   getSumMembership,
   getSumUser,
 } from "../../api";
+import { MonthView } from "react-calendar";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(0);
   const [sumUser, setSumUser] = useState(0);
   const [sumBooking, setSumBooking] = useState(0);
-
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  const [data, setData] = useState({
+    labels: [],
     datasets: [
       {
         label: "Total User",
-        data: [33, 53, 85, 41, 44, 65],
+        data: [0],
         fill: false,
         borderColor: "rgba(236, 155, 39)",
       },
       {
         label: "Total Member",
-        data: [33, 25, 35, 51, 54, 76],
+        data: [0],
         fill: false,
         borderColor: "rgba(54, 159, 0)",
       },
     ],
-  };
+  });
 
   const [trainerData, setTrainerData] = useState([]);
 
@@ -79,6 +80,36 @@ const Dashboard = () => {
     getSumUser().then((respond) => setSumUser(respond.data));
     getInstructor().then((respond) => setTrainerData(respond.data));
     getClass().then((respond) => setMemberData(respond.data));
+    let user = [];
+    let member = [];
+    let months = [];
+    getGraph()
+      .then(async (respond) => {
+        respond.data.map((data) => {
+          user.push(data.totalUser);
+          member.push(data.totalMember);
+          months.push(data.month);
+        });
+      })
+      .then(
+        setData({
+          labels: months,
+          datasets: [
+            {
+              label: "Total User",
+              data: user,
+              fill: false,
+              borderColor: "rgba(236, 155, 39)",
+            },
+            {
+              label: "Total Member",
+              data: member,
+              fill: false,
+              borderColor: "rgba(54, 159, 0)",
+            },
+          ],
+        })
+      );
   }, []);
 
   return (

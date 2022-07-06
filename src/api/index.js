@@ -301,3 +301,7 @@ export const getUserByClassId = async (id) => {
     auth()
   );
 };
+
+export const getGraph = async () => {
+  return await axios.get("/capstone/graph/adminAccess/getAllGraph", auth());
+};
