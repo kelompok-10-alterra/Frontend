@@ -58,7 +58,7 @@ const DetailsAdmin = () => {
   ]);
 
   useEffect(() => {
-    getUserDataById(params.uid).then((response) => {
+    getUserDataById(params.id).then((response) => {
       setData(response.data);
       setFirstInput([
         {
@@ -95,13 +95,13 @@ const DetailsAdmin = () => {
         },
       ]);
     });
-  }, [params.uid]);
+  }, [params.id]);
 
   const handleSave = (e) => {
     e.preventDefault();
 
     editUserData({
-      id: params.uid,
+      id: params.id,
       name: firstInput[0].value,
       phone: firstInput[1].value,
       address: secondInput[1].value,

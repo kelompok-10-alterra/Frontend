@@ -147,10 +147,10 @@ const DetailsClass = () => {
 
       setTypeOptions(temp);
     });
-    getClassById(params.uid).then((response) => {
+    getClassById(params.id).then((response) => {
       setData(response.data);
       capacity = response.data.capacity;
-      getUserByClassId(params.uid).then((response) => {
+      getUserByClassId(params.id).then((response) => {
         setLists(response.data);
         if (!response.data.length > 0) {
           console.log(capacity);
@@ -165,7 +165,7 @@ const DetailsClass = () => {
           });
           setPercentage(100);
         } else {
-          getUserByClassId(params.uid).then((response) => {
+          getUserByClassId(params.id).then((response) => {
             setDataSet({
               datasets: [
                 {
@@ -243,7 +243,7 @@ const DetailsClass = () => {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
-  }, [params.uid]);
+  }, [params.id]);
   const handleSave = (e) => {
     e.preventDefault();
     let temp = new Date(scheduleInput[0].value);
@@ -261,7 +261,7 @@ const DetailsClass = () => {
     }
 
     editClass({
-      id: params.uid,
+      id: params.id,
       status: statusSelectedOption.value,
       description: descriptionInput[0].value,
       capacity: parseInt(capacityInput[0].value),

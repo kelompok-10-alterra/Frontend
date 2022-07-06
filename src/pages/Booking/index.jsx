@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import Swal from "sweetalert2";
+import { deleteBooking, getBooking, getBookingById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -13,7 +15,6 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
 import { useEffect } from "react";
-import { getBooking, getBookingById } from "../../api";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -22,25 +23,6 @@ const Booking = () => {
   const [show, setShow] = useState([]);
   const [bookingSelectedOption, setBookingSelectedOption] = useState([]);
   const [bookingOptions, setBookingOptions] = useState();
-  const [instructureOption, setInstructureSelectedOption] = useState(null);
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [categorySelectedOption, setCategorySelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
-
-  const options = [
-    [],
-    [],
-    [],
-    [
-      { value: 0, label: "Online" },
-      { value: 1, label: "Offline" },
-    ],
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-  ];
 
   useEffect(() => {
     getBooking().then(response => {
@@ -62,7 +44,6 @@ const Booking = () => {
   }, [datas]);
 
   useEffect(() => {
-    console.log(bookingSelectedOption.value)
     if (
       bookingSelectedOption.value === 0 ||
       bookingSelectedOption.value === undefined
@@ -79,13 +60,29 @@ const Booking = () => {
   }, [bookingSelectedOption]);
 
   const handleDelete = (id) => {
-    // Delete
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBooking(id).then(async () => {
+          getBooking().then((response) => {
+            setDatas(response.data);
+            setShow(response.data);
+          });
+        });
+        Swal.fire("Deleted!", "Booking has been deleted.", "success");
+      }
+    });
   };
 
   const handleDetail = (id) => {
-    // Detail
-
-    navigate("details-booking");
+    navigate(`details-booking/${id}`);
   };
 
   return (
@@ -107,38 +104,6 @@ const Booking = () => {
               type="button"
               onClick={() => navigate("add-booking")}
             />
-            {/* <Select
-              className={styles.select_input}
-              defaultValue={instructureOption}
-              onChange={setInstructureSelectedOption}
-              options={options[1]}
-              placeholder="Instructure"
-            />
-            <Select
-              className={styles.select_input}
-              defaultValue={classSelectedOption}
-              onChange={setClassSelectedOption}
-              options={options[2]}
-              placeholder="Class"
-            /> */}
-          </div>
-          <div className={styles.filter_wrapper_bottom}>
-            <div>
-              {/* <Select
-                className={styles.select_input}
-                defaultValue={categorySelectedOption}
-                onChange={setCategorySelectedOption}
-                options={options[3]}
-                placeholder="Category"
-              />
-              <Select
-                className={styles.select_input}
-                defaultValue={statusSelectedOption}
-                onChange={setStatusSelectedOption}
-                options={options[4]}
-                placeholder="Status"
-              /> */}
-            </div>
           </div>
         </section>
         <section>
@@ -153,8 +118,8 @@ const Booking = () => {
             ]}
             name="booking"
             datas={show ? show : datas}
-            handleDetail={() => handleDetail()}
-            handleDelete={() => { }}
+            handleDetail={handleDetail}
+            handleDelete={handleDelete}
           />
         </section>
       </main>

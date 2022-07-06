@@ -190,12 +190,14 @@ export const addContent = async ({
 export const getSumUser = async () => {
   return axios.get("/capstone/user/adminAccess/countTotalUser", auth());
 };
+
 export const getSumMembership = async () => {
   return axios.get(
     "/capstone/membership/adminAccess/countTotalMembership",
     auth()
   );
 };
+
 export const getSumBooking = async () => {
   return axios.get("/capstone/booking/adminAccess/countTotalBooking", auth());
 };
@@ -203,12 +205,14 @@ export const getSumBooking = async () => {
 export const getClass = async () => {
   return await axios.get("/capstone/class/userAccess/getAllClass", auth());
 };
+
 export const deleteClass = async (id) => {
   return await axios.delete(
     `/capstone/class/adminAccess/deleteClass/${id}`,
     auth()
   );
 };
+
 export const addClass = async ({
   status,
   description,
@@ -312,6 +316,46 @@ export const getBooking = async () => {
 export const getBookingById = async (id) => {
   return await axios.get(
     `/capstone/booking/userAcess/getBookingByIdDto?bookingId=${id}`,
+    auth()
+  );
+};
+
+export const addBooking = async ({
+  status,
+  userId,
+  classId
+}) => {
+  return await axios.post(
+    "/capstone/booking/userAcess/createNewBooking",
+    JSON.stringify({
+      status,
+      userId,
+      classId
+    }),
+    auth()
+  )
+};
+
+export const editBooking = async ({
+  id,
+  status,
+  userId,
+  classId
+}) => {
+  return await axios.put(
+    `/capstone/booking/adminAccess/updateBooking/${id}`,
+    JSON.stringify({
+      status,
+      userId,
+      classId
+    }),
+    auth()
+  )
+};
+
+export const deleteBooking = async (id) => {
+  return await axios.delete(
+    `/capstone/booking/adminAccess/deleteBooking/${id}`,
     auth()
   );
 };

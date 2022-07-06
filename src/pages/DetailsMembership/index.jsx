@@ -58,7 +58,7 @@ const DetailsMembership = () => {
   ]);
 
   useEffect(() => {
-    getMemberById(params.uid).then((response) => {
+    getMemberById(params.id).then((response) => {
       setData(response.data);
 
       setInputs([
@@ -85,7 +85,7 @@ const DetailsMembership = () => {
 
       setMembershipOptions(temp);
     });
-  }, [params.uid]);
+  }, [params.id]);
 
   useEffect(() => {
     console.log(data);

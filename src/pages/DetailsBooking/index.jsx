@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 /** Components */
@@ -13,48 +13,98 @@ import { MdEventAvailable } from "react-icons/md";
 
 /** Styles */
 import styles from "./style.module.css";
+import { useEffect } from "react";
+import { getUserData, getClass, getBookingById, editBooking } from "../../api";
+import Swal from "sweetalert2";
 
 const DetailsBooking = () => {
 
+  const params = useParams();
+
   const navigate = useNavigate();
 
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+  const [data, setData] = useState(null);
 
-  const props = {
-    id: 1123,
-    class: "A",
-    userID: 1,
-    category: 1,
-    user: "Genta Fatuh",
-    instructure: "Ahmad Fauze",
-    address: "Jakarta",
-    status: "Active",
-    schedule: "2022-06-22",
-    price: 100000,
-  };
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
+  const [userOptions, setUserOptions] = useState(null);
+
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [classOptions, setClassOptions] = useState(null);
+
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+  const statusOptions = [
+    { value: 1, label: "Active" },
+    { value: 0, label: "Non-Active" },
+  ];
+
+  useEffect(() => {
+    getBookingById(params.id)
+      .then(response => {
+        setData(response.data);
+      });
+
+    getUserData()
+      .then(response => {
+        let temp = [];
+        response.data.map((data) => {
+          return temp.push({
+            value: data.userId,
+            label: `${data?.userId} - ${data?.name}`,
+          });
+        });
+
+        setUserOptions(temp);
+      })
+
+    getClass()
+      .then(response => {
+        let temp = [];
+        response.data.map((data) => {
+          return temp.push({
+            value: data.classId,
+            label: `${data.typeName} ${data.roomName} - ${data.categoryName}`
+          });
+        });
+
+        setClassOptions(temp);
+      })
+  }, [params.id])
 
   let priceIDR = Intl.NumberFormat("en-ID");
-
-  const options = [
-    [], //class
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-    [
-      //user
-    ],
-  ];
 
   const tomorrow = new Date(new Date());
 
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const handleSave = () => {
-    navigate("/booking");
+  const handleSave = (e, id) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editBooking({
+          id,
+          status: statusSelectedOption.value,
+          userId: userSelectedOption.value,
+          classId: classSelectedOption.value
+        }).then(res => {
+          navigate("/booking");
+
+          Swal.fire({
+            title: "Success!",
+            text: "Booking has been updated sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    })
   };
 
   return (
@@ -64,27 +114,21 @@ const DetailsBooking = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title={"Booking ID"} text={props.id} />
-              <Details title={"Booking Class"} text={props.class} />
+              <Details title={"Booking ID"} text={data?.bookingId} />
+              <Details title={"Booking Class"} text={`${data?.type} ${data?.room} - ${data?.categoryName}`} />
+            </div>
+            <div className="col">
               <Details
                 title={"User"}
-                text={`${props.userID} - ${props.user}`}
+                text={`${data?.userId} - ${data?.userName}`}
               />
+              <Details title={"Instructure"} text={data?.instructureName} />
             </div>
             <div className="col">
-              <Details title={"Instructure"} text={props.instructure} />
-              {props.category === 1 ? (
-                <Details title={"Category"} text={"Online"} />
-              ) : (
-                <Details title={"Category"} text={"Offline"} />
-              )}
-              <Details title={"Address"} text={props.address} />
-            </div>
-            <div className="col">
-              <Details title={"Schedule"} text={props.schedule} />
+              <Details title={"Schedule"} text={data?.schedule} />
               <Details
                 title={"Price"}
-                text={`Rp. ${priceIDR.format(props.price)}`}
+                text={`Rp. ${priceIDR.format(data?.price)}`}
               />
             </div>
           </div>
@@ -99,16 +143,16 @@ const DetailsBooking = () => {
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={classSelectedOption}
                 onChange={setClassSelectedOption}
-                options={options[0]}
-                placeholder={""}
+                options={classOptions}
+                placeholder={`${data?.type} ${data?.room} - ${data?.categoryName}`}
               />
               <label className="label mt-3">Status</label>
               <Select
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={statusSelectedOption}
                 onChange={setStatusSelectedOption}
-                options={options[1]}
-                placeholder={""}
+                options={statusOptions}
+                placeholder={data?.status ? "Active" : "Non-Active"}
               />
             </div>
             <div className="col">
@@ -117,8 +161,8 @@ const DetailsBooking = () => {
                 className={`mt-3 ${styles.select_input}`}
                 defaultValue={userSelectedOption}
                 onChange={setUserSelectedOption}
-                options={options[2]}
-                placeholder={""}
+                options={userOptions}
+                placeholder={`${data?.userId} - ${data?.userName}`}
               />
             </div>
           </div>
@@ -128,7 +172,7 @@ const DetailsBooking = () => {
               text="Save"
               type="submit"
               onClick={(e) => {
-                handleSave(e);
+                handleSave(e, data?.bookingId);
               }}
             />
           </span>

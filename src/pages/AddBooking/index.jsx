@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 /** Components */
@@ -11,30 +12,72 @@ import { MdEventAvailable } from "react-icons/md";
 
 /** Style */
 import styles from "./style.module.css";
+import { useEffect } from "react";
+import { addBooking, getClass, getUserData } from "../../api";
+import Swal from "sweetalert2";
 
 const AddBooking = () => {
 
-  const [classSelectedOption, setClassSelectedOption] = useState(null);
-  const [userSelectedOption, setUserSelectedOption] = useState(null);
-  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+  const navigate = useNavigate();
 
-  const options = [
-    [], //Class
-    [
-      { value: "all", label: "All" },
-      { value: 1, label: "Active" },
-      { value: 0, label: "Non-Active" },
-    ],
-    [
-      //user
-    ],
+  const [classSelectedOption, setClassSelectedOption] = useState(null);
+  const [classOptions, setClassOptions] = useState(null);
+
+  const [userSelectedOption, setUserSelectedOption] = useState(null);
+  const [userOptions, setUserOptions] = useState(null);
+
+  const [statusSelectedOption, setStatusSelectedOption] = useState(null);
+  const statusOptions = [
+    { value: 1, label: "Active" },
+    { value: 0, label: "Non-Active" },
   ];
 
-  const tomorrow = new Date(new Date());
+  useEffect(() => {
+    getClass().then(response => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.classId, label: `${data.typeName} ${data.roomName} - ${data.categoryName}` });
+      });
+      setClassOptions(temp);
+    });
+    getUserData().then(response => {
+      let temp = [];
+      response.data.map((data) => {
+        return temp.push({ value: data.userId, label: `${data.userId} - ${data.name}` });
+      });
+      setUserOptions(temp);
+    });
+  }, [])
 
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const handleSave = (e) => {
+    e.preventDefault();
 
-  const handleSave = () => { };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addBooking({
+          status: statusSelectedOption.value,
+          userId: userSelectedOption.value,
+          classId: classSelectedOption.value
+        }).then(res => {
+          navigate("/booking");
+
+          Swal.fire({
+            title: "Success!",
+            text: "Booking has been added sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    })
+  };
 
   return (
     <>
@@ -49,7 +92,7 @@ const AddBooking = () => {
                   className={styles.select_input}
                   defaultValue={classSelectedOption}
                   onChange={setClassSelectedOption}
-                  options={options[0]}
+                  options={classOptions}
                   placeholder="Class"
                 />
                 <label className="label">Status</label>
@@ -57,7 +100,7 @@ const AddBooking = () => {
                   className={styles.select_input}
                   defaultValue={statusSelectedOption}
                   onChange={setStatusSelectedOption}
-                  options={options[1]}
+                  options={statusOptions}
                   placeholder="Status"
                 />
               </div>
@@ -67,7 +110,7 @@ const AddBooking = () => {
                   className={styles.select_input}
                   defaultValue={userSelectedOption}
                   onChange={setUserSelectedOption}
-                  options={options[2]}
+                  options={userOptions}
                   placeholder="User"
                 />
               </div>

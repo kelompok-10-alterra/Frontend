@@ -38,13 +38,13 @@ const GlobalRoutes = () => {
         </Route>
         <Route path="user" element={<MainLayout />}>
           <Route index element={<User />} />
-          <Route path="details-user/:uid" element={<DetailsUser />} />
+          <Route path="details-user/:id" element={<DetailsUser />} />
           <Route path="add-user" element={<AddUser />} />
         </Route>
         <Route path="membership" element={<MainLayout />}>
           <Route index element={<Membership />} />
           <Route
-            path="details-membership/:uid"
+            path="details-membership/:id"
             element={<DetailsMembership />}
           />
           <Route path="add-membership" element={<AddMembership />} />
@@ -54,21 +54,21 @@ const GlobalRoutes = () => {
         <Route path="class" element={<MainLayout />}>
           <Route index element={<Class />} />
           <Route path="add-class" element={<AddClass />} />
-          <Route path="details-class/:uid" element={<DetailsClass />} />
+          <Route path="details-class/:id" element={<DetailsClass />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path="booking" element={<MainLayout />}>
           <Route index element={<Booking />} />
           <Route path="add-booking" element={<AddBooking />} />
-          <Route path="details-booking/:uid" element={<DetailsBooking />} />
+          <Route path="details-booking/:id" element={<DetailsBooking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route element={<SuperAdmin />}>
           <Route path="admin" element={<MainLayout />}>
             <Route index element={<Admin />} />
             <Route path="add-admin" element={<AddAdmin />} />
-            <Route path="details-admin/:uid" element={<DetailsAdmin />} />
+            <Route path="details-admin/:id" element={<DetailsAdmin />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
