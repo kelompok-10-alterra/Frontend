@@ -45,7 +45,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         }
         if (name === "dashboard") {
           dataList = {
-            class: `${data.categoryName} - ${data.typeName}`,
+            class: `${data.categoryName} ${data.roomName} - ${data.typeName}`,
             member: data.booked,
           };
         }
@@ -62,8 +62,8 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         return (
           <>
             {name === "trainer" ||
-            name === "dashboard" ||
-            name === "class-table" ? (
+              name === "dashboard" ||
+              name === "class-table" ? (
               <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (
