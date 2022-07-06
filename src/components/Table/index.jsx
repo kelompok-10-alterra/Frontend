@@ -65,15 +65,21 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             instructure: data.instructureName,
             class: `${data.type} ${data.room}`,
             category: data.categoryName,
-            status: data.status
-          }
+            status: data.status,
+          };
         }
-
+        if (name === "class-table")
+          dataList = {
+            id: data.userId,
+            name: data.username,
+            status: data.status,
+            joinedAt: new Date(data.joinedAt).toLocaleDateString(),
+          };
         return (
           <>
             {name === "trainer" ||
-              name === "dashboard" ||
-              name === "class-table" ? (
+            name === "dashboard" ||
+            name === "class-table" ? (
               <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (

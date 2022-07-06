@@ -21,6 +21,7 @@ import {
   getType,
 } from "../../api";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AddClass = () => {
   const navigate = useNavigate();
@@ -138,18 +139,36 @@ const AddClass = () => {
     } else {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
     }
-
-    addClass({
-      status: statusSelectedOption.value,
-      description: descriptionInput[0].value,
-      capacity: parseInt(capacityInput[0].value),
-      schedule: date,
-      price: parseInt(priceInput[0].value),
-      instructorId: instructureSelectedOption.value,
-      categoryId: categorySelectedOption.value,
-      roomId: roomSelectedOption.value,
-      typeId: typeSelectedOption.value,
-    }).then((result) => navigate("/class"));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addClass({
+          status: statusSelectedOption.value,
+          description: descriptionInput[0].value,
+          capacity: parseInt(capacityInput[0].value),
+          schedule: date,
+          price: parseInt(priceInput[0].value),
+          instructorId: instructureSelectedOption.value,
+          categoryId: categorySelectedOption.value,
+          roomId: roomSelectedOption.value,
+          typeId: typeSelectedOption.value,
+        }).then((result) => {
+          navigate("/class");
+          Swal.fire({
+            title: "Success!",
+            text: "Booking has been added sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    });
   };
 
   return (

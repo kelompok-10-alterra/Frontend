@@ -7,8 +7,9 @@ const CONFIG = {
 const auth = () => {
   const headers = {
     headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token
-        }`,
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
       "Content-Type": "application/json",
     },
   };
@@ -311,7 +312,7 @@ export const getGraph = async () => {
 
 export const getBooking = async () => {
   return await axios.get("/capstone/booking/adminAccess/getAllBooking", auth());
-}
+};
 
 export const getBookingById = async (id) => {
   return await axios.get(
@@ -320,37 +321,28 @@ export const getBookingById = async (id) => {
   );
 };
 
-export const addBooking = async ({
-  status,
-  userId,
-  classId
-}) => {
+export const addBooking = async ({ status, userId, classId }) => {
   return await axios.post(
     "/capstone/booking/userAcess/createNewBooking",
     JSON.stringify({
       status,
       userId,
-      classId
+      classId,
     }),
     auth()
-  )
+  );
 };
 
-export const editBooking = async ({
-  id,
-  status,
-  userId,
-  classId
-}) => {
+export const editBooking = async ({ id, status, userId, classId }) => {
   return await axios.put(
     `/capstone/booking/adminAccess/updateBooking/${id}`,
     JSON.stringify({
       status,
       userId,
-      classId
+      classId,
     }),
     auth()
-  )
+  );
 };
 
 export const deleteBooking = async (id) => {

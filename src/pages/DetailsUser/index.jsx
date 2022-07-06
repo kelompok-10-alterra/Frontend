@@ -15,6 +15,7 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
+import Swal from "sweetalert2";
 
 const DetailsAdmin = () => {
   const params = useParams();
@@ -99,19 +100,31 @@ const DetailsAdmin = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-
-    editUserData({
-      id: params.id,
-      name: firstInput[0].value,
-      phone: firstInput[1].value,
-      address: secondInput[1].value,
-    })
-      .then((result) => {
-        navigate("/user");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editUserData({
+          id: params.id,
+          name: firstInput[0].value,
+          phone: firstInput[1].value,
+          address: secondInput[1].value,
+        }).then((result) => {
+          navigate("/user");
+          Swal.fire({
+            title: "Success!",
+            text: "Booking has been updated sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    });
   };
 
   return (

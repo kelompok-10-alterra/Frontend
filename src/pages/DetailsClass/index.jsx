@@ -28,6 +28,7 @@ import {
   getType,
   getUserByClassId,
 } from "../../api";
+import Swal from "sweetalert2";
 
 const DetailsClass = () => {
   const navigate = useNavigate();
@@ -150,34 +151,25 @@ const DetailsClass = () => {
     getClassById(params.id).then((response) => {
       setData(response.data);
       capacity = response.data.capacity;
+      setDataSet({
+        datasets: [
+          {
+            data: [response.data.booked, response.data.capacity],
+            backgroundColor: ["#0583d2", "#E8F4FC"],
+          },
+        ],
+        labels: ["Members", "Available"],
+      });
+      if (response.data.booked > 0) {
+        setPercentage(
+          Math.round(response.data.capacity / response.data.booked)
+        );
+      } else {
+        setPercentage(100);
+      }
+
       getUserByClassId(params.id).then((response) => {
         setLists(response.data);
-        if (!response.data.length > 0) {
-          console.log(capacity);
-          setDataSet({
-            datasets: [
-              {
-                data: [0, capacity],
-                backgroundColor: ["#0583d2", "#E8F4FC"],
-              },
-            ],
-            labels: ["Members", "Available"],
-          });
-          setPercentage(100);
-        } else {
-          getUserByClassId(params.id).then((response) => {
-            setDataSet({
-              datasets: [
-                {
-                  data: [response.data.booked, capacity - response.data.booked],
-                  backgroundColor: ["#0583d2", "#E8F4FC"],
-                },
-              ],
-              labels: ["Members", "Available"],
-            });
-            setPercentage(Math.round(response.data.booked / capacity) * 100);
-          });
-        }
       });
       setCapacityInput([
         {
@@ -259,19 +251,37 @@ const DetailsClass = () => {
     } else {
       date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
-
-    editClass({
-      id: params.id,
-      status: statusSelectedOption.value,
-      description: descriptionInput[0].value,
-      capacity: parseInt(capacityInput[0].value),
-      schedule: date,
-      price: parseInt(priceInput[0].value),
-      instructorId: instructureSelectedOption.value,
-      categoryId: categorySelectedOption.value,
-      roomId: roomSelectedOption.value,
-      typeId: typeSelectedOption.value,
-    }).then((result) => navigate("/class"));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editClass({
+          id: params.id,
+          status: statusSelectedOption.value,
+          description: descriptionInput[0].value,
+          capacity: parseInt(capacityInput[0].value),
+          schedule: date,
+          price: parseInt(priceInput[0].value),
+          instructorId: instructureSelectedOption.value,
+          categoryId: categorySelectedOption.value,
+          roomId: roomSelectedOption.value,
+          typeId: typeSelectedOption.value,
+        }).then((result) => {
+          navigate("/class");
+          Swal.fire({
+            title: "Success!",
+            text: "Booking has been updated sucessfully!",
+            icon: "success",
+          });
+        });
+      }
+    });
   };
   return (
     <div className={styles.content_wrapper}>
@@ -288,7 +298,10 @@ const DetailsClass = () => {
             <div className="col">
               <Details title={"Contact Instructure"} text={data?.contact} />
 
-              <Details title={"Status"} text={data?.status ? "Active" : "Non-Active"} />
+              <Details
+                title={"Status"}
+                text={data?.status ? "Active" : "Non-Active"}
+              />
               {data?.typeName ? (
                 <Details title={"Category"} text={"Online"} />
               ) : (
