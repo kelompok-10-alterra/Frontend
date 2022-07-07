@@ -153,7 +153,7 @@ const DetailsMembership = () => {
         <div className="container no-pl mt-2">
           <div className="row">
             <div className="col">
-              <Details title={"Membership Id"} text={data?.membershipId} />
+              <Details title={"ID Membership"} text={data?.membershipId} />
               <Details title={"Name"} text={data?.name} />
               <Details title={"Email"} text={data?.email} />
             </div>

@@ -45,7 +45,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         }
         if (name === "dashboard") {
           dataList = {
-            class: `${data.categoryName} ${data.roomName} - ${data.typeName}`,
+            class: `${data.typeName} ${data.roomName} - ${data.categoryName}`,
             member: data.booked,
           };
         }
@@ -63,7 +63,7 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
             id: data.bookingId,
             user: `${data.userId} - ${data.userName}`,
             instructure: data.instructureName,
-            class: `${data.type} ${data.room}`,
+            class: `${data.type} - ${data.room}`,
             category: data.categoryName,
             status: data.status,
           };
@@ -78,8 +78,8 @@ const Table = ({ name, headers, datas, handleDetail, handleDelete }) => {
         return (
           <>
             {name === "trainer" ||
-            name === "dashboard" ||
-            name === "class-table" ? (
+              name === "dashboard" ||
+              name === "class-table" ? (
               <tr key={dataIdx}>
                 {Object.keys(dataList).map((key, keyIdx) => {
                   return key === "status" ? (

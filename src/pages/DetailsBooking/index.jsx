@@ -38,6 +38,23 @@ const DetailsBooking = () => {
   ];
 
   useEffect(() => {
+    setUserSelectedOption({
+      value: data?.userId,
+      label: `${data?.userId} - ${data?.userName}`,
+    });
+
+    setClassSelectedOption({
+      value: data?.classId,
+      label: `${data?.type} ${data?.room} - ${data?.categoryName}`
+    })
+
+    setStatusSelectedOption({
+      value: data?.status,
+      label: data?.status ? "Active" : "Non-Active"
+    })
+  }, [data]);
+
+  useEffect(() => {
     getBookingById(params.id)
       .then(response => {
         setData(response.data);
@@ -49,7 +66,7 @@ const DetailsBooking = () => {
         response.data.map((data) => {
           return temp.push({
             value: data.userId,
-            label: `${data?.userId} - ${data?.name}`,
+            label: `${data.userId} - ${data.name}`,
           });
         });
 
