@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymfrontend
+  labels:
+    app: gymfrontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gymfrontend
+  template:
+    metadata:
+      labels:
+        app: gymfrontend
+    spec:
+      containers:
+      - name: gymfrontend
+        image: rafdev0904/sportly:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+        
+        
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymfrontend-svc
+spec:
+  selector:
+    app: gymfrontend
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+    nodePort: 31142
