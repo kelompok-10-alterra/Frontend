@@ -4,6 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./utils/reportWebVitals";
 import axios from "axios";
 
+/** GraphQL Apollo Client */
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo-client";
+
 /** Bootstrap */
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -18,11 +22,13 @@ axios.defaults.baseURL = "https://api.rafdev.my.id";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
+  </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

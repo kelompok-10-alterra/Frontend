@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Line } from "react-chartjs-2";
 
-/** Icon */
-import { navItems } from "../../utils/navItems";
+/** Icons */
+import { MdDashboardCustomize, MdVerifiedUser, MdEventAvailable } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -13,7 +14,6 @@ import PageTitle from "../../components/PageTitle";
 import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
-import { useEffect } from "react";
 import {
   getClass,
   getGraph,
@@ -22,7 +22,6 @@ import {
   getSumMembership,
   getSumUser,
 } from "../../api";
-import { MonthView } from "react-calendar";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(0);
@@ -111,17 +110,17 @@ const Dashboard = () => {
 
   return (
     <>
-      <PageTitle icon={navItems[0].logo} title="Dashboard" />
+      <PageTitle icon={<MdDashboardCustomize />} title="Dashboard" />
       <div className={styles.content_wrapper}>
         <div className={styles.left_wrapper}>
           <div className={styles.info_wrapper}>
-            <Information title={"Membership"} icon={navItems[2].logo}>
+            <Information title={"Membership"} icon={<MdVerifiedUser />}>
               {sumMember}
             </Information>
-            <Information title={"User"} icon={navItems[1].logo}>
+            <Information title={"User"} icon={<FaUserCircle />}>
               {sumUser}
             </Information>
-            <Information title={"Booking"} icon={navItems[4].logo}>
+            <Information title={"Booking"} icon={<MdEventAvailable />}>
               {sumBooking}
             </Information>
           </div>
