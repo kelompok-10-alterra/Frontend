@@ -121,8 +121,8 @@ const DetailsClass = () => {
     { value: true, label: "Active" },
     { value: false, label: "Non-Active" },
   ];
+
   useEffect(() => {
-    let capacity = 0;
     getRoom().then((response) => {
       let temp = [];
       response.data.map((data) => {
@@ -155,7 +155,6 @@ const DetailsClass = () => {
     });
     getClassById(params.id).then((response) => {
       setData(response.data);
-      capacity = response.data.capacity;
       setDataSet({
         datasets: [
           {
@@ -251,8 +250,6 @@ const DetailsClass = () => {
     e.preventDefault();
 
     let temp = new Date(scheduleInput[0].value);
-
-    console.log(temp.getDate());
 
     let date = "";
 
