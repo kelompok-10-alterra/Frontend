@@ -72,7 +72,6 @@ const Navbar = ({ withMember }) => {
             {
               withMember ?
                 navItems.map((item) => {
-                  console.log(item)
                   return (
                     <NavItem
                       key={item.id}

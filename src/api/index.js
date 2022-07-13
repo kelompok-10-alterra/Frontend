@@ -7,9 +7,8 @@ const CONFIG = {
 const auth = () => {
   const headers = {
     headers: {
-      Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem("token")).token
-      }`,
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token
+        }`,
       "Content-Type": "application/json",
     },
   };
@@ -40,12 +39,14 @@ export const getUserDataById = async (id) => {
     auth()
   );
 };
+
 export const getUserByUsername = async (username) => {
   return axios.get(
     `capstone/user/userAccess/getUserByUsername?username=${username}`,
     auth()
   );
 };
+
 export const addUserData = async (payload) => {
   const { name, username, password, email, phone, address } = payload;
 
@@ -142,12 +143,14 @@ export const deleteMembership = async (id) => {
     auth()
   );
 };
+
 export const getNewsLetter = async () => {
   return await axios.get(
     "/capstone/newsletter/userAccess/getAllNewsletter",
     auth()
   );
 };
+
 export const addNewsLetter = async ({
   title,
   description,
@@ -243,15 +246,19 @@ export const addClass = async ({
     auth()
   );
 };
+
 export const getRoom = async () => {
   return axios.get("/capstone/room/userAccess/getAllRoom", auth());
 };
+
 export const getInstructor = async () => {
   return axios.get("/capstone/instructor/userAccess/getAllInstructure", auth());
 };
+
 export const getType = async () => {
   return await axios.get("/capstone/type/userAccess/getAllType", auth());
 };
+
 export const getCategory = async () => {
   return await axios.get(
     "/capstone/category/userAccess/getAllCategory",

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { addUserData } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -12,10 +14,9 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Form from "../../components/Form";
-import { addUserData } from "../../api";
-import Swal from "sweetalert2";
 
 const AddUser = () => {
+
   const navigate = useNavigate();
 
   const [firstInput, setFirstInput] = useState([
@@ -71,6 +72,7 @@ const AddUser = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

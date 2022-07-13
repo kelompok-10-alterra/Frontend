@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -8,9 +9,9 @@ import BreadCrumb from "../BreadCrumb";
 
 /** Images */
 import picture from "../../assets/img/profile_picture.png";
-import { useLocation } from "react-router-dom";
 
 const Header = ({ name, role }) => {
+
   const location = useLocation();
 
   return (

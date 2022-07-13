@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Select from "react-select";
+import { deleteClass, getClass, getClassById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -12,15 +14,14 @@ import { IoIosPeople } from "react-icons/io";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
-import { useEffect } from "react";
-import { deleteClass, getClass, getClassById } from "../../api";
-import Swal from "sweetalert2";
 
 const Class = () => {
+
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState([]);
+
   const [classSelectedOption, setClassSelectedOption] = useState([]);
   const [classOptions, setClassOptions] = useState();
 
@@ -60,7 +61,7 @@ const Class = () => {
             setShow(response.data);
           });
         });
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deleted!", "Class has been deleted.", "success");
       }
     });
   };
@@ -81,8 +82,6 @@ const Class = () => {
   }, [classSelectedOption]);
 
   const handleDetail = (id) => {
-    // Detail
-
     navigate(`details-class/${id}`);
   };
 

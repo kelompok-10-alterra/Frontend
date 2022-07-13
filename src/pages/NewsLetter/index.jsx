@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { addNewsLetter, getNewsLetter } from "../../api";
 
 /** Component */
 import Button from "../../components/Button";
@@ -12,9 +14,6 @@ import styles from "./style.module.css";
 
 /** Icons */
 import { TiNews } from "react-icons/ti";
-import Swal from "sweetalert2";
-import { addNewsLetter, getNewsLetter } from "../../api";
-import { useEffect } from "react";
 
 const Newsletter = () => {
   const [inputs, setInputs] = useState([
@@ -22,43 +21,33 @@ const Newsletter = () => {
       label: "",
       name: "title",
       type: "text",
-      placeholder: "Type your Title",
+      placeholder: "Type your title here...",
       value: "",
     },
     {
       label: "",
       name: "content",
       type: "textarea",
-      placeholder: "Type your text here",
+      placeholder: "Type your text here...",
       value: "",
     },
   ]);
 
-  const [lists, setLists] = useState([
-    {
-      id: 1,
-      title: "About Your Privacy",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, earum expedita doloribus, nisi eius id placeat delectus vitae corporis a reprehenderit beatae accusamus. Saepe excepturi velit autem ab exercitationem ea.",
-    },
-    {
-      id: 2,
-      title: "About Your Privacy",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, earum expedita doloribus, nisi eius id placeat delectus vitae corporis a reprehenderit beatae accusamus. Saepe excepturi velit autem ab exercitationem ea.",
-    },
-  ]);
+  const [lists, setLists] = useState([]);
 
   const handleClick = () => {
     let message = "";
+
     const title = inputs[0].value;
     const content = inputs[1].value;
+
     if (title === "" || content === "") {
       message = "Please fill out title and content";
     }
     if (title === "") {
       message = "Title cannot be empty";
-    } else if (content === "") {
+    }
+    else if (content === "") {
       message = "Content cannot be empty";
     }
     if (message !== "") {
@@ -67,7 +56,8 @@ const Newsletter = () => {
         text: message,
         icon: "error",
       });
-    } else {
+    }
+    else {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -89,6 +79,7 @@ const Newsletter = () => {
             text: "Newsletter has been posted sucessfully!",
             icon: "success",
           });
+
           setInputs([
             {
               label: "",

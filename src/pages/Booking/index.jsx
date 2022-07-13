@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Swal from "sweetalert2";
@@ -14,7 +14,6 @@ import { MdEventAvailable } from "react-icons/md";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import Table from "../../components/Table";
-import { useEffect } from "react";
 
 const Booking = () => {
   const navigate = useNavigate();

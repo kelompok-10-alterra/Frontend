@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 import { editUserData, getUserDataById } from "../../api";
 
 /** Styles */
@@ -15,9 +15,9 @@ import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import Details from "../../components/Details";
 import Form from "../../components/Form";
-import Swal from "sweetalert2";
 
 const DetailsAdmin = () => {
+
   const params = useParams();
 
   const navigate = useNavigate();
@@ -61,6 +61,7 @@ const DetailsAdmin = () => {
   useEffect(() => {
     getUserDataById(params.id).then((response) => {
       setData(response.data);
+
       setFirstInput([
         {
           label: "Name",
@@ -100,6 +101,7 @@ const DetailsAdmin = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -119,7 +121,7 @@ const DetailsAdmin = () => {
           navigate("/user");
           Swal.fire({
             title: "Success!",
-            text: "Booking has been updated sucessfully!",
+            text: "Booking has been updated successfully!",
             icon: "success",
           });
         });

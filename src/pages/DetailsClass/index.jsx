@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import Swal from "sweetalert2";
+import {
+  editClass,
+  getCategory,
+  getClassById,
+  getInstructor,
+  getRoom,
+  getType,
+  getUserByClassId,
+} from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -16,23 +26,16 @@ import Table from "../../components/Table";
 /** Icon */
 import { IoIosPeople } from "react-icons/io";
 
-/** React js  chart */
+/** React js chart */
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
-import {
-  editClass,
-  getCategory,
-  getClassById,
-  getInstructor,
-  getRoom,
-  getType,
-  getUserByClassId,
-} from "../../api";
-import Swal from "sweetalert2";
 
 const DetailsClass = () => {
+
   const navigate = useNavigate();
+
   const params = useParams();
+
   const tomorrow = new Date(new Date());
   tomorrow.setDate(tomorrow.getDate() + 1);
   const temp =
@@ -47,8 +50,7 @@ const DetailsClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] =
-    useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -98,7 +100,9 @@ const DetailsClass = () => {
       value: "",
     },
   ]);
+
   const [percentage, setPercentage] = useState(0);
+
   const [dataSet, setDataSet] = useState({
     datasets: [
       {
@@ -276,7 +280,7 @@ const DetailsClass = () => {
           navigate("/class");
           Swal.fire({
             title: "Success!",
-            text: "Class has been modified sucessfully!",
+            text: "Class has been modified successfully!",
             icon: "success",
           });
         });

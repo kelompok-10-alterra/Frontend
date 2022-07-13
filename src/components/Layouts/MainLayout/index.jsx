@@ -12,7 +12,6 @@ const MainLayout = () => {
 
   useEffect(() => {
     user.roles?.forEach(item => {
-      console.log(item)
       if (item === "ROLE_SUPER_ADMIN") {
         setRole("Super Admin");
       }

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import styles from "./style.module.css";
 
 const NavItems = ({ logo, name, link, id }) => {
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -30,16 +31,10 @@ const NavItems = ({ logo, name, link, id }) => {
     <>
       {name === "Logout" ? (
         <NavLink
-          to=""
+          to="#"
           key={id}
           onClick={handleLogout}
           className={styles.container}
-          style={({ isActive }) => {
-            return {
-              color: isActive ? "var(--primary)" : "",
-              borderRight: isActive ? "5px solid var(--primary)" : "",
-            };
-          }}
         >
           <div className={styles.logo}>{logo}</div>
           <div className={styles.name}>{name}</div>

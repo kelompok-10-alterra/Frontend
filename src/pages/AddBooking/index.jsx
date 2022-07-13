@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import Swal from "sweetalert2";
+import { addBooking, getClass, getUserData } from "../../api";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
@@ -12,9 +14,6 @@ import { MdEventAvailable } from "react-icons/md";
 
 /** Style */
 import styles from "./style.module.css";
-import { useEffect } from "react";
-import { addBooking, getClass, getUserData } from "../../api";
-import Swal from "sweetalert2";
 
 const AddBooking = () => {
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-
+import Swal from "sweetalert2";
 import { editMembership, getMemberById, getMembershipData } from "../../api";
 
 /** Styles */
@@ -16,9 +16,9 @@ import Button from "../../components/Button";
 
 /** Icon */
 import { MdVerifiedUser } from "react-icons/md";
-import Swal from "sweetalert2";
 
 const DetailsMembership = () => {
+
   const navigate = useNavigate();
 
   const params = useParams();
@@ -37,7 +37,6 @@ const DetailsMembership = () => {
     },
     class: ["Zumba A - Online", "Cardio A - Online"],
     member: {
-      // length: "1 bulan",
       memberId: "",
       price: "",
     },
@@ -46,6 +45,7 @@ const DetailsMembership = () => {
   const [membershipSelectedOption, setMembershipSelectedOption] = useState("");
 
   const [membershipOptions, setMembershipOptions] = useState([]);
+
   const [inputs, setInputs] = useState([
     {
       label: "Name",
@@ -90,6 +90,7 @@ const DetailsMembership = () => {
   useEffect(() => {
     console.log(data);
   }, [data]);
+
   useEffect(() => {
     console.log(membershipSelectedOption);
   }, [membershipSelectedOption]);
@@ -103,31 +104,36 @@ const DetailsMembership = () => {
         text: "Please select membership type",
         icon: "error",
       });
-    } else if (membershipSelectedOption.label === data.memberName) {
+    }
+    else if (membershipSelectedOption.label === data.memberName) {
       Swal.fire({
         title: "Error!",
         text: "Please select different membership type",
         icon: "error",
       });
-    } else {
+    }
+    else {
       const selected = membershipSelectedOption;
 
       Swal.fire({
         title: "Upgrade Membership Payment",
-        html: `<div>
-        <div class="alert-container ${selected.label}">
-        <div class="alert-wrap">
-         <h4>SPORTLY</h4>
-        </div>
-        <div class="alert-wrap second">
-          <p class="alert-title">${data.username}</p>
-          <p>${selected.label} Membership</p>
-        </div>
-        </div>
-        <br/>
+        html: `
         <div>
-          Price to Pay : Rp. ${priceIDR.format(selected.price)}
-        </div></div>`,
+          <div class="alert-container ${selected.label}">
+            <div class="alert-wrap">
+              <h4>SPORTLY</h4>
+            </div>
+            <div class="alert-wrap second">
+              <p class="alert-title">${data.username}</p>
+              <p>${selected.label} Membership</p>
+            </div>
+          </div>
+          <br/>
+          <div>
+            Price to Pay : Rp. ${priceIDR.format(selected.price)}
+          </div>
+        </div>
+        `,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#0583d2",
@@ -140,7 +146,7 @@ const DetailsMembership = () => {
             userId: data?.userId,
             memberId: membershipSelectedOption.value,
           }).then(navigate("/membership"));
-          Swal.fire("Sucess!", "Membership Upgraded!", "success");
+          Swal.fire("Success!", "Membership Upgraded!", "success");
         }
       });
     }

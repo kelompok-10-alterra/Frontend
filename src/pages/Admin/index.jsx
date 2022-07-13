@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Swal from "sweetalert2";
-
 import { deleteUserData, getAdminData, getUserDataById } from "../../api";
 
 /** Styles */
@@ -21,6 +20,7 @@ const Admin = () => {
 
   const [adminSelectedOption, setAdminSelectedOption] = useState([]);
   const [adminOption, setAdminOption] = useState([{ value: 0, label: "All" }]);
+
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState(null);
 
@@ -75,7 +75,7 @@ const Admin = () => {
           })
         );
 
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deleted!", "Admin has been deleted.", "success");
       }
     });
   };
@@ -97,7 +97,6 @@ const Admin = () => {
               options={adminOption}
               placeholder="Admin"
             />
-
             <Button
               className={styles.btn_add}
               text="+ Add New Admin"
