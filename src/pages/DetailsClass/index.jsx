@@ -55,8 +55,10 @@ const DetailsClass = () => {
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
   const [typeOptions, setTypeOptions] = useState(null);
+
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState(null);
+
   const [lists, setLists] = useState([]);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
@@ -116,7 +118,6 @@ const DetailsClass = () => {
   let priceIDR = Intl.NumberFormat("en-ID");
 
   const options = [
-    //status
     { value: true, label: "Active" },
     { value: false, label: "Non-Active" },
   ];
@@ -168,13 +169,15 @@ const DetailsClass = () => {
         setPercentage(
           Math.round(response.data.capacity / response.data.booked)
         );
-      } else {
+      }
+      else {
         setPercentage(100);
       }
 
       getUserByClassId(params.id).then((response) => {
         setLists(response.data);
       });
+
       setCapacityInput([
         {
           label: "Capacity",
@@ -193,7 +196,9 @@ const DetailsClass = () => {
           value: response.data.description,
         },
       ]);
+
       let schedule = response.data.schedule;
+
       setScheduleInput([
         {
           label: "Schedule",
@@ -235,26 +240,35 @@ const DetailsClass = () => {
       });
       if (response.data.status) {
         setStatusSelectedOption({ value: true, label: "Active" });
-      } else {
+      }
+      else {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
   }, [params.id]);
+
   const handleSave = (e) => {
     e.preventDefault();
+
     let temp = new Date(scheduleInput[0].value);
+
     console.log(temp.getDate());
+
     let date = "";
 
     if (temp.getDate() < 10 && temp.getMonth() < 10) {
       date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
+    }
+    else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+    }
+    else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
       date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    } else {
+    }
+    else {
       date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -287,6 +301,7 @@ const DetailsClass = () => {
       }
     });
   };
+
   return (
     <div className={styles.content_wrapper}>
       <PageTitle icon={<IoIosPeople />} title="Class" />
