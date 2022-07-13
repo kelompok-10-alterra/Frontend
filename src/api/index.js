@@ -247,7 +247,7 @@ export const getRoom = async () => {
   return axios.get("/capstone/room/userAccess/getAllRoom", auth());
 };
 export const getInstructor = async () => {
-  return axios.get("/capstone/instructor/userAcess/getAllInstructure", auth());
+  return axios.get("/capstone/instructor/userAccess/getAllInstructure", auth());
 };
 export const getType = async () => {
   return await axios.get("/capstone/type/userAccess/getAllType", auth());
@@ -316,14 +316,14 @@ export const getBooking = async () => {
 
 export const getBookingById = async (id) => {
   return await axios.get(
-    `/capstone/booking/userAcess/getBookingByIdDto?bookingId=${id}`,
+    `/capstone/booking/userAccess/getBookingByIdDto?bookingId=${id}`,
     auth()
   );
 };
 
 export const addBooking = async ({ status, userId, classId }) => {
   return await axios.post(
-    "/capstone/booking/userAcess/createNewBooking",
+    "/capstone/booking/userAccess/createNewBooking",
     JSON.stringify({
       status,
       userId,
