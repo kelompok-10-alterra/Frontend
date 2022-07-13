@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import styles from "./style.module.css";
 
 const NavItems = ({ logo, name, link, id }) => {
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -25,7 +24,7 @@ const NavItems = ({ logo, name, link, id }) => {
         navigate("/login");
       }
     });
-  }
+  };
 
   return (
     <>
