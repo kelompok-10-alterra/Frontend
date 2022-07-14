@@ -21,6 +21,7 @@ const Membership = () => {
 
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState(null);
+
   const [membershipOptions, setMembershipOptions] = useState([
     { value: 0, label: "All" },
   ]);
@@ -76,13 +77,12 @@ const Membership = () => {
             setShow(response.data);
           })
         );
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deleted!", "Membership has been deleted.", "success");
       }
     });
   };
 
   const handleDetail = (id) => {
-    // Detail
     navigate(`details-membership/${id}`);
   };
 

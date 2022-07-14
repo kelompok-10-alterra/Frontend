@@ -1,5 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Select from "react-select";
+import {
+  addClass,
+  getCategory,
+  getInstructor,
+  getRoom,
+  getType,
+} from "../../api";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
@@ -12,19 +21,11 @@ import { IoIosPeople } from "react-icons/io";
 
 /** Style */
 import styles from "./style.module.css";
-import { useEffect } from "react";
-import {
-  addClass,
-  getCategory,
-  getInstructor,
-  getRoom,
-  getType,
-} from "../../api";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const AddClass = () => {
+
   const navigate = useNavigate();
+
   const tomorrow = new Date(new Date());
 
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -39,8 +40,7 @@ const AddClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] =
-    useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -94,7 +94,6 @@ const AddClass = () => {
   ]);
 
   const options = [
-    //status
     { value: true, label: "Active" },
     { value: false, label: "Non-Active" },
   ];

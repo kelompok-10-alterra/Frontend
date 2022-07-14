@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import Swal from "sweetalert2";
+import {
+  editClass,
+  getCategory,
+  getClassById,
+  getInstructor,
+  getRoom,
+  getType,
+  getUserByClassId,
+} from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -16,23 +26,16 @@ import Table from "../../components/Table";
 /** Icon */
 import { IoIosPeople } from "react-icons/io";
 
-/** React js  chart */
+/** React js chart */
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
-import {
-  editClass,
-  getCategory,
-  getClassById,
-  getInstructor,
-  getRoom,
-  getType,
-  getUserByClassId,
-} from "../../api";
-import Swal from "sweetalert2";
 
 const DetailsClass = () => {
+
   const navigate = useNavigate();
+
   const params = useParams();
+
   const tomorrow = new Date(new Date());
   tomorrow.setDate(tomorrow.getDate() + 1);
   const temp =
@@ -47,14 +50,15 @@ const DetailsClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] =
-    useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
   const [typeOptions, setTypeOptions] = useState(null);
+
   const [categorySelectedOption, setCategorySelectedOption] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState(null);
+
   const [lists, setLists] = useState([]);
   const [statusSelectedOption, setStatusSelectedOption] = useState(null);
 
@@ -98,7 +102,9 @@ const DetailsClass = () => {
       value: "",
     },
   ]);
+
   const [percentage, setPercentage] = useState(0);
+
   const [dataSet, setDataSet] = useState({
     datasets: [
       {
@@ -112,12 +118,11 @@ const DetailsClass = () => {
   let priceIDR = Intl.NumberFormat("en-ID");
 
   const options = [
-    //status
     { value: true, label: "Active" },
     { value: false, label: "Non-Active" },
   ];
+
   useEffect(() => {
-    let capacity = 0;
     getRoom().then((response) => {
       let temp = [];
       response.data.map((data) => {
@@ -150,7 +155,6 @@ const DetailsClass = () => {
     });
     getClassById(params.id).then((response) => {
       setData(response.data);
-      capacity = response.data.capacity;
       setDataSet({
         datasets: [
           {
@@ -164,13 +168,15 @@ const DetailsClass = () => {
         setPercentage(
           Math.round(response.data.capacity / response.data.booked)
         );
-      } else {
+      }
+      else {
         setPercentage(100);
       }
 
       getUserByClassId(params.id).then((response) => {
         setLists(response.data);
       });
+
       setCapacityInput([
         {
           label: "Capacity",
@@ -189,7 +195,9 @@ const DetailsClass = () => {
           value: response.data.description,
         },
       ]);
+
       let schedule = response.data.schedule;
+
       setScheduleInput([
         {
           label: "Schedule",
@@ -231,26 +239,33 @@ const DetailsClass = () => {
       });
       if (response.data.status) {
         setStatusSelectedOption({ value: true, label: "Active" });
-      } else {
+      }
+      else {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
   }, [params.id]);
+
   const handleSave = (e) => {
     e.preventDefault();
+
     let temp = new Date(scheduleInput[0].value);
-    console.log(temp.getDate());
+
     let date = "";
 
     if (temp.getDate() < 10 && temp.getMonth() < 10) {
       date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
+    }
+    else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+    }
+    else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
       date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    } else {
+    }
+    else {
       date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -276,13 +291,14 @@ const DetailsClass = () => {
           navigate("/class");
           Swal.fire({
             title: "Success!",
-            text: "Class has been modified sucessfully!",
+            text: "Class has been modified successfully!",
             icon: "success",
           });
         });
       }
     });
   };
+
   return (
     <div className={styles.content_wrapper}>
       <PageTitle icon={<IoIosPeople />} title="Class" />

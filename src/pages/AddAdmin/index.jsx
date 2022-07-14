@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { addRoleToAdmin, addUserData } from "../../api";
 
 /** Styles */
@@ -20,20 +21,40 @@ const AddAdmin = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
-    await addUserData({
-      name: firstInput[0].value,
-      username: firstInput[1].value,
-      email: firstInput[2].value,
-      phone: secondInput[0].value,
-      address: secondInput[1].value,
-      password: secondInput[2].value,
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addUserData({
+          name: firstInput[0].value,
+          username: firstInput[1].value,
+          email: firstInput[2].value,
+          phone: secondInput[0].value,
+          address: secondInput[1].value,
+          password: secondInput[2].value,
+        })
+          .then(async () => {
+            addRoleToAdmin(firstInput[1].value.toString()).then(navigate("/admin"))
+
+            Swal.fire({
+              title: "Success!",
+              text: "Admin has been added sucessfully!",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     })
-      .then(async () =>
-        addRoleToAdmin(firstInput[1].value.toString()).then(navigate("/admin"))
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+
+
   };
 
   const [firstInput, setFirstInput] = useState([

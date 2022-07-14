@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-
-import { deleteUserData, getUserData, getUserDataById } from "../../api";
-
 import Swal from "sweetalert2";
+import { deleteUserData, getUserData, getUserDataById } from "../../api";
 
 /** Styles */
 import styles from "./style.module.css";
@@ -74,7 +72,7 @@ const User = () => {
           })
         );
 
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deleted!", "User has been deleted.", "success");
       }
     });
   };

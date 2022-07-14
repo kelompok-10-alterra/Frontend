@@ -1,37 +1,35 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import Swal from "sweetalert2";
+import {
+  addMembership,
+  getMembershipData,
+  getUserData,
+} from "../../api";
 
 /** Components */
 import Button from "../../components/Button";
 import Container from "../../components/Layouts/Container";
 import PageTitle from "../../components/PageTitle";
 
+/** Icon */
+import { MdVerifiedUser } from "react-icons/md";
+
 /** Styles */
 import styles from "./style.module.css";
 
-/** Icon */
-import { MdVerifiedUser } from "react-icons/md";
-import { useEffect } from "react";
-import {
-  addMembership,
-  addUserData,
-  getMembershipData,
-  getUserData,
-} from "../../api";
-import Swal from "sweetalert2";
-
 const AddMembership = () => {
+
   const navigate = useNavigate();
-  /**
-   * user select options came from api
-   * fetch from api then put it in user state
-   */
+
   const [userSelectedOption, setUserSelectedOption] = useState([]);
   const [membershipSelectedOption, setMembershipSelectedOption] = useState([]);
   const [userOptions, setUserOptions] = useState(null);
   const [membershipOptions, setMembershipOptions] = useState(null);
+
   let priceIDR = Intl.NumberFormat("en-ID");
+
   useEffect(() => {
     getUserData().then((response) => {
       let temp = [];
@@ -62,25 +60,28 @@ const AddMembership = () => {
 
   const handleAddMembership = (e) => {
     e.preventDefault();
+
     const selected = membershipSelectedOption;
 
     Swal.fire({
       title: "Payment Summary",
       html: `
       <div>
-      <div class="alert-container ${selected.label}">
-      <div class="alert-wrap">
-        <h4>SPORTLY</h4>
+        <div class="alert-container ${selected.label}">
+          <div class="alert-wrap">
+            <h4>SPORTLY</h4>
+          </div>
+          <div class="alert-wrap second">
+            <p class="alert-title">${userSelectedOption.name}</p>
+            <p>${selected.label} Membership</p>
+          </div>
+        </div>
+        <br/>
+        <div>
+          Price to Pay : Rp. ${priceIDR.format(selected.price)}
+        </div>
       </div>
-      <div class="alert-wrap second">
-        <p class="alert-title">${userSelectedOption.name}</p>
-        <p>${selected.label} Membership</p>
-      </div>
-      </div>
-      <br/>
-      <div>
-      Price to Pay : Rp. ${priceIDR.format(selected.price)}
-      </div></div>`,
+      `,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#0583d2",
@@ -96,8 +97,6 @@ const AddMembership = () => {
         Swal.fire("Sucess!", "Membership registered!", "success");
       }
     });
-
-    // navigate("/membership")
   };
 
   return (

@@ -39,7 +39,7 @@ const BreadCrumb = ({ location }) => {
   const isLast = (index) => {
     return index === crumbs.length - 1;
   };
-  console.log(crumbs);
+
   return (
     <nav>
       <ul className={styles.breadcrumb}>

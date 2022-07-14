@@ -2,6 +2,7 @@ import React from "react";
 
 /** Styles */
 import styles from "./style.module.css";
+
 const Information = ({ icon, title, children }) => {
   return (
     <div className={styles.wrapper}>

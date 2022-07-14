@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import Select from "react-select";
+import { getUserData, getClass, getBookingById, editBooking } from "../../api";
 
 /** Components */
 import Container from "../../components/Layouts/Container";
@@ -13,9 +15,6 @@ import { MdEventAvailable } from "react-icons/md";
 
 /** Styles */
 import styles from "./style.module.css";
-import { useEffect } from "react";
-import { getUserData, getClass, getBookingById, editBooking } from "../../api";
-import Swal from "sweetalert2";
 
 const DetailsBooking = () => {
 
@@ -89,10 +88,6 @@ const DetailsBooking = () => {
 
   let priceIDR = Intl.NumberFormat("en-ID");
 
-  const tomorrow = new Date(new Date());
-
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
   const handleSave = (e, id) => {
     e.preventDefault();
 
@@ -116,7 +111,7 @@ const DetailsBooking = () => {
 
           Swal.fire({
             title: "Success!",
-            text: "Booking has been updated sucessfully!",
+            text: "Booking has been updated successfully!",
             icon: "success",
           });
         });

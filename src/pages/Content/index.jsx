@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { addContent, getContent } from "../../api";
 
-/** Component */
+/** Components */
 import Button from "../../components/Button";
 import Form from "../../components/Form";
 import Container from "../../components/Layouts/Container";
 import PageTitle from "../../components/PageTitle";
 import ContentCard from "../../components/ContentCard";
 
+/** Icons */
+import { MdLibraryAdd } from "react-icons/md";
+
 /** Styles */
 import styles from "./style.module.css";
 
-/** Icons */
-import { MdLibraryAdd } from "react-icons/md";
-import { useEffect } from "react";
-import { addContent, getContent } from "../../api";
-import Swal from "sweetalert2";
 
 const Content = () => {
   const [inputs, setInputs] = useState([
@@ -22,14 +22,14 @@ const Content = () => {
       label: "",
       name: "title",
       type: "text",
-      placeholder: "Type your Title",
+      placeholder: "Type your title here...",
       value: "",
     },
     {
       label: "",
       name: "content",
       type: "textarea",
-      placeholder: "Type your link youtube here",
+      placeholder: "Type your link youtube here...",
       value: "",
       content: true,
     },
@@ -41,21 +41,26 @@ const Content = () => {
     let message = "";
     const title = inputs[0].value;
     const link = inputs[1].value;
+
     if (title === "" || link === "") {
       message = "Please fill out title and youtube link";
     }
+
     if (title === "") {
       message = "Title cannot be empty";
-    } else if (link === "") {
+    }
+    else if (link === "") {
       message = "Link cannot be empty";
     }
+
     if (message !== "") {
       Swal.fire({
         title: "Error!",
         text: message,
         icon: "error",
       });
-    } else {
+    }
+    else {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -76,19 +81,20 @@ const Content = () => {
           text: "Content has been posted sucessfully!",
           icon: "success",
         });
+
         setInputs([
           {
             label: "",
             name: "title",
             type: "text",
-            placeholder: "Type your Title",
+            placeholder: "Type your title here...",
             value: "",
           },
           {
             label: "",
             name: "content",
             type: "textarea",
-            placeholder: "Type your link youtube here",
+            placeholder: "Type your link youtube here..",
             value: "",
             content: true,
           },
@@ -96,6 +102,7 @@ const Content = () => {
       });
     }
   };
+
   useEffect(() => {
     getContent().then((response) => setLists(response.data));
   }, []);

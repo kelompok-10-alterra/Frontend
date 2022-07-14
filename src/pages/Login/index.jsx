@@ -13,7 +13,9 @@ import Form from "../../components/Form";
 import TitleLogo from "../../components/TitleLogo";
 
 const Login = () => {
+
   const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {

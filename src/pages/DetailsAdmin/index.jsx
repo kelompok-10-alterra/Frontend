@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 import { editUserData, getUserDataById } from "../../api";
 
 /** Styles */
@@ -17,6 +17,7 @@ import Details from "../../components/Details";
 import Form from "../../components/Form";
 
 const DetailsUser = () => {
+
   const params = useParams();
 
   const navigate = useNavigate();
@@ -28,14 +29,14 @@ const DetailsUser = () => {
       label: "Name",
       name: "name",
       type: "text",
-      placeholder: "",
+      placeholder: "Type name here...",
       value: "",
     },
     {
       label: "Contact",
       name: "contact",
       type: "text",
-      placeholder: "",
+      placeholder: "Type contact here...",
       value: "",
     },
   ]);
@@ -45,14 +46,14 @@ const DetailsUser = () => {
       label: "Email",
       name: "email",
       type: "email",
-      placeholder: "",
+      placeholder: "Type email here...",
       value: "",
     },
     {
       label: "Address",
       name: "address",
       type: "text",
-      placeholder: "",
+      placeholder: "Type address here...",
       value: "",
     },
   ]);
@@ -101,18 +102,38 @@ const DetailsUser = () => {
   const handleSave = (e) => {
     e.preventDefault();
 
-    editUserData({
-      id: params.id,
-      name: firstInput[0].value,
-      phone: firstInput[1].value,
-      address: secondInput[1].value,
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0583d2",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, save it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editUserData({
+          id: params.id,
+          name: firstInput[0].value,
+          phone: firstInput[1].value,
+          address: secondInput[1].value,
+        })
+          .then((result) => {
+            navigate("/admin");
+
+            Swal.fire({
+              title: "Success!",
+              text: "Admin has been updated successfully!",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     })
-      .then((result) => {
-        navigate("/admin");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+
   };
 
   return (

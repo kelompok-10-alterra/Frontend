@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gymfrontend
+  name: gymfrontendreact
   labels:
-    app: gymfrontend
+    app: gymfrontendreact
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gymfrontend
+      app: gymfrontendreact
   template:
     metadata:
       labels:
-        app: gymfrontend
+        app: gymfrontendreact
     spec:
       containers:
-      - name: gymfrontend
+      - name: gymfrontendreact
         image: rafdev0904/sportly:latest
         ports:
         - containerPort: 3000
@@ -31,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gymfrontend-svc
+  name: sportly-svc
 spec:
   selector:
-    app: gymfrontend
+    app: gymfrontendreact
   type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
     targetPort: 3000
-    nodePort: 31145
+    nodePort: 31147

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-
 import { Line } from "react-chartjs-2";
+import {
+  getClass,
+  getGraph,
+  getInstructor,
+  getSumBooking,
+  getSumMembership,
+  getSumUser,
+} from "../../api";
 
 /** Icons */
 import { MdDashboardCustomize, MdVerifiedUser, MdEventAvailable } from "react-icons/md";
@@ -14,19 +21,12 @@ import PageTitle from "../../components/PageTitle";
 import Information from "../../components/Information";
 import CustomCalendar from "../../components/Calendar";
 import Table from "../../components/Table";
-import {
-  getClass,
-  getGraph,
-  getInstructor,
-  getSumBooking,
-  getSumMembership,
-  getSumUser,
-} from "../../api";
 
 const Dashboard = () => {
   const [sumMember, setSumMember] = useState(0);
   const [sumUser, setSumUser] = useState(0);
   const [sumBooking, setSumBooking] = useState(0);
+
   const [data, setData] = useState({
     labels: [],
     datasets: [
@@ -47,47 +47,26 @@ const Dashboard = () => {
 
   const [trainerData, setTrainerData] = useState([]);
 
-  const [memberData, setMemberData] = useState([
-    {
-      id: 1,
-      class: "Zumba",
-      type: "Online",
-      member: 20,
-    },
-    {
-      id: 2,
-      class: "Yoga",
-      type: "Online",
-      member: 40,
-    },
-    {
-      id: 3,
-      class: "Zumba",
-      type: "Online",
-      member: 30,
-    },
-    {
-      id: 4,
-      class: "Yoga",
-      type: "Online",
-      member: 40,
-    },
-  ]);
+  const [memberData, setMemberData] = useState([]);
+
   useEffect(() => {
     getSumBooking().then((respond) => setSumBooking(respond.data));
     getSumMembership().then((respond) => setSumMember(respond.data));
     getSumUser().then((respond) => setSumUser(respond.data));
     getInstructor().then((respond) => setTrainerData(respond.data));
     getClass().then((respond) => setMemberData(respond.data));
+
     let user = [];
     let member = [];
     let months = [];
+
     getGraph().then(async (respond) => {
       respond.data.map((data) => {
         user.push(data.totalUser);
         member.push(data.totalMember);
         months.push(data.month);
       });
+
       setData({
         labels: months,
         datasets: [
