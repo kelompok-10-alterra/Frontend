@@ -31,7 +31,6 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const DetailsClass = () => {
-
   const navigate = useNavigate();
 
   const params = useParams();
@@ -50,7 +49,8 @@ const DetailsClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -168,8 +168,7 @@ const DetailsClass = () => {
         setPercentage(
           Math.round(response.data.capacity / response.data.booked)
         );
-      }
-      else {
+      } else {
         setPercentage(100);
       }
 
@@ -239,8 +238,7 @@ const DetailsClass = () => {
       });
       if (response.data.status) {
         setStatusSelectedOption({ value: true, label: "Active" });
-      }
-      else {
+      } else {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
@@ -255,14 +253,11 @@ const DetailsClass = () => {
 
     if (temp.getDate() < 10 && temp.getMonth() < 10) {
       date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
+    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
       date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else {
+    } else {
       date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
 
@@ -438,7 +433,7 @@ const DetailsClass = () => {
             <h5>Available</h5>
           </div>
           <div className={styles.info}>
-            <b>Capactiy : </b> {data?.capacity} people
+            <b>Capacity : </b> {data?.capacity} people
           </div>
         </section>
       </div>
