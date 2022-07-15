@@ -242,6 +242,10 @@ export const addClass = async ({
       categoryId,
       roomId,
       typeId,
+      videoUrl: "",
+      meetUrl: "",
+      rating: 0,
+      hour: 0,
     }),
     auth()
   );
