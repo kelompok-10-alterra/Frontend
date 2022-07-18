@@ -23,7 +23,6 @@ import { IoIosPeople } from "react-icons/io";
 import styles from "./style.module.css";
 
 const AddClass = () => {
-
   const navigate = useNavigate();
 
   const tomorrow = new Date(new Date());
@@ -40,7 +39,8 @@ const AddClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -134,10 +134,14 @@ const AddClass = () => {
     e.preventDefault();
     let temp = new Date(scheduleInput[0].value);
     let date = "";
-    if (temp.getMonth() > 9) {
-      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    } else {
+    if (temp.getDate() < 10 && temp.getMonth() < 10) {
+      date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+      date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    } else {
+      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
     if (
       priceInput[0].value === "" ||
