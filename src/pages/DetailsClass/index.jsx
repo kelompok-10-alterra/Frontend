@@ -31,7 +31,6 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const DetailsClass = () => {
-
   const navigate = useNavigate();
 
   const params = useParams();
@@ -50,7 +49,8 @@ const DetailsClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -102,7 +102,16 @@ const DetailsClass = () => {
       value: "",
     },
   ]);
-
+  const [linkInput, setLinkInput] = useState([
+    {
+      label: "Link",
+      name: "link",
+      type: "text",
+      placeholder: "Type meeting link ...",
+      value: "",
+      error: "",
+    },
+  ]);
   const [percentage, setPercentage] = useState(0);
 
   const [dataSet, setDataSet] = useState({
@@ -155,6 +164,17 @@ const DetailsClass = () => {
     });
     getClassById(params.id).then((response) => {
       setData(response.data);
+
+      setLinkInput([
+        {
+          label: "Link",
+          name: "link",
+          type: "text",
+          placeholder: "Type meeting link ...",
+          value: response.data.meetUrl,
+          error: "",
+        },
+      ]);
       setDataSet({
         datasets: [
           {
@@ -168,8 +188,7 @@ const DetailsClass = () => {
         setPercentage(
           Math.round(response.data.capacity / response.data.booked)
         );
-      }
-      else {
+      } else {
         setPercentage(100);
       }
 
@@ -239,8 +258,7 @@ const DetailsClass = () => {
       });
       if (response.data.status) {
         setStatusSelectedOption({ value: true, label: "Active" });
-      }
-      else {
+      } else {
         setStatusSelectedOption({ value: false, label: "Non-Active" });
       }
     });
@@ -255,14 +273,11 @@ const DetailsClass = () => {
 
     if (temp.getDate() < 10 && temp.getMonth() < 10) {
       date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
+    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
       date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    }
-    else {
+    } else {
       date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
 
@@ -287,6 +302,7 @@ const DetailsClass = () => {
           categoryId: categorySelectedOption.value,
           roomId: roomSelectedOption.value,
           typeId: typeSelectedOption.value,
+          meetUrl: linkInput[0].value,
         }).then((result) => {
           navigate("/class");
           Swal.fire({
@@ -373,6 +389,7 @@ const DetailsClass = () => {
                   options={typeOptions}
                   placeholder={data?.typeName}
                 />
+
                 <span className={styles.input}>
                   <Form
                     inputs={descriptionInput}
@@ -388,8 +405,10 @@ const DetailsClass = () => {
                   onChange={setCategorySelectedOption}
                   options={categoryOptions}
                   placeholder={data?.categoryName}
-                />
-
+                />{" "}
+                <span className={styles.input2}>
+                  <Form inputs={linkInput} setInputs={setLinkInput} />
+                </span>
                 <label className="label mt-3">Status</label>
                 <Select
                   className={`mt-3 ${styles.select_input}`}
@@ -438,7 +457,7 @@ const DetailsClass = () => {
             <h5>Available</h5>
           </div>
           <div className={styles.info}>
-            <b>Capactiy : </b> {data?.capacity} people
+            <b>Capacity : </b> {data?.capacity} people
           </div>
         </section>
       </div>

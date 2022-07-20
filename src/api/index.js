@@ -7,8 +7,9 @@ const CONFIG = {
 const auth = () => {
   const headers = {
     headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token")).token
-        }`,
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
       "Content-Type": "application/json",
     },
   };
@@ -227,6 +228,7 @@ export const addClass = async ({
   categoryId,
   roomId,
   typeId,
+  meetUrl,
 }) => {
   return await axios.post(
     `/capstone/class/adminAccess/createNewClass`,
@@ -243,7 +245,7 @@ export const addClass = async ({
       roomId,
       typeId,
       videoUrl: "",
-      meetUrl: "",
+      meetUrl,
       rating: 0,
       hour: 0,
     }),
@@ -285,7 +287,7 @@ export const editClass = async ({
   capacity,
   schedule,
   price,
-  imageUrl,
+  meetUrl,
   instructorId,
   categoryId,
   roomId,
@@ -302,6 +304,7 @@ export const editClass = async ({
       price,
       imageUrl: "string",
       instructorId,
+      meetUrl,
       categoryId,
       roomId,
       typeId,

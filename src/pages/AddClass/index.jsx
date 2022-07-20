@@ -23,7 +23,6 @@ import { IoIosPeople } from "react-icons/io";
 import styles from "./style.module.css";
 
 const AddClass = () => {
-
   const navigate = useNavigate();
 
   const tomorrow = new Date(new Date());
@@ -40,7 +39,8 @@ const AddClass = () => {
   const [roomSelectedOption, setRoomSelectedOption] = useState(null);
   const [roomOptions, setRoomOptions] = useState(null);
 
-  const [instructureSelectedOption, setInstructureSelectedOption] = useState(null);
+  const [instructureSelectedOption, setInstructureSelectedOption] =
+    useState(null);
   const [instructureOptions, setInstructureOptions] = useState(null);
 
   const [typeSelectedOption, setTypeSelectedOption] = useState(null);
@@ -58,6 +58,16 @@ const AddClass = () => {
       type: "number",
       placeholder: "Type class capacity...",
       value: 0,
+      error: "",
+    },
+  ]);
+  const [linkInput, setLinkInput] = useState([
+    {
+      label: "Link",
+      name: "link",
+      type: "text",
+      placeholder: "Type meeting link ...",
+      value: "",
       error: "",
     },
   ]);
@@ -134,10 +144,14 @@ const AddClass = () => {
     e.preventDefault();
     let temp = new Date(scheduleInput[0].value);
     let date = "";
-    if (temp.getMonth() > 9) {
-      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
-    } else {
+    if (temp.getDate() < 10 && temp.getMonth() < 10) {
+      date = `0${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() >= 10 && temp.getMonth() < 10) {
       date = `${temp.getDate()}/0${temp.getMonth()}/${temp.getFullYear()}`;
+    } else if (temp.getDate() < 10 && temp.getMonth() >= 10) {
+      date = `0${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
+    } else {
+      date = `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`;
     }
     if (
       priceInput[0].value === "" ||
@@ -147,7 +161,8 @@ const AddClass = () => {
       categorySelectedOption === null ||
       statusSelectedOption === null ||
       scheduleInput[0].value === "" ||
-      descriptionInput[0].value === ""
+      descriptionInput[0].value === "" ||
+      linkInput[0].value === ""
     ) {
       Swal.fire({
         text: "Please fill all field",
@@ -185,6 +200,7 @@ const AddClass = () => {
             categoryId: categorySelectedOption.value,
             roomId: roomSelectedOption.value,
             typeId: typeSelectedOption.value,
+            meetUrl: linkInput[0].value,
           }).then((result) => {
             navigate("/class");
             Swal.fire({
@@ -247,8 +263,10 @@ const AddClass = () => {
                   onChange={setCategorySelectedOption}
                   options={categoryOptions}
                   placeholder="Category"
-                />
-
+                />{" "}
+                <span className={styles.input2}>
+                  <Form inputs={linkInput} setInputs={setLinkInput} />
+                </span>
                 <label className="label">Status</label>
                 <Select
                   className={styles.select_input}
@@ -257,11 +275,9 @@ const AddClass = () => {
                   options={options}
                   placeholder="Status"
                 />
-
                 <span className={styles.input}>
                   <Form inputs={capacityInput} setInputs={setCapacityInput} />
                 </span>
-
                 <Form inputs={scheduleInput} setInputs={setScheduleInput} />
                 <Form inputs={priceInput} setInputs={setPriceInput} />
               </div>

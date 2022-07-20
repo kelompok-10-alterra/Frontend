@@ -23,3 +23,9 @@
 .input > div > div > label {
   margin-top: 0 !important;
 }
+.input2 > div > div > label {
+  margin-top: 0 !important;
+}
+.input2 > div {
+  margin-bottom: 16px;
+}
