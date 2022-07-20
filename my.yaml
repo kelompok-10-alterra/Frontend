@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gymfrontendreact1
-        image: rafdev0904/sportly:47
+        image: rafdev0904/sportly:49
         ports:
         - containerPort: 3000
         resources:
