@@ -102,7 +102,16 @@ const DetailsClass = () => {
       value: "",
     },
   ]);
-
+  const [linkInput, setLinkInput] = useState([
+    {
+      label: "Link",
+      name: "link",
+      type: "text",
+      placeholder: "Type meeting link ...",
+      value: "",
+      error: "",
+    },
+  ]);
   const [percentage, setPercentage] = useState(0);
 
   const [dataSet, setDataSet] = useState({
@@ -155,6 +164,17 @@ const DetailsClass = () => {
     });
     getClassById(params.id).then((response) => {
       setData(response.data);
+
+      setLinkInput([
+        {
+          label: "Link",
+          name: "link",
+          type: "text",
+          placeholder: "Type meeting link ...",
+          value: response.data.meetUrl,
+          error: "",
+        },
+      ]);
       setDataSet({
         datasets: [
           {
@@ -282,6 +302,7 @@ const DetailsClass = () => {
           categoryId: categorySelectedOption.value,
           roomId: roomSelectedOption.value,
           typeId: typeSelectedOption.value,
+          meetUrl: linkInput[0].value,
         }).then((result) => {
           navigate("/class");
           Swal.fire({
@@ -368,6 +389,7 @@ const DetailsClass = () => {
                   options={typeOptions}
                   placeholder={data?.typeName}
                 />
+
                 <span className={styles.input}>
                   <Form
                     inputs={descriptionInput}
@@ -383,8 +405,10 @@ const DetailsClass = () => {
                   onChange={setCategorySelectedOption}
                   options={categoryOptions}
                   placeholder={data?.categoryName}
-                />
-
+                />{" "}
+                <span className={styles.input2}>
+                  <Form inputs={linkInput} setInputs={setLinkInput} />
+                </span>
                 <label className="label mt-3">Status</label>
                 <Select
                   className={`mt-3 ${styles.select_input}`}
