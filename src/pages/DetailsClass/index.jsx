@@ -186,7 +186,8 @@ const DetailsClass = () => {
       });
       if (response.data.booked > 0) {
         setPercentage(
-          Math.round(response.data.capacity / response.data.booked)
+          100 -
+            Math.round((response.data.booked / response.data.capacity) * 100)
         );
       } else {
         setPercentage(100);
